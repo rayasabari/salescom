@@ -1,7 +1,7 @@
 <template>
-  <div class="fixed w-full bg-white bg-opacity-75 shadow-sm backdrop-blur">
-    <Container class="flex items-center justify-between py-4">
-      <NuxtLink to="/" class="text-2xl font-semibold">Salescom</NuxtLink>
+  <div class="fixed w-full py-5 bg-white bg-opacity-75 shadow-sm backdrop-blur">
+    <Container class="flex items-center justify-between">
+      <NuxtLink to="/" class="text-2xl font-medium">Salescom</NuxtLink>
       <nav>
         <NuxtLink to="/login">Login</NuxtLink>
       </nav>
