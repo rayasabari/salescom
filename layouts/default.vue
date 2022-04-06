@@ -1,10 +1,10 @@
 <template>
   <div class="relative min-h-screen">
-    <NavBar></NavBar>
+    <NavBar />
     <main>
-      <Nuxt></Nuxt>
+      <Nuxt />
     </main>
-    <Footer></Footer>
+    <Footer />
   </div>
 </template>
 

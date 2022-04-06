@@ -1,8 +1,8 @@
 <template>
-  <div class="h-screen pt-24 bg-gray-100">
+  <div class="h-screen pt-24 bg-gray-50">
     <Container class="container flex justify-center mx-auto">
       <div class="flex flex-col w-9/12">
-        <Breadcrumb :breadcrumbs="breadcrumbs"></Breadcrumb>
+        <Breadcrumb :data="breadcrumbs"></Breadcrumb>
         <CardObjek v-for="objek in listobjek" :key="objek.id" :objek="objek"></CardObjek>
       </div>
     </Container>
@@ -16,11 +16,11 @@ export default {
     return {
       breadcrumbs: [
         {
-          item: "Home",
+          name: "Home",
           link: "/",
         },
         {
-          item: "List Objek",
+          name: "List Objek",
           link: false,
         },
       ],
@@ -30,18 +30,21 @@ export default {
           nama: "Rumah Tinggal di Ragunan",
           jenis_properti: "Rumah Tinggal",
           foto: "https://source.unsplash.com/random/100x100",
+          sistem: 'Integrated'
         },
         {
           id: "2",
           nama: "Tanah Kosong di Jagakarsa",
           jenis_properti: "Tanah Kosong",
           foto: "https://source.unsplash.com/random/100x100",
+          sistem: 'Standalone'
         },
         {
           id: "3",
           nama: "Ruko di Mampang Prapatan",
           jenis_properti: "Ruko",
           foto: "https://source.unsplash.com/random/100x100",
+          sistem: 'Integrated'
         },
       ],
     };
