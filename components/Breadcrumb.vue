@@ -1,10 +1,13 @@
 <template>
-  <nav class="flex justify-between px-4 py-3 mb-4 bg-white rounded-lg shadow-sm">
-    <ul class="flex text-xs">
+  <nav class="flex items-center justify-between px-4 py-3 mb-4 bg-white rounded-lg shadow">
+    <ul class="flex items-center text-sm">
       <li v-for="(item, index) in data" :key="index">
         <template v-if="item.link">
           <div class="flex">
-            <NuxtLink class="font-medium text-gray-500" :to="item.link">{{ item.name }}</NuxtLink>
+            <NuxtLink
+              class="font-medium transition duration-200 hover:text-primary-600 text-primary-500"
+              :to="item.link"
+            >{{ item.name }}</NuxtLink>
             <div class="flex items-center px-2 text-gray-400">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,107 +1,93 @@
 <template>
   <section class="mt-5 shadow-sm">
-    <!-- <table class="w-full text-sm bg-white">
-      <thead>
-        <tr>
-          <th>Deskripsi</th>
-          <th>Objek</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Alamat</td>
-          <td>Lorem ipsum dolor sit amet consectetur adipisicing.</td>
-        </tr>
-        <tr>
-          <td>Koordinat</td>
-          <td>3.61386, 98.71646</td>
-        </tr>
-        <tr>
-          <td>Alamat</td>
-          <td>Lorem ipsum dolor sit amet consectetur adipisicing.</td>
-        </tr>
-        <tr>
-          <td>Koordinat</td>
-          <td>3.61386, 98.71646</td>
-        </tr>
-      </tbody>
-    </table>-->
-
-    <el-table :data="tableData" style="width: 100%" height="300">
-      <el-table-column fixed prop="date" label="Date" width="150"></el-table-column>
-      <el-table-column prop="name" label="Name" width="120"></el-table-column>
-      <el-table-column prop="state" label="State" width="120"></el-table-column>
-      <el-table-column prop="city" label="City" width="120"></el-table-column>
-      <el-table-column prop="address" label="Address" width="300"></el-table-column>
-      <el-table-column prop="zip" label="Zip" width="120"></el-table-column>
-    </el-table>
+    <div class="w-full bg-gray-200 h-[70vh] overflow-x-scroll">
+      <div class="min-w-full bg-white">
+        <table id="wptable" class="text-sm bg-white">
+          <thead>
+            <tr>
+              <th>Deskripsi</th>
+              <th>Objek</th>
+              <th>Objek</th>
+              <th>Objek</th>
+              <th>Objek</th>
+              <th>Objek</th>
+              <th>Objek</th>
+              <th>Objek</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alamat Properti</td>
+              <td>Lorem ipsum dolor sit amet consectetur adipisicing.</td>
+            </tr>
+            <tr>
+              <td>Koordinat</td>
+              <td>3.61386, 98.71646</td>
+            </tr>
+            <tr>
+              <td>Contact Person</td>
+              <td>Budi / 08123 45678.</td>
+            </tr>
+            <tr>
+              <td>Jenis Data</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Tanggal Transaksi / Penawaran</td>
+              <td>
+                -
+                <div class="text-white">.</div>
+              </td>
+            </tr>
+            <tr>
+              <td>Jenis Properti</td>
+              <td>Rumah</td>
+            </tr>
+            <tr>
+              <td>Foto</td>
+              <td>Foto</td>
+            </tr>
+            <tr>
+              <td>Luas Tanah</td>
+              <td>
+                100 m
+                <sup>2</sup>
+              </td>
+            </tr>
+            <tr>
+              <td>Luas Bangunan</td>
+              <td>
+                180 m
+                <sup>2</sup>
+              </td>
+            </tr>
+            <tr>
+              <td>Luas Bangunan</td>
+              <td>3.61386, 98.71646</td>
+            </tr>
+            <tr>
+              <td>Luas Bangunan</td>
+              <td>3.61386, 98.71646</td>
+            </tr>
+            <tr>
+              <td>Luas Bangunan</td>
+              <td>3.61386, 98.71646</td>
+            </tr>
+            <tr>
+              <td>Luas Bangunan</td>
+              <td>3.61386, 98.71646</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
-import "element-ui/lib/theme-chalk/index.css";
 export default {
   data() {
-    return {
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "Tom",
-          state: "California",
-          city: "Los Angeles",
-          address: "No. 189, Grove St, Los Angeles",
-          zip: "CA 90036",
-        },
-        {
-          date: "2016-05-02",
-          name: "Tom",
-          state: "California",
-          city: "Los Angeles",
-          address: "No. 189, Grove St, Los Angeles",
-          zip: "CA 90036",
-        },
-        {
-          date: "2016-05-04",
-          name: "Tom",
-          state: "California",
-          city: "Los Angeles",
-          address: "No. 189, Grove St, Los Angeles",
-          zip: "CA 90036",
-        },
-        {
-          date: "2016-05-01",
-          name: "Tom",
-          state: "California",
-          city: "Los Angeles",
-          address: "No. 189, Grove St, Los Angeles",
-          zip: "CA 90036",
-        },
-        {
-          date: "2016-05-08",
-          name: "Tom",
-          state: "California",
-          city: "Los Angeles",
-          address: "No. 189, Grove St, Los Angeles",
-          zip: "CA 90036",
-        },
-        {
-          date: "2016-05-06",
-          name: "Tom",
-          state: "California",
-          city: "Los Angeles",
-          address: "No. 189, Grove St, Los Angeles",
-          zip: "CA 90036",
-        },
-        {
-          date: "2016-05-07",
-          name: "Tom",
-          state: "California",
-          city: "Los Angeles",
-          address: "No. 189, Grove St, Los Angeles",
-          zip: "CA 90036",
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>

@@ -4,22 +4,31 @@
 
 @layer base {
   table {
-    @apply border-separate;
+    @apply relative border-separate;
     border-spacing: 0;
   }
 
   table tr th {
-    @apply font-medium;
+    @apply sticky top-0 font-medium;
   }
 
   table tr th,
   table tr td {
-    @apply px-4 py-3 border-b border-r border-r-gray-200 border-b-gray-200;
+    @apply px-2 py-1 border-b border-r border-r-gray-200 border-b-gray-200 min-w-[300px] align-top;
   }
 
   table tr th:first-child,
   table tr td:first-child {
-    @apply font-medium border-l border-l-gray-200;
+    @apply font-medium border-l border-l-gray-200 min-w-[200px] sticky left-0;
+  }
+
+  table tr th:first-child {
+    @apply top-0 left-0 z-50;
+  }
+
+  table th:nth-child(2),
+  table td:nth-child(2) {
+    @apply min-w-[300px];
   }
 
   table tr th {
@@ -27,7 +36,8 @@
     @apply text-left border-t border-t-gray-200;
   }
 
-  table tr td {
+  table tr td,
+  table tr th {
     @apply bg-white;
   }
 

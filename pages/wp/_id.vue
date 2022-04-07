@@ -4,9 +4,11 @@
       <Breadcrumb :data="breadcrumbs" class="transition duration-300">
         <button @click="showMap = !showMap">ShowMap</button>
       </Breadcrumb>
-      <transition name="page">
-        <LazyWpGmap v-if="showMap" />
-      </transition>
+      <div class="transition-all duration-100" :class="!showMap ? 'h-0':'h-[500px]'">
+        <transition name="page">
+          <LazyWpGmap v-if="showMap" :show="showMap" />
+        </transition>
+      </div>
       <WpTable />
     </Container>
   </div>

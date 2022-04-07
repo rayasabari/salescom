@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex gap-4 p-4 mb-4 transition duration-300 bg-white rounded-lg shadow-sm hover:translate-x-1 w-full2 group hover:shadow-md"
+    class="flex gap-4 p-4 mb-4 transition duration-300 bg-white rounded-lg shadow hover:translate-x-1 w-full2 group hover:shadow-md"
   >
     <div class="overflow-hidden bg-green-300 rounded-lg">
       <img :src="objek.foto" />
