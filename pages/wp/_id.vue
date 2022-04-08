@@ -1,9 +1,9 @@
 <template>
-  <div class="min-h-screen pb-16 bg-gray-50">
-    <Container class="pt-24">
-      <Breadcrumb :data="breadcrumbs" class="transition duration-300">
-        <button @click="showMap = !showMap">ShowMap</button>
-      </Breadcrumb>
+  <div class="min-h-screen pt-10 bg-gray-50">
+    <Breadcrumb :data="breadcrumbs" class="transition duration-300">
+      <button class="text-sm" @click="showMap = !showMap">ShowMap</button>
+    </Breadcrumb>
+    <Container class>
       <div class="transition-all duration-100" :class="!showMap ? 'h-0':'h-[500px]'">
         <transition name="page">
           <LazyWpGmap v-if="showMap" :show="showMap" />
@@ -16,6 +16,8 @@
 
 <script>
 export default {
+  layout: "wp",
+  scrollToTop: true,
   data() {
     return {
       showMap: false,

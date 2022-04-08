@@ -1,8 +1,8 @@
 <template>
   <div
-    class="flex gap-4 p-4 mb-4 transition duration-300 bg-white rounded-lg shadow hover:translate-x-1 w-full2 group hover:shadow-md"
+    class="flex w-full gap-4 p-4 mb-4 transition duration-300 bg-white rounded-lg shadow hover:-translate-y-1 group hover:shadow-lg"
   >
-    <div class="overflow-hidden bg-green-300 rounded-lg">
+    <div class="overflow-hidden bg-gray-100 h-[90px] rounded-lg w-[100px]">
       <img :src="objek.foto" />
     </div>
     <div class="flex flex-col justify-between w-full">
