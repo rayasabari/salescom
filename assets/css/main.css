@@ -17,7 +17,7 @@
   table tr th:first-child,
   table tr td:first-child {
     /* fixed col */
-    @apply font-semibold border-l text-left bg-white border-l-gray-200 min-w-[240px] sticky left-0;
+    @apply font-semibold border-l text-left bg-white border-l-gray-200 min-w-[220px] sticky left-0;
   }
 
   table tr th:first-child {
@@ -32,10 +32,19 @@
     @apply font-medium uppercase bg-primary-50;
   }
 
+  tr td.t-nilai-permeter:first-child,
+  tr td.t-nilai-permeter {
+    @apply text-primary-50 bg-primary-700;
+  }
+
   table th:nth-child(2),
   table td:nth-child(2) {
     /* second col */
     @apply min-w-[250px] text-center;
+  }
+
+  table td.t-nilai:nth-child(2){
+    @apply text-right;
   }
 
   table tr th {
