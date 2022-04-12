@@ -1,6 +1,6 @@
 <template>
   <div class="relative min-h-screen">
-    <NavBar />
+    <!-- <NavBar /> -->
     <main>
       <Nuxt />
     </main>

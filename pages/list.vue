@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen pt-16 bg-gray-50">
     <Container class="container flex justify-center mx-auto">
-      <div class="flex flex-col w-9/12">
+      <div class="flex flex-col w-full md:w-9/12">
         <Breadcrumb :data="breadcrumbs"></Breadcrumb>
         <CardObjek v-for="objek in listobjek" :key="objek.id" :objek="objek"></CardObjek>
       </div>
@@ -29,21 +29,21 @@ export default {
           id: "1",
           nama: "Rumah Tinggal di Ragunan",
           jenis_properti: "Rumah Tinggal",
-          foto: "https://source.unsplash.com/random/100x100",
+          foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
           sistem: 'Integrated'
         },
         {
           id: "2",
           nama: "Tanah Kosong di Jagakarsa",
           jenis_properti: "Tanah Kosong",
-          foto: "https://source.unsplash.com/random/100x100",
+          foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
           sistem: 'Standalone'
         },
         {
           id: "3",
           nama: "Ruko di Mampang Prapatan",
           jenis_properti: "Ruko",
-          foto: "https://source.unsplash.com/random/100x100",
+          foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
           sistem: 'Integrated'
         },
       ],

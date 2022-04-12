@@ -1,6 +1,6 @@
 <template>
-  <section class="mt-5 shadow-sm">
-    <div class="w-full h-[83vh] overflow-auto bg-white">
+  <section class="pt-2 shadow-sm">
+    <div class="w-full h-[99vh] overflow-auto bg-white">
       <div class="min-w-full bg-white">
         <table id="wptable" class="text-xs">
           <thead>
@@ -558,37 +558,37 @@
             </tr>
             <tr>
               <td>Gross Adjustment</td>
-              <td>79,84 %</td>
+              <td class="font-semibold t-nilai">79,84 %</td>
               <template v-for="n in 3">
                 <td :key="n"></td>
-                <td :key="n"></td>
+                <td :key="n">25 %</td>
                 <td :key="n" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>Bobot Absolute</td>
-              <td>100,00 %</td>
+              <td class="font-semibold t-nilai">100,00 %</td>
               <template v-for="n in 3">
                 <td :key="n"></td>
-                <td :key="n"></td>
+                <td :key="n">25 %</td>
                 <td :key="n" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>Inverse</td>
-              <td>200,00 %</td>
+              <td class="font-semibold t-nilai">200,00 %</td>
               <template v-for="n in 3">
                 <td :key="n"></td>
-                <td :key="n"></td>
+                <td :key="n">25 %</td>
                 <td :key="n" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>Bobot Inverse</td>
-              <td>100,00 %</td>
+              <td class="font-semibold t-nilai">100,00 %</td>
               <template v-for="n in 3">
                 <td :key="n"></td>
-                <td :key="n"></td>
+                <td :key="n">25 %</td>
                 <td :key="n" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
@@ -598,30 +598,30 @@
             </tr>
             <tr>
               <td>Min</td>
-              <td class="text-right">1.000.000</td>
+              <td class="font-semibold t-nilai">1.000.000</td>
             </tr>
             <tr>
               <td>Max</td>
-              <td class="text-right">2.000.000</td>
+              <td class="font-semibold t-nilai">2.000.000</td>
             </tr>
             <tr>
               <td>Deviasi</td>
-              <td class="text-right">10 %</td>
+              <td class="font-semibold t-nilai">10 %</td>
             </tr>
             <tr>
-              <td class="t-nilai-permeter">
+              <td class="t-separator-dark">
                 Nilai ... per m
                 <sup>2</sup>
               </td>
-              <td class="text-right t-nilai-permeter">1.000.000</td>
+              <td class="font-semibold t-nilai t-separator-dark">1.000.000</td>
             </tr>
             <tr>
               <td>Nilai ...</td>
-              <td class="text-red-500">1.000.000</td>
+              <td class="font-semibold t-nilai">1.000.000</td>
             </tr>
             <tr>
               <td>Dibulatkan</td>
-              <td class="text-right">1.000.000</td>
+              <td class="font-semibold t-nilai">1.000.000</td>
             </tr>
           </tbody>
         </table>

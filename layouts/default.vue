@@ -1,5 +1,5 @@
 <template>
-  <div class="relative min-h-screen">
+  <div class="h-screen relativw">
     <NavBar />
     <main>
       <Nuxt />

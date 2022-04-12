@@ -17,7 +17,7 @@
   table tr th:first-child,
   table tr td:first-child {
     /* fixed col */
-    @apply font-semibold border-l text-left bg-white border-l-gray-200 min-w-[220px] sticky left-0;
+    @apply font-semibold border-l z-10 text-left bg-white border-l-gray-200 min-w-[220px] md:sticky left-0;
   }
 
   table tr th:first-child {
@@ -32,8 +32,8 @@
     @apply font-medium uppercase bg-primary-50;
   }
 
-  tr td.t-nilai-permeter:first-child,
-  tr td.t-nilai-permeter {
+  tr td.t-separator-dark:first-child,
+  tr td.t-separator-dark {
     @apply text-primary-50 bg-primary-700;
   }
 
