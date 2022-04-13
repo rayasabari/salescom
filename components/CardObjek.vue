@@ -6,7 +6,7 @@
       class="w-full md:w-2/12 h-[200px] md:h-[120px] bg-gray-100 bg-cover"
       :style="`background-image: url('${objek.foto}')`"
     ></div>
-    <div class="flex flex-col justify-between w-full p-4">
+    <div class="flex flex-col justify-between w-full px-4 py-3">
       <div class="flex flex-col justify-between md:flex-row">
         <div>
           <div class="font-medium text-primary-500">

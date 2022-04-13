@@ -1,6 +1,6 @@
 <template>
   <div
-    class="overflow-hidden rounded-lg shadow-sm bg-sky-200 h-[500px]"
+    class="w-full h-[80vh] overflow-hidden rounded-lg shadow-sm bg-sky-200"
   ></div>
 </template>
 

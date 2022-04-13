@@ -17,12 +17,12 @@
   table tr th:first-child,
   table tr td:first-child {
     /* fixed col */
-    @apply font-semibold border-l z-10 text-left bg-white border-l-gray-200 min-w-[220px] md:sticky left-0;
+    @apply font-semibold border-l z-10 text-left bg-white border-l-gray-200 min-w-[220px] md:sticky md:left-0;
   }
 
   table tr th:first-child {
     /* fixed head col */
-    @apply top-0 left-0 z-50;
+    @apply md:top-0 md:left-0 md:z-20;
   }
 
   tr th.t-separator:first-child,
@@ -43,7 +43,7 @@
     @apply min-w-[250px] text-center;
   }
 
-  table td.t-nilai:nth-child(2){
+  table td.t-nilai:nth-child(2) {
     @apply text-right;
   }
 

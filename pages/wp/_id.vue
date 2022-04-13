@@ -1,14 +1,24 @@
 <template>
   <div class="relative flex w-full min-h-screen overflow-hidden bg-gray-50">
     <div class="w-full px-2 transition-all duration-200">
-      <div class="transition-all duration-100" :class="!showMap ? 'h-0':'h-[500px]'">
+      <!-- <div class="transition-all duration-100" :class="!showMap ? 'h-0':'h-[500px]'">
         <transition name="page">
           <LazyWpGmap v-if="showMap" :show="showMap" />
         </transition>
-      </div>
+      </div>-->
       <WpTable />
     </div>
-    <div class="absolute z-50 flex flex-col gap-4 bottom-5 right-5">
+    <transition name="page">
+      <ModalBackdrop v-if="showMap">
+        <WpGmap />
+      </ModalBackdrop>
+    </transition>
+    <transition name="page">
+      <ModalBackdrop v-if="showExportImport">
+        <WpHistory />
+      </ModalBackdrop>
+    </transition>
+    <div class="absolute z-20 flex flex-col gap-4 bottom-5 right-5">
       <transition name="fade">
         <div
           v-if="floatMenu"
@@ -43,6 +53,24 @@
                   fill-rule="evenodd"
                   d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                   clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="p-2 text-white bg-indigo-400 rounded-full cursor-pointer">
+            <div @click="showExportImport = !showExportImport">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
                 />
               </svg>
             </div>
@@ -83,8 +111,8 @@ export default {
   data() {
     return {
       showMap: false,
+      showExportImport: false,
       floatMenu: false,
-      sideMenu: false,
       breadcrumbs: [
         {
           name: "Home",
@@ -101,7 +129,12 @@ export default {
       ],
     };
   },
-  mounted() {},
+  mounted() {
+    this.$root.$on("closeModal", () => {
+      this.showMap = false;
+      this.showExportImport = false;
+    });
+  },
 };
 </script>
 
