@@ -1,21 +1,17 @@
 <template>
   <div class="relative flex w-full min-h-screen overflow-hidden bg-gray-50">
     <div class="w-full px-2 transition-all duration-200">
-      <!-- <div class="transition-all duration-100" :class="!showMap ? 'h-0':'h-[500px]'">
-        <transition name="page">
-          <LazyWpGmap v-if="showMap" :show="showMap" />
-        </transition>
-      </div>-->
       <WpTable />
     </div>
     <transition name="page">
-      <ModalBackdrop v-if="showMap">
-        <WpGmap />
+      <ModalBackdrop v-if="showSetting">
+        <LazyWpSetting />
       </ModalBackdrop>
-    </transition>
-    <transition name="page">
+      <ModalBackdrop v-if="showMap">
+        <LazyWpGmap />
+      </ModalBackdrop>
       <ModalBackdrop v-if="showExportImport">
-        <WpHistory />
+        <LazyWpExportImport />
       </ModalBackdrop>
     </transition>
     <div class="absolute z-20 flex flex-col gap-4 bottom-5 right-5">
@@ -25,7 +21,7 @@
           class="flex flex-col w-full gap-2 p-2 transition-all duration-300 bg-gray-300 rounded-full shadow-lg backdrop-blur bg-opacity-40"
           :class="floatMenu ? 'h-auto':'h-100'"
         >
-          <div class="p-2 text-white bg-red-400 rounded-full">
+          <div class="p-2 text-white rounded-full bg-rose-400">
             <NuxtLink to="/list">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +36,22 @@
                 />
               </svg>
             </NuxtLink>
+          </div>
+          <div class="p-2 text-white bg-orange-400 rounded-full cursor-pointer">
+            <div @click="showSetting = !showSetting">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
           </div>
           <div class="p-2 text-white rounded-full cursor-pointer bg-sky-400">
             <div @click="showMap = !showMap">
@@ -61,7 +73,7 @@
             <div @click="showExportImport = !showExportImport">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-6 h-6"
+                class="w-5 h-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -112,6 +124,7 @@ export default {
     return {
       showMap: false,
       showExportImport: false,
+      showSetting: false,
       floatMenu: false,
       breadcrumbs: [
         {
@@ -131,6 +144,7 @@ export default {
   },
   mounted() {
     this.$root.$on("closeModal", () => {
+      this.showSetting = false;
       this.showMap = false;
       this.showExportImport = false;
     });

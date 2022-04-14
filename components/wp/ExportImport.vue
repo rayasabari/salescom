@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-indigo-400 h-[80vh] w-full">
+  <div class="bg-white h-[80vh] w-full md:w-9/12 rounded-lg shadow-xl">
 
   </div>
 </template>
