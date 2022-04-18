@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen pt-16 bg-gray-50">
+  <div class="h-screen pt-20 bg-gray-50">
     <Container class="container flex justify-center mx-auto">
       <div class="flex flex-col w-full md:w-9/12">
         <Breadcrumb :data="breadcrumbs"></Breadcrumb>
