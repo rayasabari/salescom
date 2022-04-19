@@ -47,6 +47,11 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
+  // Middleware
+  router: {
+    middleware: ['auth']
+  },
+
   auth: {
     strategies: {
       'laravelSanctum': {
@@ -62,6 +67,12 @@ export default {
         },
       },
     },
+
+    redirect: {
+      login: '/login',
+      logout: '/',
+      home:'/dashboard'
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

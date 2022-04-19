@@ -22,7 +22,7 @@
           :class="floatMenu ? 'h-auto':'h-100'"
         >
           <div class="p-2 text-white rounded-full bg-rose-400">
-            <NuxtLink to="/list">
+            <NuxtLink to="/dashboard">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="w-5 h-5"
@@ -125,18 +125,14 @@ export default {
       showMap: false,
       showExportImport: false,
       showSetting: false,
-      floatMenu: false,
+      floatMenu: true,
       breadcrumbs: [
         {
-          name: "Home",
-          link: "/",
+          name: "Dashboard",
+          link: "/dashboard",
         },
         {
-          name: "List Objek",
-          link: "/list",
-        },
-        {
-          name: "Nama Objek",
+          name: "WP",
           link: false,
         },
       ],
