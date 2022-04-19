@@ -44,25 +44,25 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    // '@nuxtjs/auth-next'
   ],
 
-  auth: {
-    strategies: {
-      'laravelSanctum': {
-        provider: 'laravel/sanctum',
-        url: 'http://api.salescom.test',
-        endpoints: {
-          login: {
-            url: '/api/login'
-          },
-          logout: {
-            url: '/api/logout'
-          },
-        },
-      },
-    },
-  },
+  // auth: {
+  //   strategies: {
+  //     'laravelSanctum': {
+  //       provider: 'laravel/sanctum',
+  //       url: 'http://api.salescom.test',
+  //       endpoints: {
+  //         login: {
+  //           url: '/api/login'
+  //         },
+  //         logout: {
+  //           url: '/api/logout'
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
