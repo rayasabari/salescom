@@ -52,17 +52,17 @@ export default {
   mounted() {},
   methods: {
     login() {
-      this.$auth
-        .loginWith("laravelSanctum", {
-          data: this.form,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((e) => {
-          console.log(e.response);
-          this.errors = e.response.data.errors;
-        });
+      // this.$auth
+      //   .loginWith("laravelSanctum", {
+      //     data: this.form,
+      //   })
+      //   .then((response) => {
+      //     console.log(response);
+      //   })
+      //   .catch((e) => {
+      //     console.log(e.response);
+      //     this.errors = e.response.data.errors;
+      //   });
     },
   },
 };
