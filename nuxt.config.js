@@ -51,10 +51,13 @@ export default {
     strategies: {
       'laravelSanctum': {
         provider: 'laravel/sanctum',
-        url: 'http://localhost:8000',
+        url: 'http://api.salescom.test',
         endpoints: {
           login: {
             url: '/api/login'
+          },
+          logout: {
+            url: '/api/logout'
           },
         },
       },
