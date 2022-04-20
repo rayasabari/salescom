@@ -20,7 +20,7 @@ export default {
           link: "/dashboard",
         },
         {
-          name: "List Objek",
+          name: "List WP",
           link: false,
         },
       ],

@@ -1,5 +1,5 @@
 <template>
-  <nav class="py-2 mb-4 bg-white rounded-lg shadow">
+  <nav class="py-2 mb-5 bg-white rounded-lg shadow">
     <Container class="flex justify-between">
       <ul class="flex items-center text-sm">
         <li v-for="(item, index) in data" :key="index">

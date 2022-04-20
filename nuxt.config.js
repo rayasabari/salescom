@@ -64,14 +64,16 @@ export default {
           logout: {
             url: '/api/logout'
           },
+
         },
+
       },
     },
 
     redirect: {
       login: '/login',
       logout: '/',
-      home:'/dashboard'
+      home: '/dashboard'
     }
   },
 

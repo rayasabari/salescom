@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col w-full mb-4 overflow-hidden transition duration-300 bg-white rounded-lg shadow md:flex-row hover:-translate-y-1 group hover:shadow-lg"
+    class="flex flex-col w-full mb-5 overflow-hidden transition duration-300 bg-white rounded-lg shadow md:flex-row hover:-translate-y-1 group hover:shadow-lg"
   >
     <div
       class="w-full md:w-2/12 h-[200px] md:h-[120px] bg-gray-100 bg-cover"

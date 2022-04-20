@@ -29,7 +29,7 @@
   tr td.t-separator:first-child,
   tr td.t-separator {
     /* separator */
-    @apply font-medium uppercase bg-primary-50;
+    @apply font-bold uppercase bg-primary-50;
   }
 
   tr td.t-separator-dark:first-child,
@@ -79,7 +79,7 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center px-4 py-2 text-white transition duration-300 rounded-lg bg-primary-500 hover:bg-primary-600;
+    @apply inline-flex items-center justify-center px-4 py-2 text-white transition duration-300 rounded-lg bg-primary-500 hover:bg-primary-600 focus:outline-primary-600
   }
 
   .rhr-input {
