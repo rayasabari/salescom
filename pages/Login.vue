@@ -7,14 +7,14 @@
         <form @submit.prevent="login">
           <div class="p-5">
             <div class="mb-4">
-              <label for="email" class="block mb-1 text-sm text-gray-500">Email</label>
+              <label for="email" class="rhr-label">Email</label>
               <input type="email" id="email" name="email" class="rhr-input" v-model="form.email" />
               <transition name="fade">
                 <span class="mt-1 text-xs text-rose-400" v-if="errors.email">{{errors.email[0]}}</span>
               </transition>
             </div>
             <div class="mb-4">
-              <label for="passowrd" class="block mb-1 text-sm text-gray-500">Password</label>
+              <label for="passowrd" class="rhr-label">Password</label>
               <input
                 type="password"
                 id="password"
@@ -60,9 +60,11 @@ export default {
           data: this.form,
         })
         .then((response) => {
+          console.log('suc');
           console.log(response);
         })
         .catch((e) => {
+          console.log('er');
           console.log(e.response);
           this.errors = e.response.data.errors;
         });

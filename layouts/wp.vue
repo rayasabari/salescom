@@ -15,7 +15,7 @@ export default {
       class: "scroll-smooth",
     },
     bodyAttrs: {
-      class: "font-poppins text-gray-600",
+      class: "font-poppins text-gray-500",
     },
   },
 };

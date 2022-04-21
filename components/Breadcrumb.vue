@@ -1,6 +1,6 @@
 <template>
-  <nav class="py-2 mb-5 bg-white rounded-lg shadow">
-    <Container class="flex justify-between">
+  <nav class="px-4 py-3 mb-5 bg-white rounded-lg shadow">
+    <div class="flex justify-between">
       <ul class="flex items-center text-sm">
         <li v-for="(item, index) in data" :key="index">
           <template v-if="item.link">
@@ -31,7 +31,7 @@
       <div>
         <slot></slot>
       </div>
-    </Container>
+    </div>
   </nav>
 </template>
 
