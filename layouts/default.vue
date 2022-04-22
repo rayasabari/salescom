@@ -1,9 +1,7 @@
 <template>
-  <div class="h-screen relativw">
+  <div class="h-screen relativw=">
     <NavBar />
-    <main>
-      <Nuxt />
-    </main>
+    <Nuxt />
     <Footer />
   </div>
 </template>

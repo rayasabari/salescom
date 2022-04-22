@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen pt-20 bg-gray-50">
-    <Container>
+  <div class="h-screen bg-gray-50">
+    <Container class="pt-20">
       <Breadcrumb :data="breadcrumbs"></Breadcrumb>
     </Container>
     <Container class="flex flex-col gap-4 lg:gap-6 lg:flex-row">
@@ -9,7 +9,12 @@
           <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-200">
             <div>Data: 120</div>
             <div>
-              <button type="button" class="btn-primary btn-sm">
+              <button
+                @click="modalTambahObjek = true"
+                type="button"
+                class="btn-primary btn-sm"
+                v-tooltip="'Tambah'"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="w-4 h-4"
@@ -47,6 +52,18 @@
         <CardObjek v-for="objek in listobjek" :key="objek.id" :objek="objek"></CardObjek>
       </div>
     </Container>
+    <transition name="fade">
+      <ModalBackdrop v-if="modalTambahObjek">
+        <div class="w-6/12 p-4 bg-white rounded-lg shadow-lg">
+          <GmapMap
+            :center="{lat:-6.211529118890723, lng:106.82841285491068}"
+            :zoom="15"
+            map-type-id="terrain"
+            class="w-full h-[400px]"
+          />
+        </div>
+      </ModalBackdrop>
+    </transition>
   </div>
 </template>
 
@@ -55,6 +72,7 @@ export default {
   name: "Dashboard",
   data() {
     return {
+      modalTambahObjek: false,
       breadcrumbs: [
         {
           name: "Dashboard",
@@ -89,6 +107,9 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    this.$root.$on("closeModal", () => (this.modalTambahObjek = false));
   },
 };
 </script>

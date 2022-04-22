@@ -3,7 +3,7 @@
     <div class="w-full px-2 transition-all duration-200">
       <WpTable />
     </div>
-    <transition name="page">
+    <transition name="fade">
       <ModalBackdrop v-if="showSetting">
         <LazyWpSetting />
       </ModalBackdrop>

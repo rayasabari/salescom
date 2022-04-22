@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 w-full py-4 bg-white bg-opacity-75 shadow backdrop-blur-lg"
+    class="fixed top-0 left-0 right-0 z-40 w-full py-4 bg-white bg-opacity-75 shadow backdrop-blur-lg"
   >
     <Container class="flex items-center justify-between">
       <div class="flex items-center gap-6">

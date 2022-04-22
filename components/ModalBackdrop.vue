@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      class="absolute z-50 flex flex-col items-center justify-center w-full h-full px-4 bg-gray-900 bg-opacity-40 md:px-6 backdrop-blur-md"
+      class="absolute top-0 left-0 right-0 z-50 flex flex-col items-center justify-center w-full h-screen px-4 bg-gray-900 bg-opacity-40 md:px-6 backdrop-blur-md"
     >
       <slot></slot>
       <div class="flex justify-center w-full mt-3">
