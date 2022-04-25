@@ -13,7 +13,7 @@
                 @click="modalTambahObjek = true"
                 type="button"
                 class="btn-primary btn-sm"
-                v-tooltip="'Tambah'"
+                v-tooltip="'Tambah Objek'"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -54,14 +54,7 @@
     </Container>
     <transition name="fade">
       <ModalBackdrop v-if="modalTambahObjek">
-        <div class="w-6/12 p-4 bg-white rounded-lg shadow-lg">
-          <GmapMap
-            :center="{lat:-6.211529118890723, lng:106.82841285491068}"
-            :zoom="15"
-            map-type-id="terrain"
-            class="w-full h-[400px]"
-          />
-        </div>
+        <FormAddObjek></FormAddObjek>
       </ModalBackdrop>
     </transition>
   </div>
@@ -111,6 +104,7 @@ export default {
   mounted() {
     this.$root.$on("closeModal", () => (this.modalTambahObjek = false));
   },
+  methods: {},
 };
 </script>
 

@@ -4,13 +4,13 @@
       <WpTable />
     </div>
     <transition name="fade">
-      <ModalBackdrop v-if="showSetting">
+      <ModalBackdrop v-if="showSetting" :closeButton="true">
         <LazyWpSetting />
       </ModalBackdrop>
-      <ModalBackdrop v-if="showMap">
+      <ModalBackdrop v-if="showMap" :closeButton="true">
         <LazyWpGmap />
       </ModalBackdrop>
-      <ModalBackdrop v-if="showExportImport">
+      <ModalBackdrop v-if="showExportImport" :closeButton="true">
         <LazyWpExportImport />
       </ModalBackdrop>
     </transition>
