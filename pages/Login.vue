@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center min-h-screen bg-gray-100">
+  <div class="flex items-center min-h-screen bg-slate-100">
     <Container class="flex justify-center">
       <div
         class="w-full px-4 bg-white rounded-lg shadow sm:px-0 md:w-6/12 sm:w-6/12 2xl:w-3/12 lg:w-4/12"

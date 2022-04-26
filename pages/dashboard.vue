@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-gray-50">
+  <div class="h-screen bg-slate-100">
     <Container class="pt-20">
       <Breadcrumb :data="breadcrumbs"></Breadcrumb>
     </Container>

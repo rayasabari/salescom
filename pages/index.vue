@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center h-screen py-20">
+  <div class="flex items-center justify-center h-screen py-20 bg-white">
     <Container>
       <div class="flex items-center justify-center gap-3 text-5xl">
         <span class="font-medium">Salescom</span>

@@ -41,7 +41,6 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/dotenv',
     '@nuxt/postcss8',
   ],
 
@@ -50,6 +49,23 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth-next'
   ],
+
+  // axios: {
+  //   baseURL: 'http://api.salescom.test/api', // Used as fallback if no runtime config is provided
+  // },
+
+  publicRuntimeConfig: {
+    googleApiKey: process.env.GOOGLEMAPS_API_KEY,
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL
+    }
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL
+    }
+  },
 
   // Middleware
   router: {

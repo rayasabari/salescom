@@ -63,26 +63,44 @@
       </div>
       <div class="mb-4">
         <label for="provinsi" class="rhr-label">Provinsi</label>
-        <select name="provinsi" id="provinsi" class="rhr-input">
-          <option value>--Pilih--</option>
+        <select
+          @input="getKotaByProvinsi($event.target.value)"
+          name="provinsi"
+          id="provinsi"
+          class="rhr-input"
+          v-model="objek.provinsi_id"
+        >
+          <option disabled value>- Pilih -</option>
+          <template v-for="provinsi in options.provinsi">
+            <option :key="provinsi.id" :value="provinsi.id">{{ provinsi.text }}</option>
+          </template>
         </select>
       </div>
       <div class="mb-4">
         <label for="kota" class="rhr-label">Kota/Kabupaten</label>
-        <select name="kota" id="kota" class="rhr-input">
-          <option value>--Pilih--</option>
+        <select
+          name="kota"
+          id="kota"
+          class="rhr-input"
+          v-model="objek.kota_id"
+          @input="getKecamatanByKota($event.target.value)"
+        >
+          <option disabled value>- Pilih -</option>
+          <template v-for="kota in options.kota">
+            <option :key="kota.id" :value="kota.id">{{ kota.text }}</option>
+          </template>
         </select>
       </div>
       <div class="mb-4">
         <label for="kecamatan" class="rhr-label">Kecamatan</label>
         <select name="kecamatan" id="kecamatan" class="rhr-input">
-          <option value>--Pilih--</option>
+          <option value>- Pilih -</option>
         </select>
       </div>
       <div class="mb-4">
         <label for="kelurahan" class="rhr-label">Kelurahan/Desa</label>
         <select name="kelurahan" id="kelurahan" class="rhr-input">
-          <option value>--Pilih--</option>
+          <option value>- Pilih -</option>
         </select>
       </div>
       <div class="mb-4">
@@ -121,10 +139,43 @@ export default {
         alamat_gmap: null,
         latitude: 0,
         longitude: 0,
+        provinsi_id: null,
+        kota_id: null,
+      },
+      options: {
+        provinsi: [],
+        kota: [],
       },
     };
   },
+  mounted() {
+    this.getProvinsi();
+  },
   methods: {
+    async getProvinsi() {
+      try {
+        let provinsi = await this.$axios.$get(`/master/provinsi`);
+        this.options.provinsi = provinsi.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getKotaByProvinsi(provinsi_id) {
+      try {
+        let kota = await this.$axios.$get(`/master/kota/${provinsi_id}`);
+        this.options.kota = kota.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getKecamatanByKota(kota_id) {
+      try {
+        let kecamatan = await this.$axios.$get(`/master/kecamatan/${kota_id}`);
+        this.options.kecamatan = kecamatan.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     cancel() {
       this.$root.$emit("closeModal");
     },
