@@ -50,20 +50,20 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
-  // axios: {
-  //   baseURL: 'http://api.salescom.test/api', // Used as fallback if no runtime config is provided
-  // },
+  axios: {
+    baseURL: process.env.BASE_URL, // Used as fallback if no runtime config is provided
+  },
 
   publicRuntimeConfig: {
-    googleApiKey: process.env.GOOGLEMAPS_API_KEY,
+    googleMapsApiKey: process.env.GOOGLEMAPS_API_KEY,
     axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL
+      browserBaseURL: process.env.BASE_URL,
     }
   },
 
   privateRuntimeConfig: {
     axios: {
-      baseURL: process.env.BASE_URL
+      baseURL: process.env.BASE_URL,
     }
   },
 
@@ -76,7 +76,7 @@ export default {
     strategies: {
       'laravelSanctum': {
         provider: 'laravel/sanctum',
-        url: 'http://api.salescom.test',
+        url: process.env.AUTH_URL,
         endpoints: {
           login: {
             url: '/api/login'

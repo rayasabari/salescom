@@ -54,7 +54,7 @@
     </Container>
     <transition name="fade">
       <ModalBackdrop v-if="modalTambahObjek">
-        <FormAddObjek></FormAddObjek>
+        <LazyFormAddObjek></LazyFormAddObjek>
       </ModalBackdrop>
     </transition>
   </div>

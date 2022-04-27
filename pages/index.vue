@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center h-screen py-20 bg-white">
     <Container>
       <div class="flex items-center justify-center gap-3 text-5xl">
-        <span class="font-medium">Salescom</span>
+        <span class="font-medium">Salescomp</span>
         <span class="px-2 py-1 text-2xl text-white rounded-lg bg-primary-500">2.0</span>
       </div>
       <div

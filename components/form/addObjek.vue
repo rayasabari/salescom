@@ -23,102 +23,112 @@
       </transition>
     </div>
     <div class="w-full md:w-4/12">
-      <div class="flex gap-4 mb-4">
-        <div class="w-1/2">
-          <label for="latitude" class="rhr-label">Latitude</label>
+      <form @submit.prevent="create">
+        <div class="flex gap-4 mb-4">
+          <div class="w-1/2">
+            <label for="latitude" class="rhr-label">Latitude</label>
+            <input
+              type="text"
+              id="latitude"
+              name="latitude"
+              class="bg-gray-100 rhr-input"
+              disabled
+              v-model="objek.latitude"
+            />
+          </div>
+          <div class="w-1/2">
+            <label for="longitude" class="rhr-label">Longitude</label>
+            <input
+              type="text"
+              id="longitude"
+              name="longitude"
+              class="bg-gray-100 rhr-input"
+              disabled
+              v-model="objek.longitude"
+            />
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="nama_jalan" class="rhr-label">Nama Jalan</label>
           <input
             type="text"
-            id="latitude"
-            name="latitude"
-            class="bg-gray-100 rhr-input"
-            disabled
-            v-model="objek.latitude"
+            id="nama_jalan"
+            name="nama_jalan"
+            class="rhr-input"
+            v-model="objek.nama_jalan"
           />
+          <span class="text-xs">
+            <b class="italic font-bold">Contoh:</b>
+            Jl. Karet Karya VII No. 9
+          </span>
         </div>
-        <div class="w-1/2">
-          <label for="longitude" class="rhr-label">Longitude</label>
+        <div class="mb-4">
+          <label for="provinsi" class="rhr-label">Provinsi</label>
+          <select
+            name="provinsi"
+            id="provinsi"
+            class="rhr-input"
+            v-model="objek.provinsi_id"
+            @input="getKotaByProvinsi($event.target.value)"
+          >
+            <template v-for="provinsi in options.provinsi">
+              <option :key="provinsi.id" :value="provinsi.id">{{ provinsi.text }}</option>
+            </template>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="kota" class="rhr-label">Kota/Kabupaten</label>
+          <select
+            name="kota"
+            id="kota"
+            class="rhr-input"
+            v-model="objek.kota_id"
+            @input="getKecamatanByKota($event.target.value)"
+          >
+            <template v-for="kota in options.kota">
+              <option :key="kota.id" :value="kota.id">{{ kota.text }}</option>
+            </template>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="kecamatan" class="rhr-label">Kecamatan</label>
+          <select
+            name="kecamatan"
+            id="kecamatan"
+            class="rhr-input"
+            v-model="objek.kecamatan_id"
+            @input="getKelurahanByKecamatan($event.target.value)"
+          >
+            <template v-for="kecamatan in options.kecamatan">
+              <option :key="kecamatan.id" :value="kecamatan.id">{{ kecamatan.text }}</option>
+            </template>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="kelurahan" class="rhr-label">Kelurahan/Desa</label>
+          <select name="kelurahan" id="kelurahan" class="rhr-input" v-model="objek.kelurahan_id">
+            <template v-for="kelurahan in options.kelurahan">
+              <option :key="kelurahan.id" :value="kelurahan.id">{{ kelurahan.text }}</option>
+            </template>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="kode_pos" class="rhr-label">Kode Pos</label>
           <input
-            type="text"
-            id="longitude"
-            name="longitude"
-            class="bg-gray-100 rhr-input"
-            disabled
-            v-model="objek.longitude"
+            type="number"
+            id="kode_pos"
+            name="kode_pos"
+            class="rhr-input"
+            v-model="objek.kode_pos"
           />
         </div>
-      </div>
-      <div class="mb-4">
-        <label for="nama_jalan" class="rhr-label">Nama Jalan</label>
-        <input
-          type="text"
-          id="nama_jalan"
-          name="nama_jalan"
-          class="rhr-input"
-          v-model="objek.nama_jalan"
-        />
-        <span class="text-xs">
-          <b class="italic font-bold">Contoh:</b>
-          Jl. Karet Karya VII No. 9
-        </span>
-      </div>
-      <div class="mb-4">
-        <label for="provinsi" class="rhr-label">Provinsi</label>
-        <select
-          @input="getKotaByProvinsi($event.target.value)"
-          name="provinsi"
-          id="provinsi"
-          class="rhr-input"
-          v-model="objek.provinsi_id"
-        >
-          <option disabled value>- Pilih -</option>
-          <template v-for="provinsi in options.provinsi">
-            <option :key="provinsi.id" :value="provinsi.id">{{ provinsi.text }}</option>
-          </template>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label for="kota" class="rhr-label">Kota/Kabupaten</label>
-        <select
-          name="kota"
-          id="kota"
-          class="rhr-input"
-          v-model="objek.kota_id"
-          @input="getKecamatanByKota($event.target.value)"
-        >
-          <option disabled value>- Pilih -</option>
-          <template v-for="kota in options.kota">
-            <option :key="kota.id" :value="kota.id">{{ kota.text }}</option>
-          </template>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label for="kecamatan" class="rhr-label">Kecamatan</label>
-        <select name="kecamatan" id="kecamatan" class="rhr-input">
-          <option value>- Pilih -</option>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label for="kelurahan" class="rhr-label">Kelurahan/Desa</label>
-        <select name="kelurahan" id="kelurahan" class="rhr-input">
-          <option value>- Pilih -</option>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label for="kode_pos" class="rhr-label">Kode Pos</label>
-        <input
-          type="number"
-          id="kode_pos"
-          name="kode_pos"
-          class="rhr-input"
-          v-model="objek.kode_pos"
-        />
-      </div>
-      <div class="flex justify-end">
-        <div class="flex gap-2">
-          <button type="button" @click="cancel" class="btn-primary-outline">Cancel</button>
-          <button type="submit" class="btn-primary">Submit</button>
+        <div class="flex justify-end">
+          <div class="flex gap-2">
+            <button type="button" @click="cancel" class="btn-primary-outline">Cancel</button>
+            <button type="submit" class="btn-primary">Submit</button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </FormCard>
 </template>
@@ -137,14 +147,18 @@ export default {
       objek: {
         nama_jalan: "",
         alamat_gmap: null,
-        latitude: 0,
-        longitude: 0,
+        latitude: null,
+        longitude: null,
         provinsi_id: null,
         kota_id: null,
+        kecamatan_id: null,
+        kelurahan_id: null,
       },
       options: {
         provinsi: [],
         kota: [],
+        kecamatan: [],
+        kelurahan: [],
       },
     };
   },
@@ -152,6 +166,18 @@ export default {
     this.getProvinsi();
   },
   methods: {
+    async create() {
+      let params = this.objek;
+      try {
+        let response = await this.$axios.$post(`/objek/create`, {
+          params,
+          withCredentials: true
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async getProvinsi() {
       try {
         let provinsi = await this.$axios.$get(`/master/provinsi`);
@@ -172,6 +198,16 @@ export default {
       try {
         let kecamatan = await this.$axios.$get(`/master/kecamatan/${kota_id}`);
         this.options.kecamatan = kecamatan.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getKelurahanByKecamatan(kecamatan_id) {
+      try {
+        let kelurahan = await this.$axios.$get(
+          `/master/kelurahan/${kecamatan_id}`
+        );
+        this.options.kelurahan = kelurahan.data;
       } catch (error) {
         console.log(error);
       }

@@ -5,7 +5,7 @@
     <Container class="flex items-center justify-between">
       <div class="flex items-center gap-6">
         <NuxtLink to="/" class="flex items-center gap-2 text-xl font-medium">
-          <span>Salescom</span>
+          <span>Salescomp</span>
           <span class="px-1 text-sm border rounded-md border-primary-500 text-primary-500">2.0</span>
         </NuxtLink>
         <template v-if="$auth.loggedIn">
