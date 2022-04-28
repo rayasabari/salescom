@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full overflow-y-auto bg-white rounded-lg shadow-lg md:w-9/12">
+  <div class="w-full overflow-hidden overflow-y-auto bg-white rounded-lg shadow-lg lg:w-11/12 xl:w-9/12">
     <div
-      class="flex items-center justify-between px-4 py-3 font-medium border-b border-primary-200 bg-primary-50 text-primary-600"
+      class="flex items-center justify-between px-4 py-3 font-medium border-b  border-primary-200 bg-primary-50 text-primary-600"
     >
       <h2>{{title}}</h2>
       <button
@@ -20,7 +20,7 @@
         </svg>
       </button>
     </div>
-    <div class="flex flex-col gap-4 p-4 align-top md:flex-row">
+    <div class="flex flex-col gap-4 p-4 align-top lg:flex-row">
       <slot></slot>
     </div>
   </div>

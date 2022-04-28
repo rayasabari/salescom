@@ -1,11 +1,11 @@
 <template>
   <FormCard :title="title">
-    <div class="w-full md:w-8/12">
+    <div class="w-full lg:w-8/12">
       <GmapAutocomplete
         @place_changed="setPlace"
         class="block w-full px-3 py-2 text-sm transition duration-300 border border-gray-200 rounded-t-lg focus:outline-none focus:ring-primary-300 focus:border-primary-300 bg-gray-50"
       />
-      <GmapMap :center="center" :zoom="15" map-type-id="terrain" class="w-full h-[510px]">
+      <GmapMap :center="center" :zoom="15" map-type-id="terrain" class="w-full h-[590px]">
         <GmapMarker
           :draggable="true"
           :position="{
@@ -22,7 +22,7 @@
         </div>
       </transition>
     </div>
-    <div class="w-full md:w-4/12">
+    <div class="w-full lg:w-4/12">
       <form @submit.prevent="create">
         <div class="flex gap-4 mb-4">
           <div class="w-1/2">
@@ -47,6 +47,19 @@
               v-model="objek.longitude"
             />
           </div>
+        </div>
+        <div class="mb-4">
+          <label for="jenis_properti" class="rhr-label">Jenis Properti</label>
+          <select
+            name="jenis_properti"
+            id="jenis_properti"
+            class="rhr-input"
+            v-model="objek.jenis_properti_id"
+          >
+            <template v-for="jenis_properti in options.jenis_properti">
+              <option :key="jenis_properti.id" :value="jenis_properti.id">{{ jenis_properti.text }}</option>
+            </template>
+          </select>
         </div>
         <div class="mb-4">
           <label for="nama_jalan" class="rhr-label">Nama Jalan</label>
@@ -145,6 +158,7 @@ export default {
       },
       zoomlevel: 13,
       objek: {
+        jenis_properti_id: null,
         nama_jalan: "",
         alamat_gmap: null,
         latitude: null,
@@ -155,6 +169,7 @@ export default {
         kelurahan_id: null,
       },
       options: {
+        jenis_properti: [],
         provinsi: [],
         kota: [],
         kecamatan: [],
@@ -164,16 +179,29 @@ export default {
   },
   mounted() {
     this.getProvinsi();
+    this.getJenisProperti();
   },
   methods: {
     async create() {
-      let params = this.objek;
       try {
-        let response = await this.$axios.$post(`/objek/create`, {
-          params,
-          withCredentials: true
-        });
+        let response = await this.$axios.$post(
+          `/objek/create`,
+          {
+            params: this.objek,
+          },
+          {
+            withCredentials: true,
+          }
+        );
         console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getJenisProperti() {
+      try {
+        let jenis_properti = await this.$axios.$get(`/master/jenis_properti`);
+        this.options.jenis_properti = jenis_properti.data;
       } catch (error) {
         console.log(error);
       }
@@ -193,6 +221,11 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.options.kecamatan = [];
+      this.options.kelurahan = [];
+      this.objek.kota_id = null;
+      this.objek.kecamatan_id = null;
+      this.objek.kelurahan_id = null;
     },
     async getKecamatanByKota(kota_id) {
       try {
@@ -201,6 +234,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.options.kelurahan = [];
+      this.objek.kecamatan_id = null;
+      this.objek.kelurahan_id = null;
     },
     async getKelurahanByKecamatan(kecamatan_id) {
       try {
@@ -211,6 +247,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.objek.kelurahan_id = null;
     },
     cancel() {
       this.$root.$emit("closeModal");
