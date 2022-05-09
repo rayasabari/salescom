@@ -82,29 +82,39 @@ export default {
           nama: "Rumah Tinggal di Ragunan",
           jenis_properti: "Rumah Tinggal",
           foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
-          sistem: "Integrated",
+          source: "Integrated",
         },
         {
           id: "2",
           nama: "Tanah Kosong di Jagakarsa",
           jenis_properti: "Tanah Kosong",
           foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
-          sistem: "Standalone",
+          source: "Standalone",
         },
         {
           id: "3",
           nama: "Ruko di Mampang Prapatan",
           jenis_properti: "Ruko",
           foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
-          sistem: "Integrated",
+          source: "Integrated",
         },
       ],
     };
   },
   mounted() {
+    this.getObjek();
     this.$root.$on("closeModal", () => (this.modalTambahObjek = false));
   },
-  methods: {},
+  methods: {
+    async getObjek(){
+      try {
+        let response = await this.$axios.$get('/objek/index',{withCredentials: true})
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    }
+  },
 };
 </script>
 

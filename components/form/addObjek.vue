@@ -1,11 +1,18 @@
 <template>
   <FormCard :title="title">
     <div class="w-full lg:w-8/12">
+      <transition name="fade">
+        <div
+          class="mb-4 alert alert-danger"
+          v-if="errors['objek.latitude']"
+        >{{ errors['objek.latitude'][0] }}</div>
+      </transition>
       <GmapAutocomplete
         @place_changed="setPlace"
+        placeholder="Cari lokasi"
         class="block w-full px-3 py-2 text-sm transition duration-300 border border-gray-200 rounded-t-lg focus:outline-none focus:ring-primary-300 focus:border-primary-300 bg-gray-50"
       />
-      <GmapMap :center="center" :zoom="15" map-type-id="terrain" class="w-full h-[590px]">
+      <GmapMap :center="center" :zoom="15" map-type-id="terrain" class="w-full h-[438px]">
         <GmapMarker
           :draggable="true"
           :position="{
@@ -16,7 +23,11 @@
         />Î
       </GmapMap>
       <transition name="fade">
-        <div class="mt-4 alert-info" v-if="objek.alamat_gmap">
+        <div class="mt-4 alert alert-info" v-if="objek.alamat_gmap">
+          <div>
+            <strong class="font-bold">Koordinat:</strong>
+            <span>{{objek.latitude +', '+ objek.longitude}}</span>
+          </div>
           <strong class="font-bold">Alamat:</strong>
           <span>{{objek.alamat_gmap}}</span>
         </div>
@@ -24,30 +35,6 @@
     </div>
     <div class="w-full lg:w-4/12">
       <form @submit.prevent="create">
-        <div class="flex gap-4 mb-4">
-          <div class="w-1/2">
-            <label for="latitude" class="rhr-label">Latitude</label>
-            <input
-              type="text"
-              id="latitude"
-              name="latitude"
-              class="bg-gray-100 rhr-input"
-              disabled
-              v-model="objek.latitude"
-            />
-          </div>
-          <div class="w-1/2">
-            <label for="longitude" class="rhr-label">Longitude</label>
-            <input
-              type="text"
-              id="longitude"
-              name="longitude"
-              class="bg-gray-100 rhr-input"
-              disabled
-              v-model="objek.longitude"
-            />
-          </div>
-        </div>
         <div class="mb-4">
           <label for="jenis_properti" class="rhr-label">Jenis Properti</label>
           <select
@@ -60,6 +47,12 @@
               <option :key="jenis_properti.id" :value="jenis_properti.id">{{ jenis_properti.text }}</option>
             </template>
           </select>
+          <transition name="fade">
+            <span
+              class="mt-1 text-xs text-rose-400"
+              v-if="errors['objek.jenis_properti_id']"
+            >{{errors['objek.jenis_properti_id'][0]}}</span>
+          </transition>
         </div>
         <div class="mb-4">
           <label for="nama_jalan" class="rhr-label">Nama Jalan</label>
@@ -74,6 +67,12 @@
             <b class="italic font-bold">Contoh:</b>
             Jl. Karet Karya VII No. 9
           </span>
+          <transition name="fade">
+            <span
+              class="mt-1 text-xs text-rose-400"
+              v-if="errors['objek.nama_jalan']"
+            >{{errors['objek.nama_jalan'][0]}}</span>
+          </transition>
         </div>
         <div class="mb-4">
           <label for="provinsi" class="rhr-label">Provinsi</label>
@@ -88,6 +87,12 @@
               <option :key="provinsi.id" :value="provinsi.id">{{ provinsi.text }}</option>
             </template>
           </select>
+          <transition name="fade">
+            <span
+              class="mt-1 text-xs text-rose-400"
+              v-if="errors['objek.provinsi_id']"
+            >{{errors['objek.provinsi_id'][0]}}</span>
+          </transition>
         </div>
         <div class="mb-4">
           <label for="kota" class="rhr-label">Kota/Kabupaten</label>
@@ -102,6 +107,12 @@
               <option :key="kota.id" :value="kota.id">{{ kota.text }}</option>
             </template>
           </select>
+          <transition name="fade">
+            <span
+              class="mt-1 text-xs text-rose-400"
+              v-if="errors['objek.kota_id']"
+            >{{errors['objek.kota_id'][0]}}</span>
+          </transition>
         </div>
         <div class="mb-4">
           <label for="kecamatan" class="rhr-label">Kecamatan</label>
@@ -116,6 +127,12 @@
               <option :key="kecamatan.id" :value="kecamatan.id">{{ kecamatan.text }}</option>
             </template>
           </select>
+          <transition name="fade">
+            <span
+              class="mt-1 text-xs text-rose-400"
+              v-if="errors['objek.kecamatan_id']"
+            >{{errors['objek.kecamatan_id'][0]}}</span>
+          </transition>
         </div>
         <div class="mb-4">
           <label for="kelurahan" class="rhr-label">Kelurahan/Desa</label>
@@ -124,8 +141,14 @@
               <option :key="kelurahan.id" :value="kelurahan.id">{{ kelurahan.text }}</option>
             </template>
           </select>
+          <transition name="fade">
+            <span
+              class="mt-1 text-xs text-rose-400"
+              v-if="errors['objek.kelurahan_id']"
+            >{{errors['objek.kelurahan_id'][0]}}</span>
+          </transition>
         </div>
-        <div class="mb-4">
+        <div class="mb-6">
           <label for="kode_pos" class="rhr-label">Kode Pos</label>
           <input
             type="number"
@@ -134,10 +157,16 @@
             class="rhr-input"
             v-model="objek.kode_pos"
           />
+          <transition name="fade">
+            <span
+              class="mt-1 text-xs text-rose-400"
+              v-if="errors['objek.kode_pos']"
+            >{{errors['objek.kode_pos'][0]}}</span>
+          </transition>
         </div>
         <div class="flex justify-end">
           <div class="flex gap-2">
-            <button type="button" @click="cancel" class="btn-primary-outline">Cancel</button>
+            <button type="button" ref="cancelButton" @click="cancel" class="btn-primary-outline">Cancel</button>
             <button type="submit" class="btn-primary">Submit</button>
           </div>
         </div>
@@ -157,6 +186,7 @@ export default {
         lng: 0,
       },
       zoomlevel: 13,
+      source: "Standalone",
       objek: {
         jenis_properti_id: null,
         nama_jalan: "",
@@ -175,6 +205,7 @@ export default {
         kecamatan: [],
         kelurahan: [],
       },
+      errors: [],
     };
   },
   mounted() {
@@ -187,15 +218,20 @@ export default {
         let response = await this.$axios.$post(
           `/objek/create`,
           {
-            params: this.objek,
+            objek: this.objek,
+            source: this.source,
           },
           {
             withCredentials: true,
           }
         );
-        console.log(response);
-      } catch (error) {
-        console.log(error);
+        this.$awn.success("Objek berhasil ditambah!");
+        this.$refs.cancelButton.click();
+      } catch (e) {
+        this.$awn.alert("Submit gagal!");
+        if (e.response.data.errors) {
+          this.errors = e.response.data.errors;
+        }
       }
     },
     async getJenisProperti() {
@@ -277,6 +313,7 @@ export default {
             this.objek.latitude = parseFloat(latitude);
             this.objek.longitude = parseFloat(longitude);
             console.log(results[0]);
+            this.errors = [];
           } else {
             window.alert("No results found");
           }

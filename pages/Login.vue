@@ -60,12 +60,10 @@ export default {
           data: this.form,
         })
         .then((response) => {
-          console.log('suc');
-          console.log(response);
+          // console.log(response);
         })
         .catch((e) => {
-          console.log('er');
-          console.log(e.response);
+          // console.log(e.response);
           this.errors = e.response.data.errors;
         });
     },

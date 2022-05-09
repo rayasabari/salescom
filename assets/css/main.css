@@ -98,7 +98,15 @@
     @apply block w-full text-sm transition duration-300 border border-gray-200 rounded-lg focus:outline-none focus:ring-primary-300 focus:border-primary-300 bg-gray-50;
   }
 
+  .alert {
+    @apply p-2 mt-3 text-xs border rounded-lg;
+  }
+
   .alert-info {
-    @apply p-2 mt-3 text-xs bg-teal-100 border rounded-lg text-primary-800 border-primary-300;
+    @apply bg-teal-100 text-primary-800 border-primary-300;
+  }
+
+  .alert-danger {
+    @apply text-rose-800 border-rose-300 bg-rose-200;
   }
 }

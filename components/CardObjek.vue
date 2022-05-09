@@ -15,9 +15,9 @@
           <div class="text-xs text-gray-400">{{ objek.jenis_properti }}</div>
         </div>
         <div
-          :class="objek.sistem == 'Standalone' ? 'text-indigo-400':'text-emerald-500 '"
+          :class="objek.source == 'Standalone' ? 'text-indigo-400':'text-emerald-500 '"
           class="py-2 text-xs tracking-widest uppercase md:py-0"
-        >{{ objek.sistem }}</div>
+        >{{ objek.source }}</div>
       </div>
       <div>
         <span
