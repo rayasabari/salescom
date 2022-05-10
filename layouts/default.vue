@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen relativw bg-slate-100">
+  <div class="relative min-h-screen bg-slate-100">
     <NavBar />
     <Nuxt />
     <Footer />

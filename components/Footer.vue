@@ -1,5 +1,5 @@
 <template>
-  <footer class="fixed bottom-0 w-full py-3 bg-white md:absolute ">
+  <footer class="absolute bottom-0 w-full py-3 bg-white ">
     <Container>
       <div class="text-xs text-center text-gray-400">&copy; 2022 KJPP RHR</div>
     </Container>

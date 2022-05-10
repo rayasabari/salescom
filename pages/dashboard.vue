@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-slate-100">
+  <div class="min-h-screen bg-slate-100">
     <Container class="pt-20">
       <Breadcrumb :data="breadcrumbs"></Breadcrumb>
     </Container>
@@ -7,7 +7,11 @@
       <div class="w-full lg:w-3/12">
         <div class="p-4 bg-white shadow">
           <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-200">
-            <div>Data: 120</div>
+            <div class="text-xs">
+              <span class="font-semibold">{{ objek.meta.from }}</span> -
+              <span class="font-semibold">{{ objek.meta.to }}</span> dari
+              <span class="font-semibold">{{ objek.meta.total }}</span> data
+            </div>
             <div>
               <button
                 @click="modalTambahObjek = true"
@@ -49,7 +53,14 @@
         </div>
       </div>
       <div class="w-full lg:w-9/12">
-        <CardObjek v-for="objek in listobjek" :key="objek.id" :objek="objek"></CardObjek>
+        <transition name="page">
+          <div class="objek-wrapper">
+            <CardObjek v-for="objek in objek.data" :key="objek.id" :objek="objek"></CardObjek>
+            <div class="flex justify-center mb-16 md:justify-end">
+              <Pagination :data="objek" />
+            </div>
+          </div>
+        </transition>
       </div>
     </Container>
     <transition name="fade">
@@ -61,6 +72,7 @@
 </template>
 
 <script>
+import { Block } from "notiflix/build/notiflix-block-aio";
 export default {
   name: "Dashboard",
   data() {
@@ -76,44 +88,45 @@ export default {
           link: false,
         },
       ],
-      listobjek: [
-        {
-          id: "1",
-          nama: "Rumah Tinggal di Ragunan",
-          jenis_properti: "Rumah Tinggal",
-          foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
-          source: "Integrated",
+      objek: {
+        data: [],
+        meta: {
+          from: "",
+          to: "",
+          total: "",
         },
-        {
-          id: "2",
-          nama: "Tanah Kosong di Jagakarsa",
-          jenis_properti: "Tanah Kosong",
-          foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
-          source: "Standalone",
+        links: {
+          first: "",
+          last: "",
         },
-        {
-          id: "3",
-          nama: "Ruko di Mampang Prapatan",
-          jenis_properti: "Ruko",
-          foto: "https://system.rhr.co.id/storage/files/attachment/pembanding/properti/61445/original/1649751752-WhatsApp%20Image%202022-04-08%20at%2010.29.26%20AM%20(20).jpeg",
-          source: "Integrated",
-        },
-      ],
+      },
     };
   },
   mounted() {
-    this.getObjek();
+    const url = "/objek/index?page=1";
+    this.fetchData(url);
     this.$root.$on("closeModal", () => (this.modalTambahObjek = false));
   },
   methods: {
-    async getObjek(){
+    async fetchData(url) {
+      Block.hourglass(".objek-wrapper", {
+        svgColor: '#14b8a6',
+      });
       try {
-        let response = await this.$axios.$get('/objek/index',{withCredentials: true})
-        console.log(response);
+        let objek = await this.$axios.$get(url, {
+          withCredentials: true,
+        });
+        console.log(objek);
+        console.log(objek.meta.links.length);
+        this.objek = objek;
+        setTimeout(() => {
+          Block.remove(".objek-wrapper");
+        }, 0);
       } catch (e) {
         console.log(e.response);
+        Block.remove(".objek-wrapper");
       }
-    }
+    },
   },
 };
 </script>
