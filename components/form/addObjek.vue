@@ -166,7 +166,12 @@
         </div>
         <div class="flex justify-end">
           <div class="flex gap-2">
-            <button type="button" ref="cancelButton" @click="cancel" class="btn-primary-outline">Cancel</button>
+            <button
+              type="button"
+              ref="cancelButton"
+              @click="cancel"
+              class="btn-primary-outline"
+            >Cancel</button>
             <button type="submit" class="btn-primary">Submit</button>
           </div>
         </div>
@@ -178,6 +183,7 @@
 <script>
 export default {
   name: "formAddObjek",
+  props: ["optionsJenisProperti"],
   data() {
     return {
       title: "Tambah Objek",
@@ -199,7 +205,7 @@ export default {
         kelurahan_id: null,
       },
       options: {
-        jenis_properti: [],
+        jenis_properti: this.optionsJenisProperti,
         provinsi: [],
         kota: [],
         kecamatan: [],
@@ -210,7 +216,6 @@ export default {
   },
   mounted() {
     this.getProvinsi();
-    this.getJenisProperti();
   },
   methods: {
     async create() {
@@ -227,19 +232,12 @@ export default {
         );
         this.$awn.success("Objek berhasil ditambah!");
         this.$refs.cancelButton.click();
+        this.$router.push(`/wp/${response.id}`);
       } catch (e) {
         this.$awn.alert("Submit gagal!");
         if (e.response.data.errors) {
           this.errors = e.response.data.errors;
         }
-      }
-    },
-    async getJenisProperti() {
-      try {
-        let jenis_properti = await this.$axios.$get(`/master/jenis_properti`);
-        this.options.jenis_properti = jenis_properti.data;
-      } catch (error) {
-        console.log(error);
       }
     },
     async getProvinsi() {

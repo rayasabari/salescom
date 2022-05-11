@@ -99,7 +99,7 @@
   }
 
   .alert {
-    @apply p-2 mt-3 text-xs border rounded-lg;
+    @apply px-3 py-2 text-xs border rounded-lg;
   }
 
   .alert-info {

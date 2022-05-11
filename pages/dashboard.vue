@@ -4,60 +4,24 @@
       <Breadcrumb :data="breadcrumbs"></Breadcrumb>
     </Container>
     <Container class="flex flex-col gap-4 lg:gap-6 lg:flex-row">
-      <div class="w-full lg:w-3/12">
-        <div class="p-4 bg-white shadow">
-          <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-200">
-            <div class="text-xs">
-              <span class="font-semibold">{{ objek.meta.from }}</span> -
-              <span class="font-semibold">{{ objek.meta.to }}</span> dari
-              <span class="font-semibold">{{ objek.meta.total }}</span> data
-            </div>
-            <div>
-              <button
-                @click="modalTambahObjek = true"
-                type="button"
-                class="btn-primary btn-sm"
-                v-tooltip="'Tambah Objek'"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="mb-4">
-            <label for="alamat" class="rhr-label">Alamat</label>
-            <input type="text" id="alamat" name="alamat" class="rhr-input" />
-          </div>
-          <div class="mb-4">
-            <label for="source" class="rhr-label">Source</label>
-            <select name="source" id="source" class="rhr-input">
-              <option value>--Pilih--</option>
-              <option value="Standalone">Standalone</option>
-              <option value="RIS">RIS</option>
-            </select>
-          </div>
-          <div class="mb-4">
-            <label for="jenis_objek" class="rhr-label">Jenis Objek</label>
-            <select name="jenis_objek" id="jenis_objek" class="rhr-input">
-              <option value>--Pilih--</option>
-            </select>
-          </div>
-        </div>
+      <div class="relative w-full lg:w-3/12">
+        <DashboardFilter
+          :filter="filter"
+          :objek="objek"
+          :optionsJenisProperti="options.jenis_properti"
+        />
       </div>
       <div class="w-full lg:w-9/12">
         <transition name="page">
           <div class="objek-wrapper">
-            <CardObjek v-for="objek in objek.data" :key="objek.id" :objek="objek"></CardObjek>
-            <div class="flex justify-center mb-16 md:justify-end">
-              <Pagination :data="objek" />
+            <div v-if="objek.meta.total > 0">
+              <CardObjek v-for="objek in objek.data" :key="objek.id" :objek="objek"></CardObjek>
+              <div class="flex justify-center mb-16 md:justify-end">
+                <Pagination :data="objek" />
+              </div>
+            </div>
+            <div v-if="objek.meta.total === 0">
+              <div class="alert alert-info">Data ditemukan</div>
             </div>
           </div>
         </transition>
@@ -65,7 +29,7 @@
     </Container>
     <transition name="fade">
       <ModalBackdrop v-if="modalTambahObjek">
-        <LazyFormAddObjek></LazyFormAddObjek>
+        <LazyFormAddObjek :optionsJenisProperti="options.jenis_properti"></LazyFormAddObjek>
       </ModalBackdrop>
     </transition>
   </div>
@@ -88,6 +52,11 @@ export default {
           link: false,
         },
       ],
+      filter: {
+        nama_jalan: null,
+        source: '',
+        jenis_properti: '',
+      },
       objek: {
         data: [],
         meta: {
@@ -100,24 +69,31 @@ export default {
           last: "",
         },
       },
+      options: {
+        jenis_properti: [],
+      },
     };
   },
   mounted() {
-    const url = "/objek/index?page=1";
-    this.fetchData(url);
+    this.fetchData();
+    this.getJenisProperti();
     this.$root.$on("closeModal", () => (this.modalTambahObjek = false));
   },
   methods: {
-    async fetchData(url) {
+    async fetchData(url = "/objek/index?page=1") {
       Block.hourglass(".objek-wrapper", {
-        svgColor: '#14b8a6',
+        svgColor: "#14b8a6",
       });
       try {
         let objek = await this.$axios.$get(url, {
+          params: {
+            nama_jalan: this.filter.nama_jalan,
+            source: this.filter.source,
+            jenis_properti: this.filter.jenis_properti,
+          },
           withCredentials: true,
         });
         console.log(objek);
-        console.log(objek.meta.links.length);
         this.objek = objek;
         setTimeout(() => {
           Block.remove(".objek-wrapper");
@@ -126,6 +102,17 @@ export default {
         console.log(e.response);
         Block.remove(".objek-wrapper");
       }
+    },
+    async getJenisProperti() {
+      try {
+        let jenis_properti = await this.$axios.$get(`/master/jenis_properti`);
+        this.options.jenis_properti = jenis_properti.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    openModalTambah() {
+      this.modalTambahObjek = true;
     },
   },
 };
