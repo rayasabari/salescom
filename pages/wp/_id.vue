@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex justify-center w-full min-h-screen overflow-hidden bg-gray-50">
     <div class="w-full" v-if="!hasPembanding">
-      <LazyWpSelectPembanding :objek="objek"/>
+      <LazyWpSelectPembanding :objek="objek" />
     </div>
     <div class="w-full px-2 transition-all duration-200" v-if="hasPembanding">
       <WpTable />
@@ -11,7 +11,7 @@
         <LazyWpSetting />
       </ModalBackdrop>
       <ModalBackdrop v-if="showMap" :closeButton="true">
-        <LazyWpGmap />
+        <LazyWpGmap :objek="objek" :pembandingAround="pembandingAround" />
       </ModalBackdrop>
       <ModalBackdrop v-if="showExportImport" :closeButton="true">
         <LazyWpExportImport />
@@ -42,8 +42,14 @@ export default {
           link: false,
         },
       ],
+      radius: 2000,
+      pembandingAround: [],
+      selected_id: ["0"],
       hasPembanding: false,
-      objek: {},
+      objek: {
+        latitude: 0,
+        longitude: 0,
+      },
     };
   },
   mounted() {
@@ -62,6 +68,7 @@ export default {
         });
         console.log(response);
         this.objek = response.data.objek;
+        this.pembandingAround = response.data.pembandingAround;
         this.hasPembanding = response.data.hasPembanding;
       } catch (e) {
         console.log(e);
@@ -70,6 +77,23 @@ export default {
     toggleShow(component) {
       this[`show${component}`] = !this[`show${component}`];
     },
+    // async getPembandingAround() {
+    //   try {
+    //     let response = await this.$axios.$get("/wp/pembanding/around", {
+    //       params: {
+    //         latitude: this.objek.latitude,
+    //         longitude: this.objek.longitude,
+    //         radius: this.radius,
+    //         selected_id: this.selected_id,
+    //       },
+    //       withCredentials: true,
+    //     });
+    //     console.log(response);
+    //     this.pembandingAround = response;
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
   },
 };
 </script>
