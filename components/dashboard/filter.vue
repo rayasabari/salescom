@@ -5,12 +5,7 @@
         <span class="font-semibold">{{ objek.meta.total }}</span> data
       </div>
       <div>
-        <button
-          @click="$parent.$parent.openModalTambah()"
-          type="button"
-          class="btn-primary btn-sm"
-          v-tooltip="'Tambah Objek'"
-        >
+        <a href="#" @click.prevent="$parent.$parent.openModalTambah()" class="flex gap-1 text-xs link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-4 h-4"
@@ -21,7 +16,8 @@
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
           </svg>
-        </button>
+          Tambah Objek
+        </a>
       </div>
     </div>
     <div class="mb-4">

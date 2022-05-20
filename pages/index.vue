@@ -9,7 +9,7 @@
         class="mt-1 text-center text-gray-400 text-md md:text-xl"
       >Standalone and Integrated Working Paper</div>
       <div class="flex justify-center mt-6">
-        <NuxtLink to="/dashboard" class="btn-primary">Get Started</NuxtLink>
+        <NuxtLink to="/dashboard" class="btn-primary-outline">Get Started</NuxtLink>
       </div>
     </Container>
   </div>

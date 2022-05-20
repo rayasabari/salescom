@@ -16,19 +16,19 @@
           </ul>
         </template>
       </div>
-      <nav class="font-medium">
+      <nav class="flex items-center gap-1 font-medium">
         <template v-if="$auth.loggedIn">
-          <ul class="flex gap-4 text-sm text-gray-400">
+          <ul class="flex items-center gap-4 text-sm text-gray-400">
             <li>
-              <a href="#" @click.prevent="">{{$auth.user.name}}</a>
+              <a href="#" @click.prevent class="font-semibold">{{$auth.user.name}}</a>
             </li>
             <li>
-              <a href="#" @click.prevent="logout">Logout</a>
+              <a href="#" @click.prevent="logout" class="btn-primary-outline btn-sm">Logout</a>
             </li>
           </ul>
         </template>
         <template v-else>
-          <NuxtLink to="/login">Login</NuxtLink>
+          <NuxtLink to="/login" class="btn-primary btn-sm">Login</NuxtLink>
         </template>
       </nav>
     </Container>

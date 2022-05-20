@@ -54,8 +54,8 @@ export default {
       ],
       filter: {
         nama_jalan: null,
-        source: '',
-        jenis_properti: '',
+        source: "",
+        jenis_properti: "",
       },
       objek: {
         data: [],
@@ -80,7 +80,7 @@ export default {
     this.$root.$on("closeModal", () => (this.modalTambahObjek = false));
   },
   methods: {
-    async fetchData(url = "/objek/index?page=1") {
+    async fetchData(url = "/objek?page=1") {
       Block.hourglass(".objek-wrapper", {
         svgColor: "#14b8a6",
       });
@@ -110,6 +110,9 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+    close() {
+      this.modalTambahObjek = false;
     },
     openModalTambah() {
       this.modalTambahObjek = true;

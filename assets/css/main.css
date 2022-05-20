@@ -79,15 +79,23 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-1 px-4 py-2 font-medium text-white transition duration-300 rounded-lg bg-primary-500 hover:bg-primary-600 focus:outline-primary-600;
+    @apply inline-flex items-center justify-center gap-1 px-4 py-2 font-medium text-white transition-all duration-300 rounded-lg bg-primary-500 hover:bg-primary-600 focus:outline-primary-600;
   }
 
   .btn-primary-outline {
-    @apply inline-flex items-center justify-center gap-1 px-4 py-2 font-medium transition duration-300 border rounded-lg border-primary-500 hover:border-primary-600 focus:outline-primary-600 text-primary-500 hover:text-primary-600;
+    @apply inline-flex items-center justify-center gap-1 px-4 py-2 font-medium transition-all duration-300 border rounded-lg border-primary-500 hover:border-primary-400 focus:outline-primary-600 text-primary-500 hover:text-primary-400;
   }
 
   .btn-sm {
     @apply px-3 py-2 text-sm;
+  }
+
+  .btn-disabled{
+    @apply bg-opacity-40 hover:bg-opacity-40 cursor-not-allowed
+  }
+
+  .link {
+    @apply  font-semibold transition-all duration-300 text-primary-500 hover:text-primary-400;
   }
 
   .rhr-label {

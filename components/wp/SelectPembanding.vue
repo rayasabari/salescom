@@ -9,7 +9,7 @@
       </div>
       <div class="flex justify-center gap-3">
         <NuxtLink to="/dashboard" class="btn-primary-outline btn-sm">Kembali</NuxtLink>
-        <button @click="$parent.toggleShow('Map')" class="btn-primary btn-sm">
+        <button @click="$parent.toggleShow('Map')" class="flex items-center gap-2 btn-primary btn-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-4 h-4"

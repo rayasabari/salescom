@@ -10,7 +10,7 @@
       <ModalBackdrop v-if="showSetting" :closeButton="true">
         <LazyWpSetting />
       </ModalBackdrop>
-      <ModalBackdrop v-if="showMap" :closeButton="true">
+      <ModalBackdrop v-show="showMap" :closeButton="true">
         <LazyWpGmap :objek="objek" :pembandingAround="pembandingAround" />
       </ModalBackdrop>
       <ModalBackdrop v-if="showExportImport" :closeButton="true">
@@ -42,7 +42,7 @@ export default {
           link: false,
         },
       ],
-      radius: 2000,
+      radius: 1500,
       pembandingAround: [],
       selected_id: ["0"],
       hasPembanding: false,
@@ -77,23 +77,6 @@ export default {
     toggleShow(component) {
       this[`show${component}`] = !this[`show${component}`];
     },
-    // async getPembandingAround() {
-    //   try {
-    //     let response = await this.$axios.$get("/wp/pembanding/around", {
-    //       params: {
-    //         latitude: this.objek.latitude,
-    //         longitude: this.objek.longitude,
-    //         radius: this.radius,
-    //         selected_id: this.selected_id,
-    //       },
-    //       withCredentials: true,
-    //     });
-    //     console.log(response);
-    //     this.pembandingAround = response;
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
   },
 };
 </script>

@@ -323,6 +323,9 @@ export default {
     copyalamat_gmap() {
       this.objek.alamat = this.objek.alamat_gmap;
     },
+    closeFormCard() {
+      this.$root.$emit("closeModal");
+    },
   },
 };
 </script>

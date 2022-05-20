@@ -12,7 +12,7 @@
       <div class="flex flex-col justify-between md:flex-row">
         <div class="flex flex-col gap-1">
           <div
-            class="font-semibold transition-all duration-300 text-primary-400 group-hover:text-primary-500"
+            class="font-semibold transition-all duration-300 text-primary-500 group-hover:text-primary-400"
           >
             <NuxtLink :to="`/wp/${objek.id}`">{{ objek.jenis_properti }}</NuxtLink>
           </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[250px] text-center">
+  <div class="w-[250px] text-center" v-if="pembanding">
     <h2 class="pb-1 text-lg font-medium text-gray-600">{{ pembanding.jenis_properti.jenis_objek }}</h2>
     <div class="text-xs">{{ pembanding.alamat }}</div>
     <div class="flex py-3">
@@ -22,7 +22,7 @@
       <button
         type="button"
         @click="$parent.$parent.$parent.getPembandingChilds(pembanding.id)"
-        class="flex items-center justify-center gap-1 btn-primary btn-sm"
+        class="flex items-center justify-center gap-2 btn-primary btn-sm"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@
             d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
           />
         </svg>
-        <span>Detail</span>
+        <span>Details</span>
       </button>
     </div>
   </div>

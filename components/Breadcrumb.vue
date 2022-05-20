@@ -6,7 +6,7 @@
           <template v-if="item.link">
             <div class="flex">
               <NuxtLink
-                class="font-medium transition duration-200 hover:text-primary-600 text-primary-500"
+                class=" link"
                 :to="item.link"
               >{{ item.name }}</NuxtLink>
               <div class="flex items-center px-2 text-gray-400">
