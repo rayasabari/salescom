@@ -132,7 +132,7 @@ export default {
           withCredentials: true,
         });
         console.log(response);
-        this.pembandingChilds = response;
+        this.pembandingChilds = response.data;
         this.detailWindow = true;
       } catch (e) {
         console.log(e);

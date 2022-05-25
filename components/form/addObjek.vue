@@ -171,7 +171,7 @@
               ref="cancelButton"
               @click="cancel"
               class="btn-primary-outline"
-            >Cancel</button>
+            >Batal</button>
             <button type="submit" class="btn-primary">Submit</button>
           </div>
         </div>
