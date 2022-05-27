@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col gap-4">
       <div class="text-center">
-        Pembanding Belum dipilih, silahkan pilih
+        Pembanding belum dipilih, silahkan pilih
         <strong
           class="font-medium text-rose-500"
         >minimal 3 pembanding!</strong>

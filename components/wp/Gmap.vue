@@ -16,7 +16,7 @@
                 d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"
               />
             </svg>
-            <span class="">Click to load Maps</span>
+            <span class>Click to load Maps</span>
           </button>
         </div>
       </div>
@@ -37,6 +37,15 @@
           :icon="require(`@/assets/icons/marker/${pembanding.jenis_properti.marker}`)"
           :position="{lat: parseFloat(pembanding.latitude), lng: parseFloat(pembanding.longitude)}"
           @click="openInfoWindow(pembanding, idxaround, 'available')"
+        />
+
+        <!-- Marker Pembanding dipilih -->
+        <GmapMarker
+          v-for="(pembanding, idxselected) in pembandingSelected"
+          :key="idxselected"
+          :icon="require(`@/assets/icons/marker/markerpembandingselected.png`)"
+          :label="{text: (idxselected+1).toString(), color: 'black', fontSize: '18px', fontWeight: 'bold'}"
+          :position="{lat: parseFloat(pembanding.info_umum.latitude), lng: parseFloat(pembanding.info_umum.longitude)}"
         />
 
         <!-- Radius  -->
@@ -68,7 +77,7 @@
 <script>
 export default {
   name: "GmapWp",
-  props: ["objek", "pembandingAround"],
+  props: ["objek", "pembandingAround", "pembandingSelected"],
   data() {
     return {
       loadMap: false,

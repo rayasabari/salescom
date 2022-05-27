@@ -9,16 +9,14 @@
               class="object-cover w-full mb-2 rounded-lg"
             />
             <div class="mb-4">
-              <h2 class="mb-1 font-semibold text-center text-md text-primary-500">
-                {{ childs[0].jenis_properti }}
-              </h2>
-              <div class="text-xs text-center text-gray-400">
-                {{ childs[0].alamat }}
-              </div>
+              <h2
+                class="mb-1 font-semibold text-center text-md text-primary-500"
+              >{{ childs[0].jenis_properti }}</h2>
+              <div class="text-xs text-center text-gray-400">{{ childs[0].alamat }}</div>
             </div>
           </div>
           <div class="flex flex-col w-full gap-3 lg:w-8/12">
-            <WpCardPembanding v-for="(child, index) in childs" :key="index" :data="child"/>
+            <WpCardPembanding v-for="(child, index) in childs" :key="index" :pembanding="child" />
           </div>
         </div>
         <div class="flex justify-end gap-2">

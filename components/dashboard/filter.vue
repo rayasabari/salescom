@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky p-4 bg-white shadow top-20">
+  <div class="sticky p-4 bg-white rounded-lg shadow top-20">
     <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-200">
       <div class="text-xs">
         <span class="font-semibold">{{ objek.meta.total }}</span> data

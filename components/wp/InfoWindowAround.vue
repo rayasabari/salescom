@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[250px] text-center" v-if="pembanding">
+  <div class="w-[220px] text-center" v-if="pembanding">
     <h2 class="pb-1 text-lg font-medium text-gray-600">{{ pembanding.jenis_properti.jenis_objek }}</h2>
     <div class="text-xs">{{ pembanding.alamat }}</div>
     <div class="flex py-3">

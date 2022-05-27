@@ -3,7 +3,10 @@
     <div class="flex flex-col gap-2 mb-1 lg:items-center lg:flex-row lg:justify-between">
       <span class="font-medium text-green-500">Penawaran</span>
       <div>
-        <button class="flex items-center gap-1 text-xs btn-primary">
+        <button
+          @click="confirmPembanding(pembanding)"
+          class="flex items-center gap-1 text-xs btn-primary"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-4 h-4"
@@ -125,9 +128,49 @@
 </template>
 
 <script>
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 export default {
-  name: 'CardPembanding',
-  props: ['data']
+  name: "CardPembanding",
+  props: ["pembanding"],
+  methods: {
+    confirmPembanding(pbd) {
+      const pilih = () => this.pilihPembanding(pbd);
+      Confirm.show(
+        "Konfirmasi",
+        "Jadikan Pembanding?",
+        "Ya",
+        "Batal",
+        () => pilih(),
+        () => {},
+        {
+          width: "320px",
+          borderRadius: "8px",
+          titleColor: "#0d9488",
+          okButtonBackground: "#14b8a6",
+        }
+      );
+    },
+    async pilihPembanding(pbd) {
+      try {
+        const response = await this.$axios.$post(
+          "/wp/pembanding/pilih",
+          {
+            selected: pbd,
+            objek_id: this.$route.params.id
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(response);
+        this.$awn.success('Berhasil!');
+        this.$root.$emit('fetchWp');
+        this.$parent.$parent.closeFormCard();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
 };
 </script>
 

@@ -8,7 +8,7 @@
         <div class="flex justify-center w-full mt-3" v-if="closeButton">
           <div
             @click="close"
-            class="px-3 py-1 font-medium text-white transition duration-300 bg-gray-500 rounded-lg cursor-pointer text-opacity-80 hover:text-opacity-100 bg-opacity-30 hover:bg-opacity-50"
+            class="px-3 py-1 font-medium text-white transition duration-300 rounded-lg cursor-pointer bg-rose-500 hover:bg-rose-600"
           >Close</div>
         </div>
       </Container>

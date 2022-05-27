@@ -2,11 +2,13 @@
   <div
     class="flex flex-col w-full mb-2 overflow-hidden transition duration-300 bg-white rounded-lg shadow md:flex-row hover:-translate-y-1 group hover:shadow-lg"
   >
-    <div
-      class="w-full md:w-2/12 h-[200px] md:h-[120px] bg-slate-300 bg-cover flex items-center text-center"
-      :style="`background-image: url('${objek.foto}')`"
-    >
-      <span v-if="objek.foto == null" class="text-slate-100">No image available</span>
+    <div class="w-full overflow-hidden md:w-2/12">
+      <div
+        class="group-hover:scale-110 transition duration-500 w-full h-[200px] md:h-[120px] bg-slate-300 bg-cover flex items-center text-center"
+        :style="`background-image: url('${objek.foto}')`"
+      >
+        <span v-if="objek.foto == null" class="text-slate-100">No image available</span>
+      </div>
     </div>
     <div class="flex flex-col justify-between w-full px-4 py-3">
       <div class="flex flex-col justify-between md:flex-row">

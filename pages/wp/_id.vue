@@ -11,7 +11,7 @@
         <LazyWpSetting />
       </ModalBackdrop>
       <ModalBackdrop v-show="showMap" :closeButton="true">
-        <LazyWpGmap :objek="objek" :pembandingAround="pembandingAround" />
+        <LazyWpGmap :objek="objek" :pembandingAround="pembandingAround" :pembandingSelected="pembandingSelected" />
       </ModalBackdrop>
       <ModalBackdrop v-if="showExportImport" :closeButton="true">
         <LazyWpExportImport />
@@ -44,6 +44,7 @@ export default {
       ],
       radius: 1500,
       pembandingAround: [],
+      pembandingSelected: [],
       selected_id: ["0"],
       hasPembanding: false,
       objek: {
@@ -59,6 +60,9 @@ export default {
       this.showMap = false;
       this.showExportImport = false;
     });
+    this.$root.$on('fetchWp', () => {
+      this.fetchData();
+    })
   },
   methods: {
     async fetchData() {
@@ -69,6 +73,7 @@ export default {
         console.log(response);
         this.objek = response.data.objek;
         this.pembandingAround = response.data.pembandingAround;
+        this.pembandingSelected = response.data.pembandingSelected;
         this.hasPembanding = response.data.hasPembanding;
       } catch (e) {
         console.log(e);
