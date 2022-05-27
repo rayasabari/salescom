@@ -1,71 +1,82 @@
 <template>
   <section class="pt-2 shadow-sm">
     <div class="w-full h-[99vh] overflow-auto bg-white">
-      <div class="min-w-full bg-white">
-        <table id="wptable" class="text-xs">
+      <div class="min-w-full bg-white" id="wptable">
+        <table class="text-xs">
           <thead>
             <tr>
               <th class="t-separator">Deskripsi</th>
               <th>Objek</th>
-              <template v-for="n in 3">
-                <th :key="n" colspan="3" class="text-center">Pembanding {{n}}</th>
+              <template v-for="(pbd, idx) in pembandingSelected">
+                <th :key="idx" colspan="3" class="!text-center">Pembanding {{idx+1}}</th>
               </template>
             </tr>
           </thead>
           <tbody class="text-gray-500">
             <tr>
               <td>Alamat Properti</td>
-              <td>Jl. Rumah Sakit H. No.10, Kenangan Baru, Kec. Percut Sei Tuan, Kabupaten Deli Serdang, Sumatera Utara 20371.</td>
-              <td
-                colspan="3"
-              >Jl. Suluh, Sidorejo Hilir, Medan Tembung, Kota Medan, Sumatera Utara, Indonesia</td>
-              <td
-                colspan="3"
-              >JL. K.L. Yos Sudarso, Km. 7,1, No. 1 C, Tanjung Mulia, Medan Deli, Medan City, North Sumatra 20241, Indonesia</td>
-              <td
-                colspan="3"
-              >JL. K.L. Yos Sudarso, Km. 7,1, No. 1 C, Tanjung Mulia, Medan Deli, Medan City, North Sumatra 20241, Indonesia</td>
+              <td>{{objek.alamat}}</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'alamat'" colspan="3">{{pbd.info_umum.alamat}}</td>
+              </template>
             </tr>
             <tr>
               <td>Koordinat</td>
-              <td>3.61386, 98.71646</td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">3.61386, 98.71646</td>
+              <td>{{`${objek.latitude}, ${objek.longitude}`}}</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'koordinat'"
+                  colspan="3"
+                >{{ `${pbd.info_umum.latitude}, ${pbd.info_umum.longitude}` }}</td>
               </template>
             </tr>
             <tr>
               <td>Contact Person</td>
-              <td>Budi / 08123 45678</td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">Budi / 08123 45678</td>
+              <td>{{objek.nama_cp}}</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'nama_cp'"
+                  colspan="3"
+                >{{ `${pbd.info_umum.nama_cp} - ${pbd.info_umum.telepon_cp}`}}</td>
               </template>
             </tr>
             <tr>
               <td>Jenis Data</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">Penawaran</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'jenis_data'" colspan="3">{{ pbd.info_umum.jenis_data }}</td>
               </template>
             </tr>
             <tr>
               <td>Tanggal Transaksi / Penawaran</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">10 Januari 2022</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'tgl_data'" colspan="3">{{ pbd.info_umum.tgl_penawaran_transaksi }}</td>
               </template>
             </tr>
             <tr>
               <td>Jenis Properti</td>
-              <td>Rumah Tinggal</td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">Rumah Tinggal</td>
+              <td>{{objek.jenis_properti}}</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'jenis_properti'"
+                  colspan="3"
+                >{{ pbd.info_umum.jenis_properti.jenis_objek }}</td>
               </template>
             </tr>
             <tr>
               <td>Foto</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3"></td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'foto'" colspan="3">
+                  <div class="flex items-center justify-center py-2">
+                    <img
+                      class="h-[120px] rounded-lg w-[180px] object-cover"
+                      :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${pbd.pembanding_id}/original/${pbd.info_umum.foto.storage_name}`"
+                      :alt="'Foto Pembanding '+ (index+1)"
+                    />
+                  </div>
+                </td>
               </template>
             </tr>
             <tr>
@@ -74,10 +85,13 @@
                 100 m
                 <sup>2</sup>
               </td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">
-                  100 m
-                  <sup>2</sup>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'luas_tanah'" colspan="3">
+                  {{ numSeparator(pbd.info_umum.deskripsi_tapak.luas_tanah,1) }}
+                  <span>
+                    m
+                    <sup>2</sup>
+                  </span>
                 </td>
               </template>
             </tr>
@@ -87,10 +101,13 @@
                 180 m
                 <sup>2</sup>
               </td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">
-                  180 m
-                  <sup>2</sup>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'luas_tanah'" colspan="3">
+                  {{ numSeparator(pbd.info_umum.bangunan.luas_bangunan,1) }}
+                  <span>
+                    m
+                    <sup>2</sup>
+                  </span>
                 </td>
               </template>
             </tr>
@@ -631,9 +648,17 @@
 </template>
 
 <script>
+import numFormat from "@/services/numFormat";
 export default {
+  name: "WpTable",
+  props: ["objek", "pembandingSelected"],
   data() {
     return {};
+  },
+  methods: {
+    numSeparator(num, dec) {
+      return numFormat.separator(num, dec);
+    },
   },
 };
 </script>

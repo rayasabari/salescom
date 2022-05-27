@@ -3,76 +3,76 @@
 @tailwind utilities;
 
 @layer base {
-  table {
+  #wptable table {
     @apply relative border-separate;
     border-spacing: 0;
   }
 
-  table tr th,
-  table tr td {
+  #wptable table tr th,
+  #wptable table tr td {
     /* default cell */
     @apply px-2 py-1 text-center border-b border-r border-r-gray-200  border-b-gray-200 min-w-[105px] align-top;
   }
 
-  table tr th:first-child,
-  table tr td:first-child {
+  #wptable table tr th:first-child,
+  #wptable table tr td:first-child {
     /* fixed col */
     @apply font-semibold border-l z-10 text-left bg-white border-l-gray-200 min-w-[220px] md:sticky md:left-0;
   }
 
-  table tr th:first-child {
+  #wptable table tr th:first-child {
     /* fixed head col */
     @apply md:top-0 md:left-0 md:z-20;
   }
 
-  tr th.t-separator:first-child,
-  tr td.t-separator:first-child,
-  tr td.t-separator {
+  #wptable table tr th.t-separator:first-child,
+  #wptable table tr td.t-separator:first-child,
+  #wptable table tr td.t-separator {
     /* separator */
     @apply font-bold uppercase bg-primary-50;
   }
 
-  tr td.t-separator-dark:first-child,
-  tr td.t-separator-dark {
+  #wptable table tr td.t-separator-dark:first-child,
+  #wptable table tr td.t-separator-dark {
     @apply text-primary-50 bg-primary-700;
   }
 
-  table th:nth-child(2),
-  table td:nth-child(2) {
+  #wptable table th:nth-child(2),
+  #wptable table td:nth-child(2) {
     /* second col */
     @apply min-w-[250px] text-center;
   }
 
-  table td.t-nilai:nth-child(2) {
+  #wptable table td.t-nilai:nth-child(2) {
     @apply text-right;
   }
 
-  table tr th {
+  #wptable table tr th {
     /* border-top: 1px solid #bbb; */
     @apply sticky top-0 font-semibold text-left border-t border-t-gray-200 bg-primary-50;
   }
 
-  table tr {
+  #wptable table tr {
     @apply hover:bg-gray-50;
   }
 
   /* top-left border-radius */
-  table tr:first-child th:first-child {
+  #wptable table tr:first-child th:first-child {
     @apply rounded-tl-lg;
   }
 
   /* top-right border-radius */
-  table tr:first-child th:last-child {
+  #wptable table tr:first-child th:last-child {
     @apply rounded-tr-lg;
   }
 
   /* bottom-left border-radius */
-  table tr:last-child td:first-child {
+  #wptable table tr:last-child td:first-child {
     @apply rounded-bl-lg;
   }
 
   /* bottom-right border-radius */
-  table tr:last-child td:last-child {
+  #wptable table tr:last-child td:last-child {
     @apply rounded-br-lg;
   }
 }

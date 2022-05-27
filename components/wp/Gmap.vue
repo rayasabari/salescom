@@ -5,7 +5,7 @@
         <div
           class="flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50 backdrop-blur-md"
         >
-          <button @click="getLoadMap()" class="flex items-center gap-2 btn-primary">
+          <button @click="setLoadMap()" class="flex items-center gap-2 btn-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="w-4 h-4 animate-pulse"
@@ -23,6 +23,7 @@
     </template>
     <template v-else>
       <GmapMap :center="center" :zoom="15" map-type-id="terrain" class="w-full h-full">
+        
         <!-- Marker Objek -->
         <GmapMarker
           :position="center"
@@ -77,15 +78,10 @@
 <script>
 export default {
   name: "GmapWp",
-  props: ["objek", "pembandingAround", "pembandingSelected"],
+  props: ["objek",'center',"loadMap", "pembandingAround", "pembandingSelected"],
   data() {
     return {
-      loadMap: false,
       detailWindow: false,
-      center: {
-        lat: 0,
-        lng: 0,
-      },
       infoWindowOptions: {
         pixelOffset: {
           width: 0,
@@ -110,10 +106,8 @@ export default {
   },
   mounted() {},
   methods: {
-    getLoadMap() {
-      this.center.lat = parseFloat(this.objek.latitude);
-      this.center.lng = parseFloat(this.objek.longitude);
-      this.loadMap = true;
+    setLoadMap() {
+      this.$root.$emit('setLoadMap');
     },
     openInfoWindow(marker, idx, type) {
       this.infoWindowPos = {
