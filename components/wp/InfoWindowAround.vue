@@ -6,14 +6,14 @@
       <div class="flex flex-col w-1/2 gap-1 text-center">
         <span class="text-xs font-medium">Luas Tanah</span>
         <span class="text-base font-bold">
-          {{ numSeparator(100,1) }} m
+          {{ numSeparator(pembanding.deskripsi_tapak.luas_tanah,1) }} m
           <sup>2</sup>
         </span>
       </div>
       <div class="flex flex-col w-1/2 gap-1 text-center">
         <span class="text-xs font-medium">Luas Bangunan</span>
         <span class="text-base font-bold">
-          {{ numSeparator(100,1) }} m
+          {{ numSeparator(pembanding.bangunan.luas_bangunan,1) }} m
           <sup>2</sup>
         </span>
       </div>
