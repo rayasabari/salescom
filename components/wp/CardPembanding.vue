@@ -1,7 +1,7 @@
 <template>
   <div class="w-full p-4 transition-all duration-300 border rounded-lg hover:shadow-md">
     <div class="flex flex-col gap-2 mb-1 lg:items-center lg:flex-row lg:justify-between">
-      <span class="font-medium text-green-500">Penawaran</span>
+      <span class="font-medium text-green-500">{{pembanding.jenis_data}}</span>
       <div>
         <button
           @click="confirmPembanding(pembanding)"
@@ -37,7 +37,7 @@
             clip-rule="evenodd"
           />
         </svg>
-        <span>Pak Bambang</span>
+        <span v-tooltip="'Nama CP'">{{pembanding.nama_cp}}</span>
       </div>
       <div class="flex items-center gap-1">
         <svg
@@ -50,7 +50,7 @@
             d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
           />
         </svg>
-        <span>08123234567</span>
+        <span v-tooltip="'Telepon CP'">{{pembanding.telepon_cp}}</span>
       </div>
       <div class="flex items-center gap-1">
         <svg
@@ -66,7 +66,7 @@
             clip-rule="evenodd"
           />
         </svg>
-        <span>MTH</span>
+        <span v-tooltip="pembanding.user.created.name">{{pembanding.user.created.inisial}}</span>
       </div>
       <div class="flex items-center gap-1">
         <svg
@@ -83,45 +83,45 @@
             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <span>3 hours ago</span>
+        <span v-tooltip="pembanding.created_at.formatted">{{pembanding.created_at.forhumans}}</span>
       </div>
     </div>
     <div class="grid grid-cols-2 grid-rows-3 gap-3 lg:gap-4 lg:grid-cols-3 lg:grid-rows-2">
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">Tanggal Data</span>
-        <span class="font-medium">10 Mei 2022</span>
+        <span class="font-medium">{{pembanding.tanggal_data}}</span>
       </div>
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">Luas Tanah</span>
         <span class="font-medium">
-          100 m
+          {{ numSeparator(pembanding.luas_tanah,1) }} m
           <sup>2</sup>
         </span>
       </div>
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">Luas Bangunan</span>
         <span class="font-medium">
-          100 m
+          {{ numSeparator(pembanding.luas_bangunan,1) }} m
           <sup>2</sup>
         </span>
       </div>
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">Indikasi Harga</span>
-        <span class="font-medium">6.156.000.000</span>
+        <span class="font-medium">{{numSeparator(pembanding.indikasi_harga.properti,0)}}</span>
       </div>
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">
           per m
           <sup>2</sup> Tanah
         </span>
-        <span class="font-medium">3.800.000</span>
+        <span class="font-medium">{{numSeparator(pembanding.indikasi_harga.per_m2_tanah,0)}}</span>
       </div>
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">
           per m
           <sup>2</sup> Bangunan
         </span>
-        <span class="font-medium">3.800.000</span>
+        <span class="font-medium">{{numSeparator(pembanding.indikasi_harga.per_m2_bangunan,0)}}</span>
       </div>
     </div>
   </div>
@@ -129,6 +129,7 @@
 
 <script>
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
+import numFormat from "@/services/numFormat";
 export default {
   name: "CardPembanding",
   props: ["pembanding"],
@@ -156,20 +157,23 @@ export default {
           "/wp/pembanding/pilih",
           {
             selected: pbd,
-            objek_id: this.$route.params.id
+            objek_id: this.$route.params.id,
           },
           {
             withCredentials: true,
           }
         );
         console.log(response);
-        this.$awn.success('Berhasil!');
-        this.$root.$emit('fetchWp');
+        this.$awn.success("Berhasil!");
+        this.$root.$emit("fetchWp");
         this.$parent.$parent.closeFormCard();
       } catch (e) {
         console.log(e);
       }
     },
+    numSeparator(num, dec){
+      return numFormat.separator(num, dec);
+    }
   },
 };
 </script>

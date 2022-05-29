@@ -5,8 +5,8 @@
         <div class="flex flex-col w-full gap-4 lg:flex-row">
           <div class="flex flex-col w-full gap-2 mb-3 top-50 lg:w-4/12">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
-              class="object-cover w-full mb-2 rounded-lg"
+              :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${childs[0].id}/original/${childs[0].foto.storage_name}`"
+              class="object-cover w-full max-h-[250px] mb-2 rounded-lg"
             />
             <div class="mb-4">
               <h2
