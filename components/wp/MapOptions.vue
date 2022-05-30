@@ -25,8 +25,13 @@
           <span>Options</span>
         </div>
       </div>
-      <div :class="showOptions ? 'py-2': 'py-0'" class="h-full px-3 text-sm bg-white rounded-lg shadow-lg">
-        <div class="mt-4">Radius</div>
+      <div
+        :class="showOptions ? 'py-2': 'py-0'"
+        class="h-full px-3 text-sm bg-white rounded-lg shadow-lg"
+      >
+        <div class="flex items-center justify-center w-full h-full">
+          <div class="mt-4">Coming soon features...!</div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,12 +39,12 @@
 
 <script>
 export default {
-  name: 'MapOptions',
-  data(){
+  name: "MapOptions",
+  data() {
     return {
-      showOptions: false
-    }
-  }
+      showOptions: false,
+    };
+  },
 };
 </script>
 

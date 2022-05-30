@@ -20,6 +20,8 @@
             :pembandingSelected="pembandingSelected"
           />
         </ModalBackdrop>
+      </transition>
+      <transition name="fade">
         <ModalBackdrop v-if="showExportImport" :closeButton="true">
           <LazyWpExportImport />
         </ModalBackdrop>
