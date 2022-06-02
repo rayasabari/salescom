@@ -33,20 +33,20 @@
 
         <!-- Marker Pembanding Sekitar -->
         <GmapMarker
-          v-for="(pembanding, idxaround) in pembandingAround"
-          :key="idxaround"
-          :icon="require(`@/assets/icons/marker/${pembanding.jenis_properti.marker}`)"
+          v-for="(pembanding, index) in pembandingAround"
+          :key="index+'_around'"
+          :icon="require(`@/assets/icons/marker/${pembanding.icon}`)"
           :position="{lat: parseFloat(pembanding.latitude), lng: parseFloat(pembanding.longitude)}"
-          @click="openInfoWindow(pembanding, idxaround, 'available')"
+          @click="openInfoWindow(pembanding, index, 'available')"
         />
 
         <!-- Marker Pembanding dipilih -->
         <GmapMarker
-          v-for="(pembanding, idxselected) in pembandingSelected"
-          :key="idxselected"
+          v-for="(pembanding, index) in pembandingSelected"
+          :key="index+'_selected'"
           :icon="require(`@/assets/icons/marker/markerpembandingselected.png`)"
-          :label="{text: (idxselected+1).toString(), color: 'black', fontSize: '18px', fontWeight: 'bold'}"
-          :position="{lat: parseFloat(pembanding.info_umum.latitude), lng: parseFloat(pembanding.info_umum.longitude)}"
+          :label="{text: (index+1).toString(), color: 'black', fontSize: '18px', fontWeight: 'bold'}"
+          :position="{lat: parseFloat(pembanding.latitude), lng: parseFloat(pembanding.longitude)}"
         />
 
         <!-- Radius  -->

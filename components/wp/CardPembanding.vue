@@ -1,7 +1,10 @@
 <template>
   <div class="w-full p-4 transition-all duration-300 border rounded-lg hover:shadow-md">
     <div class="flex flex-col gap-2 mb-1 lg:items-center lg:flex-row lg:justify-between">
-      <span class="font-medium text-green-500">{{pembanding.jenis_data}}</span>
+      <span
+        class="font-medium"
+        :class="pembanding.jenis_data == 'Penawaran' ? 'text-green-500':'text-red-500'"
+      >{{pembanding.jenis_data}}</span>
       <div>
         <button
           @click="confirmPembanding(pembanding)"
@@ -94,15 +97,15 @@
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">Luas Tanah</span>
         <span class="font-medium">
-          {{ numSeparator(pembanding.luas_tanah,1) }} m
-          <sup>2</sup>
+          {{ numSeparator(pembanding.luas_tanah,1) }}
+          <Mpersegi />
         </span>
       </div>
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">Luas Bangunan</span>
         <span class="font-medium">
-          {{ numSeparator(pembanding.luas_bangunan,1) }} m
-          <sup>2</sup>
+          {{ numSeparator(pembanding.luas_bangunan,1) }}
+          <Mpersegi />
         </span>
       </div>
       <div class="flex flex-col w-full gap-1">
@@ -111,15 +114,15 @@
       </div>
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">
-          per m
-          <sup>2</sup> Tanah
+          per
+          <Mpersegi />Tanah
         </span>
         <span class="font-medium">{{numSeparator(pembanding.indikasi_harga.per_m2_tanah,0)}}</span>
       </div>
       <div class="flex flex-col w-full gap-1">
         <span class="text-xs text-gray-400">
-          per m
-          <sup>2</sup> Bangunan
+          per
+          <Mpersegi />Bangunan
         </span>
         <span class="font-medium">{{numSeparator(pembanding.indikasi_harga.per_m2_bangunan,0)}}</span>
       </div>
@@ -171,9 +174,9 @@ export default {
         console.log(e);
       }
     },
-    numSeparator(num, dec){
+    numSeparator(num, dec) {
       return numFormat.separator(num, dec);
-    }
+    },
   },
 };
 </script>

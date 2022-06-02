@@ -1,20 +1,18 @@
 <template>
   <div class="w-[220px] text-center" v-if="pembanding">
-    <h2 class="pb-1 text-lg font-medium text-gray-600">{{ pembanding.jenis_properti.jenis_objek }}</h2>
+    <h2 class="pb-1 text-lg font-medium text-gray-600">{{ pembanding.jenis_properti }}</h2>
     <div class="text-xs">{{ pembanding.alamat }}</div>
     <div class="flex py-3">
       <div class="flex flex-col w-1/2 gap-1 text-center">
         <span class="text-xs font-medium">Luas Tanah</span>
         <span class="text-base font-bold">
-          {{ numSeparator(pembanding.deskripsi_tapak.luas_tanah,1) }} m
-          <sup>2</sup>
+          {{ numSeparator(pembanding.luas_tanah,1) }} <Mpersegi/>
         </span>
       </div>
       <div class="flex flex-col w-1/2 gap-1 text-center">
         <span class="text-xs font-medium">Luas Bangunan</span>
         <span class="text-base font-bold">
-          {{ numSeparator(pembanding.bangunan.luas_bangunan,1) }} m
-          <sup>2</sup>
+          {{ numSeparator(pembanding.luas_bangunan,1) }} <Mpersegi/>
         </span>
       </div>
     </div>

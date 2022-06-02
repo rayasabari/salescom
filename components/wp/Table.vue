@@ -17,51 +17,42 @@
               <td>Alamat Properti</td>
               <td>{{objek.alamat}}</td>
               <template v-for="(pbd, index) in pembandingSelected">
-                <td :key="index+'alamat'" colspan="3">{{pbd.info_umum.alamat}}</td>
+                <td :key="index+'alamat'" colspan="3">{{pbd.alamat}}</td>
               </template>
             </tr>
             <tr>
               <td>Koordinat</td>
               <td>{{`${objek.latitude}, ${objek.longitude}`}}</td>
               <template v-for="(pbd, index) in pembandingSelected">
-                <td
-                  :key="index+'koordinat'"
-                  colspan="3"
-                >{{ `${pbd.info_umum.latitude}, ${pbd.info_umum.longitude}` }}</td>
+                <td :key="index+'koordinat'" colspan="3">{{ `${pbd.latitude}, ${pbd.longitude}` }}</td>
               </template>
             </tr>
             <tr>
               <td>Contact Person</td>
               <td>{{objek.nama_cp}}</td>
               <template v-for="(pbd, index) in pembandingSelected">
-                <td
-                  :key="index+'nama_cp'"
-                  colspan="3"
-                >{{ `${pbd.info_umum.nama_cp} - ${pbd.info_umum.telepon_cp}`}}</td>
+                <td :key="index+'nama_cp'" colspan="3">{{ `${pbd.nama_cp} - ${pbd.telepon_cp}`}}</td>
               </template>
             </tr>
             <tr>
               <td>Jenis Data</td>
               <td></td>
               <template v-for="(pbd, index) in pembandingSelected">
-                <td :key="index+'jenis_data'" colspan="3">{{ pbd.info_umum.jenis_data }}</td>
+                <td :key="index+'jenis_data'" colspan="3">{{ pbd.jenis_data }}</td>
               </template>
             </tr>
             <tr>
               <td>Tanggal Transaksi / Penawaran</td>
               <td></td>
               <template v-for="(pbd, index) in pembandingSelected">
-                <td :key="index+'tgl_data'" colspan="3">{{ pbd.info_umum.tgl_penawaran_transaksi }}</td>
+                <td :key="index+'tgl_data'" colspan="3">{{ pbd.tanggal_jenis_data }}</td>
               </template>
             </tr>
             <tr>
               <td>Jenis Properti</td>
               <td>{{objek.jenis_properti}}</td>
               <template v-for="(pbd, index) in pembandingSelected">
-                <td
-                  :key="index+'jenis_properti'"
-                  colspan="3"
-                >{{ pbd.info_umum.jenis_properti.jenis_objek }}</td>
+                <td :key="index+'jenis_properti'" colspan="3">{{ pbd.jenis_properti }}</td>
               </template>
             </tr>
             <tr>
@@ -72,7 +63,7 @@
                   <div class="flex items-center justify-center py-2">
                     <img
                       class="h-[120px] rounded-lg w-[180px] object-cover"
-                      :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${pbd.pembanding_id}/original/${pbd.info_umum.foto.storage_name}`"
+                      :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${pbd.pembanding_id}/original/${pbd.foto}`"
                       :alt="'Foto Pembanding '+ (index+1)"
                     />
                   </div>
@@ -82,112 +73,134 @@
             <tr>
               <td>Luas Tanah</td>
               <td>
-                100 m
-                <sup>2</sup>
+                {{ numSeparator(objek.luas_tanah,1) }}
+                <Mpersegi />
               </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'luas_tanah'" colspan="3">
-                  {{ numSeparator(pbd.info_umum.deskripsi_tapak.luas_tanah,1) }}
-                  <span>
-                    m
-                    <sup>2</sup>
-                  </span>
+                  {{ numSeparator(pbd.luas_tanah,1) }}
+                  <Mpersegi />
                 </td>
               </template>
             </tr>
             <tr>
               <td>Luas Bangunan</td>
               <td>
-                180 m
-                <sup>2</sup>
+                {{ numSeparator(objek.luas_banguan,1) }}
+                <Mpersegi />
               </td>
               <template v-for="(pbd, index) in pembandingSelected">
-                <td :key="index+'luas_tanah'" colspan="3">
-                  {{ numSeparator(pbd.info_umum.bangunan.luas_bangunan,1) }}
-                  <span>
-                    m
-                    <sup>2</sup>
-                  </span>
+                <td :key="index+'luas_bangunan'" colspan="3">
+                  {{ numSeparator(pbd.luas_bangunan,1) }}
+                  <Mpersegi />
                 </td>
               </template>
             </tr>
             <tr>
               <td class="t-separator">Unit Perbandingan</td>
-              <td class="t-separator" :colspan=" 1 + (3*3)"></td>
+              <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
             </tr>
             <tr>
               <td>Harga Penawaran</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">1.500.000.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'penawaran'" colspan="3">{{ numSeparator(pbd.harga.penawaran,0) }}</td>
               </template>
             </tr>
             <tr>
               <td>Harga Penawaran Tertinggi</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">0</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'penawaran_tertinggi'"
+                  colspan="3"
+                >{{ numSeparator(pbd.harga.penawaran_tertinggi,0) }}</td>
               </template>
             </tr>
             <tr>
               <td>Diskon</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">5 %</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'diskon'" colspan="3">{{ numSeparator(pbd.diskon,1) }} %</td>
               </template>
             </tr>
             <tr>
-              <td>Kemungkinan Transaksi</td>
+              <td>Indikasi Nilai Properti</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">1.425.000.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'nilai_properti'"
+                  colspan="3"
+                >{{ numSeparator(pbd.indikasi_nilai.properti,0) }}</td>
               </template>
             </tr>
             <tr>
               <td>Indikasi Nilai Bangunan</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">281.200.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'nilai_bangunan'"
+                  colspan="3"
+                >{{ numSeparator(pbd.indikasi_nilai.bangunan,0) }}</td>
               </template>
             </tr>
             <tr>
               <td>
-                Indikasi Nilai Bangunan per m
-                <sup>2</sup>
+                Indikasi Nilai Bangunan/<Mpersegi />
               </td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">3.515.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'nilai_bangunan_m2'"
+                  colspan="3"
+                >{{ numSeparator(pbd.indikasi_nilai.bangunan_m2,0) }}</td>
               </template>
             </tr>
             <tr>
-              <td>Indikasi Harga Transaksi</td>
+              <td>Indikasi Nilai Tanah</td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">1.143.800.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'nilai_tanah'"
+                  colspan="3"
+                >{{ numSeparator(pbd.indikasi_nilai.tanah,0) }}</td>
               </template>
             </tr>
             <tr>
               <td>
-                Indikasi Harga Transaksi Tanah per m
-                <sup>2</sup>
+                Indikasi Nilai Tanah/<Mpersegi />
               </td>
               <td></td>
-              <template v-for="n in 3">
-                <td :key="n" colspan="3">1.634.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'nilai_tanah_m2'"
+                  colspan="3"
+                >{{ numSeparator(pbd.indikasi_nilai.tanah_m2,0) }}</td>
+              </template>
+            </tr>
+            <tr>
+              <td>
+                Indikasi Nilai Properti/<Mpersegi /> Bangunan
+              </td>
+              <td></td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td
+                  :key="index+'nilai_tanah_m2'"
+                  colspan="3"
+                >{{ numSeparator(pbd.indikasi_nilai.properti_per_m2_bangunan,0) }}</td>
               </template>
             </tr>
             <tr>
               <td class="t-separator">Penyesuaian Transaksi</td>
-              <td class="t-separator" :colspan=" 1 + (3*3)"></td>
+              <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
             </tr>
             <tr>
               <td class="t-separator">Elemen Perbandingan</td>
               <td class="t-separator">Deskripsi</td>
-              <template v-for="n in 3">
-                <td :key="n" class="t-separator">Deskripsi</td>
-                <td :key="n" class="t-separator">Persen</td>
-                <td :key="n" class="t-separator">Penyesuaian</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'sep-desk'" class="t-separator">Deskripsi</td>
+                <td :key="index+'sep-persen'" class="t-separator">Persen</td>
+                <td :key="index+'sep-adjust'" class="t-separator">Penyesuaian</td>
               </template>
             </tr>
             <tr>
@@ -196,10 +209,10 @@
                 <div class="italic font-light text-right">Adjustment Price</div>
               </td>
               <td>SHM</td>
-              <template v-for="n in 3">
-                <td :key="n">SHM</td>
-                <td :key="n">0 %</td>
-                <td :key="n" class="grid grid-rows-2 gap-1">
+              <template v-for="(pbd,index) in pembandingSelected">
+                <td :key="index+'hap-desk'">SHM</td>
+                <td :key="index+'hap-persen'">0 %</td>
+                <td :key="index+'hap-adjust'" class="grid grid-rows-2 gap-1">
                   <div class="text-right border-b border-gray-300">300.000</div>
                   <div class="text-right">4.000.000</div>
                 </td>
@@ -352,13 +365,13 @@
             <tr>
               <td>Luas Tanah</td>
               <td>
-                100 m
-                <sup>2</sup>
+                100
+                <Mpersegi />
               </td>
               <template v-for="n in 3">
                 <td :key="n">
-                  100 m
-                  <sup>2</sup>
+                  100
+                  <Mpersegi />
                 </td>
                 <td :key="n">0 %</td>
                 <td :key="n" class="text-right">123.000</td>
@@ -627,8 +640,8 @@
             </tr>
             <tr>
               <td class="t-separator-dark">
-                Nilai ... per m
-                <sup>2</sup>
+                Nilai ... per
+                <Mpersegi />
               </td>
               <td class="font-semibold t-nilai t-separator-dark">1.000.000</td>
             </tr>
