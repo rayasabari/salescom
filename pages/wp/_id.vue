@@ -86,6 +86,10 @@ export default {
     this.$root.$on("setLoadMap", () => {
       this.loadMap = true;
     });
+    this.$root.$on("removePembanding", (id) => {
+      // console.log(id + ' - ' + this.$route.params.id);
+      this.removePembanding(id);
+    });
   },
   methods: {
     async fetchData() {
@@ -106,6 +110,23 @@ export default {
         Block.remove(".wppage");
       } catch (e) {
         console.log(e);
+      }
+    },
+    async removePembanding(id) {
+      try {
+        let response = await this.$axios.$post(
+          `/wp/pembanding/remove/`,
+          {
+            pembanding_id: id,
+            objek_id: this.$route.params.id,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
       }
     },
     toggleShow(component) {

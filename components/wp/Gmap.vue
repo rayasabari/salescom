@@ -23,7 +23,6 @@
     </template>
     <template v-else>
       <GmapMap :center="center" :zoom="15" map-type-id="terrain" class="w-full h-full">
-        
         <!-- Marker Objek -->
         <GmapMarker
           :position="center"
@@ -37,7 +36,7 @@
           :key="index+'_around'"
           :icon="require(`@/assets/icons/marker/${pembanding.icon}`)"
           :position="{lat: parseFloat(pembanding.latitude), lng: parseFloat(pembanding.longitude)}"
-          @click="openInfoWindow(pembanding, index, 'available')"
+          @click="openInfoWindow(pembanding, index, 'around')"
         />
 
         <!-- Marker Pembanding dipilih -->
@@ -47,6 +46,7 @@
           :icon="require(`@/assets/icons/marker/markerpembandingselected.png`)"
           :label="{text: (index+1).toString(), color: 'black', fontSize: '18px', fontWeight: 'bold'}"
           :position="{lat: parseFloat(pembanding.latitude), lng: parseFloat(pembanding.longitude)}"
+          @click="openInfoWindow(pembanding, index, 'selected')"
         />
 
         <!-- Radius  -->
@@ -64,7 +64,15 @@
           :opened="infoWindowOpen"
           @closeclick="infoWindowOpen=false"
         >
-          <WpInfoWindowAround :pembanding="pembandingAround[currentIdx]" />
+          <WpInfoWindowAround
+            v-if="infoWindowType == 'around'"
+            :pembanding="pembandingAround[currentIdx]"
+          />
+          <WpInfoWindowSelected
+            v-if="infoWindowType == 'selected'"
+            :pembanding="pembandingSelected[currentIdx]"
+            :no="currentIdx+1"
+          />
         </GmapInfoWindow>
       </GmapMap>
       <WpMapOptions />
@@ -78,7 +86,13 @@
 <script>
 export default {
   name: "GmapWp",
-  props: ["objek",'center',"loadMap", "pembandingAround", "pembandingSelected"],
+  props: [
+    "objek",
+    "center",
+    "loadMap",
+    "pembandingAround",
+    "pembandingSelected",
+  ],
   data() {
     return {
       detailWindow: false,
@@ -95,6 +109,7 @@ export default {
         lng: 0,
       },
       infoWindowOpen: false,
+      infoWindowType: "",
       optionradius: {
         strokeWeight: 2,
         strokeColor: "#00b185",
@@ -107,20 +122,12 @@ export default {
   mounted() {},
   methods: {
     setLoadMap() {
-      this.$root.$emit('setLoadMap');
+      this.$root.$emit("setLoadMap");
     },
     openInfoWindow(marker, idx, type) {
       this.infoWindowPos = {
-        lat: parseFloat(
-          type === "available"
-            ? marker.latitude
-            : marker.one_pembanding.latitude
-        ),
-        lng: parseFloat(
-          type === "available"
-            ? marker.longitude
-            : marker.one_pembanding.longitude
-        ),
+        lat: parseFloat(marker.latitude),
+        lng: parseFloat(marker.longitude),
       };
       if (this.currentIdx === idx) {
         this.infoWindowOpen = !this.infoWindowOpen;
@@ -128,6 +135,7 @@ export default {
         this.infoWindowOpen = true;
         this.currentIdx = idx;
       }
+      this.infoWindowType = type;
     },
     async getPembandingChilds(id) {
       try {
