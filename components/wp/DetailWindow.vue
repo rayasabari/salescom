@@ -1,6 +1,6 @@
 <template>
   <div class="absolute inset-0 flex items-center justify-center p-4 bg-gray-900 bg-opacity-30">
-    <FormCard :title="'Detail Pembanding'" class="max-h-full">
+    <FormCard :title="'Detail Pembanding'" class="max-h-full" custumWidth="lg:w-11/12 xl:w-9/12">
       <div class="flex flex-col gap-4">
         <div class="flex flex-col w-full gap-4 lg:flex-row">
           <div class="flex flex-col w-full gap-2 mb-3 top-50 lg:w-4/12">

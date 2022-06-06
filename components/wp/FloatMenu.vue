@@ -76,7 +76,7 @@
     </transition>
     <div class="p-2">
       <div
-        @click="floatMenu = !floatMenu"
+        @click="$parent.toggleFloatMenu()"
         class="flex items-center justify-center p-2 text-white rounded-full shadow-lg cursor-pointer bg-primary-500"
       >
         <svg

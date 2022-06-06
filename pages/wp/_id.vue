@@ -7,11 +7,11 @@
       <div class="w-full px-2 transition-all duration-200" v-if="hasPembanding">
         <WpTable :objek="objek" :pembandingSelected="pembandingSelected" />
       </div>
-      <transition name="fade">
-        <ModalBackdrop v-if="showSetting" :closeButton="true">
+      <transition-group name="fade">
+        <ModalBackdrop key="wpSetting" v-if="showSetting" :closeButton="true">
           <LazyWpSetting />
         </ModalBackdrop>
-        <ModalBackdrop v-show="showMap" :closeButton="true">
+        <ModalBackdrop key="wpMap" v-show="showMap" :closeButton="true">
           <WpGmap
             :objek="objek"
             :center="center"
@@ -20,12 +20,13 @@
             :pembandingSelected="pembandingSelected"
           />
         </ModalBackdrop>
-      </transition>
-      <transition name="fade">
-        <ModalBackdrop v-if="showExportImport" :closeButton="true">
+        <ModalBackdrop key="wpExpoertImport" v-if="showExportImport" :closeButton="true">
           <LazyWpExportImport />
         </ModalBackdrop>
-      </transition>
+        <ModalBackdrop key="wpEditObjek" v-show="showEditObjek" :closeButton="false">
+          <WpEditObjek />
+        </ModalBackdrop>
+      </transition-group>
       <LazyWpFloatMenu :hasPembanding="hasPembanding" :floatMenu="floatMenu" />
     </template>
   </div>
@@ -33,6 +34,7 @@
 
 <script>
 import { Block } from "notiflix/build/notiflix-block-aio";
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 export default {
   name: "WP",
   layout: "wp",
@@ -44,6 +46,7 @@ export default {
       showMap: false,
       showExportImport: false,
       showSetting: false,
+      showEditObjek: false,
       floatMenu: true,
       breadcrumbs: [
         {
@@ -71,14 +74,13 @@ export default {
     };
   },
   mounted() {
-    Block.hourglass(".wppage", "Mengambil data...", {
-      svgColor: "#14b8a6",
-    });
+    Block.hourglass(".wppage", "Mengambil data...");
     this.fetchData();
     this.$root.$on("closeModal", () => {
       this.showSetting = false;
       this.showMap = false;
       this.showExportImport = false;
+      this.showEditObjek = false;
     });
     this.$root.$on("fetchWp", () => {
       this.fetchData();
@@ -86,9 +88,8 @@ export default {
     this.$root.$on("setLoadMap", () => {
       this.loadMap = true;
     });
-    this.$root.$on("removePembanding", (id) => {
-      // console.log(id + ' - ' + this.$route.params.id);
-      this.removePembanding(id);
+    this.$root.$on("removePembanding", (id, index) => {
+      this.confirmRemovePembanding(id, index);
     });
   },
   methods: {
@@ -112,20 +113,38 @@ export default {
         console.log(e);
       }
     },
+    toggleFloatMenu() {
+      this.floatMenu = !this.floatMenu;
+    },
+    confirmRemovePembanding(id, index) {
+      const remove = () => this.removePembanding(id, index);
+      Confirm.show(
+        "Konfirmasi",
+        `Remove Pembanding ${index}?`,
+        "Ya",
+        "Batal",
+        () => {
+          remove();
+        },
+        () => {}
+      );
+    },
     async removePembanding(id) {
       try {
         let response = await this.$axios.$post(
-          `/wp/pembanding/remove/`,
+          `/wp/pembanding/remove`,
           {
-            pembanding_id: id,
-            objek_id: this.$route.params.id,
+            id: id,
           },
           {
             withCredentials: true,
           }
         );
-        console.log(response);
+        this.$awn.success(response.message);
+        this.$root.$emit("closeInfoWindow");
+        this.fetchData();
       } catch (e) {
+        this.$awn.alert(e.response.data.message);
         console.log(e.response);
       }
     },

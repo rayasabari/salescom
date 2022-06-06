@@ -1,5 +1,5 @@
 <template>
-  <FormCard :title="title">
+  <FormCard :title="title" custumWidth="lg:w-11/12 xl:w-9/12">
     <div class="w-full lg:w-8/12">
       <transition name="fade">
         <div
@@ -169,7 +169,7 @@
             <button
               type="button"
               ref="cancelButton"
-              @click="cancel"
+              @click="closeFormCard"
               class="btn-primary-outline"
             >Batal</button>
             <button type="submit" class="btn-primary">Submit</button>
@@ -282,9 +282,6 @@ export default {
         console.log(error);
       }
       this.objek.kelurahan_id = null;
-    },
-    cancel() {
-      this.$root.$emit("closeModal");
     },
     setPlace(place) {
       this.center = {

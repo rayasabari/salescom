@@ -145,13 +145,7 @@ export default {
         "Ya",
         "Batal",
         () => pilih(),
-        () => {},
-        {
-          width: "320px",
-          borderRadius: "8px",
-          titleColor: "#0d9488",
-          okButtonBackground: "#14b8a6",
-        }
+        () => {}
       );
     },
     async pilihPembanding(pbd) {
@@ -168,6 +162,7 @@ export default {
         );
         console.log(response);
         this.$awn.success("Berhasil!");
+        this.$root.$emit("closeInfoWindow");
         this.$root.$emit("fetchWp");
         this.$parent.$parent.closeFormCard();
       } catch (e) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full overflow-hidden overflow-y-auto bg-white rounded-lg shadow-lg lg:w-11/12 xl:w-9/12">
+  <div class="w-full overflow-hidden overflow-y-auto bg-white rounded-lg shadow-lg" :class="custumWidth">
     <div
       class="flex items-center justify-between px-4 py-3 font-medium border-b border-primary-200 bg-primary-50 text-primary-600"
     >
@@ -29,7 +29,7 @@
 <script>
 export default {
   name: "FormCard",
-  props: ["title"],
+  props: ["title","custumWidth"],
 };
 </script>
 

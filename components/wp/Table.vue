@@ -12,7 +12,7 @@
                   <div class="flex items-center justify-center gap-2">
                     <span>Pembanding {{idx+1}}</span>
                     <button
-                      @click="removePembanding(pbd.id)"
+                      @click="removePembanding(pbd.id, idx+1)"
                       v-tooltip="'Remove Pembanding '+(idx+1)"
                     >
                       <svg
@@ -52,7 +52,18 @@
             </tr>
             <tr>
               <td>Contact Person</td>
-              <td>{{objek.nama_cp}}</td>
+              <td>
+                <div
+                  class="relative flex items-center justify-center gap-2"
+                  @click="modalEditObjek('Contact Person', '', 'text')"
+                >
+                  <div
+                    v-if="objek.nama_cp != null"
+                  >{{ objek.nama_cp + ' - (' + objek.telepon_cp +')' }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                  <WpEditIcon />
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'nama_cp'" colspan="3">{{ `${pbd.nama_cp} - ${pbd.telepon_cp}`}}</td>
               </template>
@@ -96,8 +107,17 @@
             <tr>
               <td>Luas Tanah</td>
               <td>
-                {{ numSeparator(objek.luas_tanah,1) }}
-                <Mpersegi />
+                <div
+                  class="relative flex items-center justify-center gap-2"
+                  @click="modalEditObjek('Luas Tanah', 'luas_tanah','number')"
+                >
+                  <div v-if="objek.luas_tanah != null">
+                    {{ numSeparator(objek.luas_tanah,1) }}
+                    <Mpersegi />
+                  </div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                  <WpEditIcon />
+                </div>
               </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'luas_tanah'" colspan="3">
@@ -315,19 +335,19 @@
             <tr>
               <td>Jarak Terhadap</td>
               <td>7.668,0 m</td>
-              <template v-for="n in 3">
-                <td :key="n">6.331,0 m</td>
-                <td :key="n">0 %</td>
-                <td :key="n" class="text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'jrk-desc'">6.331,0 m</td>
+                <td :key="index+'jrk-persen'">0 %</td>
+                <td :key="index+'jrk-value'" class="text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>Kelas Jalan</td>
               <td>Jalan Arteri</td>
-              <template v-for="n in 3">
-                <td :key="n">Jalan Kolektor</td>
-                <td :key="n">0 %</td>
-                <td :key="n" class="text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'klj-desc'">Jalan Kolektor</td>
+                <td :key="index+'klj-persen'">0 %</td>
+                <td :key="index+'klj-value'" class="text-right">123.000</td>
               </template>
             </tr>
             <tr>
@@ -562,28 +582,28 @@
             <tr>
               <td>...</td>
               <td>...</td>
-              <template v-for="n in pembandingSelected.length">
-                <td :key="n">...</td>
-                <td :key="n">0 %</td>
-                <td :key="n" class="text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected.length">
+                <td :key="index+'lny1-desc'">...</td>
+                <td :key="index+'lny1-persen'">0 %</td>
+                <td :key="index+'lny1-value'" class="text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>...</td>
               <td>...</td>
-              <template v-for="n in pembandingSelected.length">
-                <td :key="n">...</td>
-                <td :key="n">0 %</td>
-                <td :key="n" class="text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected.length">
+                <td :key="index+'lny2-desc'">...</td>
+                <td :key="index+'lny2-persen'">0 %</td>
+                <td :key="index+'lny2-value'" class="text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>...</td>
               <td>...</td>
-              <template v-for="n in pembandingSelected.length">
-                <td :key="n">...</td>
-                <td :key="n">0 %</td>
-                <td :key="n" class="text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected.length">
+                <td :key="index+'lny3-desc'">...</td>
+                <td :key="index+'lny3-persen'">0 %</td>
+                <td :key="index+'lny3-value'" class="text-right">123.000</td>
               </template>
             </tr>
             <tr>
@@ -593,64 +613,64 @@
             <tr>
               <td>Net Adjustment</td>
               <td></td>
-              <template v-for="n in pembandingSelected.length">
-                <td :key="n"></td>
-                <td :key="n">0 %</td>
-                <td :key="n" class="text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected.length">
+                <td :key="index+'netadj'"></td>
+                <td :key="index+'netadj-persen'">0 %</td>
+                <td :key="index+'netadj-value'" class="text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>Harga Setelah Adjustment</td>
               <td></td>
-              <template v-for="n in pembandingSelected.length">
-                <td :key="n"></td>
-                <td :key="n"></td>
-                <td :key="n" class="font-semibold text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected.length">
+                <td :key="index+'hsa-desc'"></td>
+                <td :key="index+'hsa-persen'"></td>
+                <td :key="index+'hsa-value'" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td class="t-separator">Rekonsiliasi</td>
-              <td class="t-separator" :colspan=" 1 + (3*3)"></td>
+              <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
             </tr>
             <tr>
               <td>Gross Adjustment</td>
               <td class="font-semibold t-nilai">79,84 %</td>
-              <template v-for="n in 3">
-                <td :key="n"></td>
-                <td :key="n">25 %</td>
-                <td :key="n" class="font-semibold text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'grs-desc'"></td>
+                <td :key="index+'grs-persen'">25 %</td>
+                <td :key="index+'grs-value'" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>Bobot Absolute</td>
               <td class="font-semibold t-nilai">100,00 %</td>
-              <template v-for="n in 3">
-                <td :key="n"></td>
-                <td :key="n">25 %</td>
-                <td :key="n" class="font-semibold text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'bbt-desc'"></td>
+                <td :key="index+'bbt-persen'">25 %</td>
+                <td :key="index+'bbt-value'" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>Inverse</td>
               <td class="font-semibold t-nilai">200,00 %</td>
-              <template v-for="n in 3">
-                <td :key="n"></td>
-                <td :key="n">25 %</td>
-                <td :key="n" class="font-semibold text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'inv-desc'"></td>
+                <td :key="index+'inv-persen'">25 %</td>
+                <td :key="index+'inv-value'" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td>Bobot Inverse</td>
               <td class="font-semibold t-nilai">100,00 %</td>
-              <template v-for="n in 3">
-                <td :key="n"></td>
-                <td :key="n">25 %</td>
-                <td :key="n" class="font-semibold text-right">123.000</td>
+              <template v-for="(pbd, index) in pembandingSelected">
+                <td :key="index+'bbi-desc'"></td>
+                <td :key="index+'bbi-persen'">25 %</td>
+                <td :key="index+'bbi-value'" class="font-semibold text-right">123.000</td>
               </template>
             </tr>
             <tr>
               <td class="t-separator">Kisaran Nilai</td>
-              <td class="t-separator" :colspan=" 1 + (3*3)"></td>
+              <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
             </tr>
             <tr>
               <td>Min</td>
@@ -695,8 +715,35 @@ export default {
     return {};
   },
   methods: {
-    removePembanding(id) {
-      this.$root.$emit("removePembanding", id);
+    modalEditObjek(title, slug, type) {
+      let fields = [];
+      if (title == "Contact Person") {
+        fields = [
+          {
+            label: "Nama CP",
+            slug: "nama_cp",
+            type: "text",
+          },
+          {
+            label: "Telepon CP",
+            slug: "telepon_cp",
+            type: "text",
+          },
+        ];
+      } else {
+        fields = [
+          {
+            label: title,
+            slug: slug,
+            type: type,
+          },
+        ];
+      }
+      this.$root.$emit("getFieldsModal", title, fields, this.objek);
+      this.$parent.toggleShow("EditObjek");
+    },
+    removePembanding(id, index) {
+      this.$root.$emit("removePembanding", id, index);
     },
     numSeparator(num, dec) {
       return numFormat.separator(num, dec);

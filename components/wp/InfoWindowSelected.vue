@@ -22,7 +22,7 @@
     <div class="flex items-center justify-center mb-2">
       <button
         type="button"
-        @click="removePembanding(pembanding.id)"
+        @click="removePembanding(pembanding.id, no)"
         class="flex items-center justify-center gap-2 btn-danger btn-sm"
       >
         <svg
@@ -51,8 +51,8 @@ export default {
   name: "InfoWindowSelected",
   props: ["pembanding", "no"],
   methods: {
-    removePembanding(id) {
-      this.$root.$emit("removePembanding", id);
+    removePembanding(id, index) {
+      this.$root.$emit("removePembanding", id, index);
     },
     numSeparator(num, dec) {
       return numFormat.separator(num, dec);

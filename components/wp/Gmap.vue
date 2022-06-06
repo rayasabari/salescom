@@ -119,7 +119,12 @@ export default {
       },
     };
   },
-  mounted() {},
+  mounted() {
+    this.$root.$on("closeInfoWindow", () => {
+      this.infoWindowOpen = false;
+      this.infoWindowType = '';
+    });
+  },
   methods: {
     setLoadMap() {
       this.$root.$emit("setLoadMap");
