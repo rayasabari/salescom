@@ -1,17 +1,47 @@
 <template>
-  <FormCard :title="title" :custumWidth="'lg:w-4/12'">
+  <FormCard :title="'Objek Penilaian'" :custumWidth="'lg:w-4/12'">
     <div class="w-full">
       <form @submit.prevent="update">
         <div class="mb-4" v-for="(field, index) in fields" :key="index">
           <label :for="field.slug" class="rhr-label">{{field.label}}</label>
-          <input
-            :name="field.slug"
-            :id="field.slug"
-            :type="field.type"
-            class="rhr-input"
-            v-model="data[field.slug]"
-            required
-          />
+
+          <div v-if="field.type == 'number' || field.type == 'text'">
+            <input
+              :name="field.slug"
+              :id="field.slug"
+              :type="field.type"
+              class="rhr-input"
+              v-model="data[field.slug]"
+              required
+            />
+          </div>
+
+          <div v-if="title == 'Hak Atas Properti'">
+            <select
+              class="rhr-input"
+              :name="field.slug"
+              :id="field.slug"
+              v-model="data.hak_atas_properti_id"
+            >
+              <template v-for="(item, idx) in options.hak_atas_properti">
+                <option :value="item.id" :key="idx">{{item.singkatan}}</option>
+              </template>
+            </select>
+          </div>
+
+          <div v-if="field.type == 'options' && title != 'Hak Atas Properti'">
+            <select
+              class="rhr-input"
+              :name="field.slug"
+              :id="field.slug"
+              v-model="data[field.slug]"
+            >
+              <template v-for="(item, idx) in options[field.slug]">
+                <option :value="item" :key="idx">{{item}}</option>
+              </template>
+            </select>
+          </div>
+
           <!-- <transition name="fade">
             <span
               class="mt-1 text-xs text-rose-400"
@@ -19,7 +49,7 @@
             >{{errors[`data.${field.slug}`][0]}}</span>
           </transition>-->
         </div>
-        <div class="flex justify-end">
+        <div class="flex justify-end mt-6">
           <div class="flex gap-2">
             <button
               type="button"
@@ -42,19 +72,34 @@ export default {
     return {
       title: "",
       fields: [],
-      data: {},
+      data: {
+        hak_atas_properti_id: null,
+      },
+      options: {},
     };
   },
   mounted() {
+    this.fetchOptions();
     this.$root.$on("getFieldsModal", (title, fields, objek) => {
-      this.title = "Edit " + title;
+      this.title = title;
       this.fields = fields;
-      fields.map((item, index) => {
+      fields.map((item) => {
         this.data[item.slug] = objek[item.slug];
       });
     });
   },
   methods: {
+    async fetchOptions() {
+      try {
+        let response = await this.$axios.$get("/wp/options/list", {
+          withCredentials: true,
+        });
+        console.log(response);
+        this.options = response;
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
     closeFormCard() {
       this.$root.$emit("closeModal");
     },
@@ -66,6 +111,7 @@ export default {
             fields: this.fields,
             objek: this.data,
             id: this.$route.params.id,
+            title: this.title,
           },
           {
             withCredentials: true,
@@ -74,6 +120,7 @@ export default {
         console.log(response);
         this.$refs.cancelButton.click();
         this.$root.$emit("fetchWp");
+        this.$awn.success(response.message);
       } catch (e) {
         console.log(e.response);
       }

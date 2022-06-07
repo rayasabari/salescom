@@ -8,6 +8,8 @@
         <div class="flex justify-center w-full mt-3" v-if="closeButton">
           <div
             @click="close"
+            v-shortkey="['esc']"
+            @shortkey="close"
             class="px-3 py-1 font-medium text-white transition duration-300 rounded-lg cursor-pointer bg-rose-500 hover:bg-rose-600"
           >Close</div>
         </div>

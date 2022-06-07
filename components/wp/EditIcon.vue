@@ -1,8 +1,8 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="absolute right-0 w-4 h-4 transition duration-300 cursor-pointer focus:outline-none text-sky-400 hover:text-sky-500"
-    v-tooltip="'Edit'"
+    class="right-0 w-4 h-4 transition duration-300 cursor-pointer focus:outline-none text-sky-400 hover:text-sky-500"
+    v-tooltip="'Update'"
     viewBox="0 0 20 20"
     fill="currentColor"
   >

@@ -34,7 +34,8 @@ export default {
   plugins: [
     { src: "~/plugins/google-maps", ssr: false },
     { src: "~/plugins/v-tooltip" },
-    { src: "~/plugins/awesome-notification" }
+    { src: "~/plugins/awesome-notification" },
+    { src: "~/plugins/vue-shortkey", mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

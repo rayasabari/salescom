@@ -54,14 +54,15 @@
               <td>Contact Person</td>
               <td>
                 <div
-                  class="relative flex items-center justify-center gap-2"
+                  class="flex items-center justify-center gap-2 cursor-pointer"
                   @click="modalEditObjek('Contact Person', '', 'text')"
                 >
                   <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
                     v-if="objek.nama_cp != null"
                   >{{ objek.nama_cp + ' - (' + objek.telepon_cp +')' }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
-                  <WpEditIcon />
+                  <!-- <WpEditIcon /> -->
                 </div>
               </td>
               <template v-for="(pbd, index) in pembandingSelected">
@@ -108,15 +109,17 @@
               <td>Luas Tanah</td>
               <td>
                 <div
-                  class="relative flex items-center justify-center gap-2"
+                  class="flex items-center justify-center gap-2 cursor-pointer"
                   @click="modalEditObjek('Luas Tanah', 'luas_tanah','number')"
                 >
-                  <div v-if="objek.luas_tanah != null">
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.luas_tanah != null"
+                  >
                     {{ numSeparator(objek.luas_tanah,1) }}
                     <Mpersegi />
                   </div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
-                  <WpEditIcon />
                 </div>
               </td>
               <template v-for="(pbd, index) in pembandingSelected">
@@ -129,8 +132,19 @@
             <tr>
               <td>Luas Bangunan</td>
               <td>
-                {{ numSeparator(objek.luas_banguan,1) }}
-                <Mpersegi />
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Luas Bangunan', 'luas_bangunan','number')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.luas_bangunan != null"
+                  >
+                    {{ numSeparator(objek.luas_bangunan,1) }}
+                    <Mpersegi />
+                  </div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
               </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'luas_bangunan'" colspan="3">
@@ -254,7 +268,18 @@
                 <div class="font-medium text-left">Hak Atas Properti</div>
                 <div class="italic font-light text-right">Adjustment Price</div>
               </td>
-              <td>SHM</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Hak Atas Properti', 'hak_atas_properti_id','options')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.hak_atas_properti != null"
+                  >{{ objek.hak_atas_properti.singkatan }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'hap-desc'">{{pbd.hak_atas_properti}}</td>
                 <td :key="index+'hap-persen'">0 %</td>
@@ -266,10 +291,21 @@
             </tr>
             <tr>
               <td class="grid grid-rows-2 gap-1">
-                <div class="font-medium text-left">Syarat Pembiayaan</div>
+                <div class="font-medium text-left">Syarat Pembayaran</div>
                 <div class="italic font-light text-right">Adjustment Price</div>
               </td>
-              <td>Tunai</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Syarat Pembayaran', 'syarat_pembayaran','options')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.syarat_pembayaran != null"
+                  >{{ objek.syarat_pembayaran }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'sp-desc'">{{pbd.syarat_pembayaran}}</td>
                 <td :key="index+'sp-persen'">0 %</td>
@@ -284,7 +320,18 @@
                 <div class="font-medium text-left">Kondisi Penjualan</div>
                 <div class="italic font-light text-right">Adjustment Price</div>
               </td>
-              <td>Normal</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Kondisi Penjualan', 'kondisi_penjualan','options')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.kondisi_penjualan != null"
+                  >{{ objek.kondisi_penjualan }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'kj-desc'">{{pbd.kondisi_penjualan}}</td>
                 <td :key="index+'kj-persen'">0 %</td>
@@ -299,7 +346,18 @@
                 <div class="font-medium text-left">Pengeluaran Setelah Pembelian</div>
                 <div class="italic font-light text-right">Adjustment Price</div>
               </td>
-              <td>Tidak Ada</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Pengeluaran Setelah Pembelian', 'pengeluaran_setelah_pembelian','options')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.pengeluaran_setelah_pembelian != null"
+                  >{{ objek.pengeluaran_setelah_pembelian }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'psp-desc'">{{pbd.pengeluaran_setelah_pembelian}}</td>
                 <td :key="index+'psp-persen'">0 %</td>
@@ -314,7 +372,18 @@
                 <div class="font-medium text-left">Kondisi Pasar</div>
                 <div class="italic font-light text-right">Adjustment Price</div>
               </td>
-              <td>Normal</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Kondisi Pasar', 'kondisi_pasar','options')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.kondisi_pasar != null"
+                  >{{ objek.kondisi_pasar }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'kp-desc'">{{pbd.kondisi_pasar}}</td>
                 <td :key="index+'kp-persen'">0 %</td>
@@ -352,7 +421,18 @@
             </tr>
             <tr>
               <td>Lebar Jalan</td>
-              <td>10 m</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Lebar Jalan (m)', 'lebar_jalan','number')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.lebar_jalan != null"
+                  >{{ objek.lebar_jalan }} m</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'lj-desc'">{{numSeparator(pbd.lebar_jalan,1)}} m</td>
                 <td :key="index+'lj-persen'">0 %</td>
@@ -361,7 +441,18 @@
             </tr>
             <tr>
               <td>Jumlah Jalur</td>
-              <td>1</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Jumlah Jalur', 'jumlah_jalur','number')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.jumlah_jalur != null"
+                  >{{ objek.jumlah_jalur }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'jj-desc'">{{pbd.jumlah_jalur}}</td>
                 <td :key="index+'jj-persen'">0 %</td>
@@ -370,7 +461,18 @@
             </tr>
             <tr>
               <td>Jumlah Lajur</td>
-              <td>2</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Jumlah Lajur', 'jumlah_lajur','number')"
+                >
+                  <div
+                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    v-if="objek.jumlah_lajur != null"
+                  >{{ objek.jumlah_lajur }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'jl-desc'">{{pbd.jumlah_lajur}}</td>
                 <td :key="index+'jl-persen'">0 %</td>
