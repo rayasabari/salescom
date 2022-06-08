@@ -58,11 +58,10 @@
                   @click="modalEditObjek('Contact Person', '', 'text')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.nama_cp != null"
                   >{{ objek.nama_cp + ' - (' + objek.telepon_cp +')' }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
-                  <!-- <WpEditIcon /> -->
                 </div>
               </td>
               <template v-for="(pbd, index) in pembandingSelected">
@@ -110,12 +109,9 @@
               <td>
                 <div
                   class="flex items-center justify-center gap-2 cursor-pointer"
-                  @click="modalEditObjek('Luas Tanah', 'luas_tanah','number')"
+                  @click="modalEditObjek('Luas Tanah', 'luas_tanah','number','m2')"
                 >
-                  <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
-                    v-if="objek.luas_tanah != null"
-                  >
+                  <div class="wp-table-link" v-if="objek.luas_tanah != null">
                     {{ numSeparator(objek.luas_tanah,1) }}
                     <Mpersegi />
                   </div>
@@ -134,12 +130,9 @@
               <td>
                 <div
                   class="flex items-center justify-center gap-2 cursor-pointer"
-                  @click="modalEditObjek('Luas Bangunan', 'luas_bangunan','number')"
+                  @click="modalEditObjek('Luas Bangunan', 'luas_bangunan','number', 'm2')"
                 >
-                  <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
-                    v-if="objek.luas_bangunan != null"
-                  >
+                  <div class="wp-table-link" v-if="objek.luas_bangunan != null">
                     {{ numSeparator(objek.luas_bangunan,1) }}
                     <Mpersegi />
                   </div>
@@ -274,7 +267,7 @@
                   @click="modalEditObjek('Hak Atas Properti', 'hak_atas_properti_id','options')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.hak_atas_properti != null"
                   >{{ objek.hak_atas_properti.singkatan }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
@@ -300,7 +293,7 @@
                   @click="modalEditObjek('Syarat Pembayaran', 'syarat_pembayaran','options')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.syarat_pembayaran != null"
                   >{{ objek.syarat_pembayaran }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
@@ -326,7 +319,7 @@
                   @click="modalEditObjek('Kondisi Penjualan', 'kondisi_penjualan','options')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.kondisi_penjualan != null"
                   >{{ objek.kondisi_penjualan }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
@@ -352,7 +345,7 @@
                   @click="modalEditObjek('Pengeluaran Setelah Pembelian', 'pengeluaran_setelah_pembelian','options')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.pengeluaran_setelah_pembelian != null"
                   >{{ objek.pengeluaran_setelah_pembelian }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
@@ -378,7 +371,7 @@
                   @click="modalEditObjek('Kondisi Pasar', 'kondisi_pasar','options')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.kondisi_pasar != null"
                   >{{ objek.kondisi_pasar }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
@@ -424,10 +417,10 @@
               <td>
                 <div
                   class="flex items-center justify-center gap-2 cursor-pointer"
-                  @click="modalEditObjek('Lebar Jalan (m)', 'lebar_jalan','number')"
+                  @click="modalEditObjek('Lebar Jalan', 'lebar_jalan','number','m')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.lebar_jalan != null"
                   >{{ objek.lebar_jalan }} m</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
@@ -447,7 +440,7 @@
                   @click="modalEditObjek('Jumlah Jalur', 'jumlah_jalur','number')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.jumlah_jalur != null"
                   >{{ objek.jumlah_jalur }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
@@ -467,7 +460,7 @@
                   @click="modalEditObjek('Jumlah Lajur', 'jumlah_lajur','number')"
                 >
                   <div
-                    class="font-medium text-blue-500 transition duration-300 hover:text-blue-600"
+                    class="wp-table-link"
                     v-if="objek.jumlah_lajur != null"
                   >{{ objek.jumlah_lajur }}</div>
                   <div v-else class="font-medium text-rose-500">Belum diinput</div>
@@ -481,7 +474,18 @@
             </tr>
             <tr>
               <td>Perkerasan Jalan</td>
-              <td>Aspal</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Perkerasan Jalan', 'perkerasan_jalan','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.perkerasan_jalan != null"
+                  >{{ objek.perkerasan_jalan }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'pj-desc'">{{pbd.perkerasan_jalan}}</td>
                 <td :key="index+'pj-persen'">0 %</td>
@@ -498,8 +502,19 @@
               </template>
             </tr>
             <tr>
-              <td>Kondisi Lingkungan Sekitar</td>
-              <td>Campuran</td>
+              <td>Kondisi Wilayah Sekitar</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Kondisi Wilayah Sekitar', 'kondisi_wilayah_sekitar','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.kondisi_wilayah_sekitar != null"
+                  >{{ objek.kondisi_wilayah_sekitar }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd,index) in pembandingSelected">
                 <td :key="index+'kls-desc'">{{pbd.kondisi_lingkungan_sekitar}}</td>
                 <td :key="index+'kls-persen'">0 %</td>
@@ -513,8 +528,16 @@
             <tr>
               <td>Luas Tanah</td>
               <td>
-                100
-                <Mpersegi />
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Luas Tanah', 'luas_tanah','number','m2')"
+                >
+                  <div class="wp-table-link" v-if="objek.luas_tanah != null">
+                    {{ numSeparator(objek.luas_tanah,1) }}
+                    <Mpersegi />
+                  </div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
               </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'lt-desc'">
@@ -527,7 +550,18 @@
             </tr>
             <tr>
               <td>Lebar Muka</td>
-              <td>19</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Lebar Muka', 'lebar_muka','number','m')"
+                >
+                  <div class="wp-table-link" v-if="objek.lebar_muka != null">
+                    {{ numSeparator(objek.lebar_muka,1) }}
+                    m
+                  </div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'lm-desc'">{{ numSeparator(pbd.lebar_muka,1) }} m</td>
                 <td :key="index+'lm-persen'">0 %</td>
@@ -536,7 +570,18 @@
             </tr>
             <tr>
               <td>Bentuk Tapak</td>
-              <td>Persegi Panjang</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Bentuk Tapak', 'bentuk_tapak','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.bentuk_tapak != null"
+                  >{{ objek.bentuk_tapak }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'bt-desc'">{{ pbd.bentuk_tapak }}</td>
                 <td :key="index+'bt-persen'">0 %</td>
@@ -545,7 +590,21 @@
             </tr>
             <tr>
               <td>Elevasi</td>
-              <td>+ 1</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Elevasi', 'elevasi','options')"
+                >
+                  <div class="wp-table-link" v-if="objek.kedudukan_tapak != null">
+                    <span v-if="objek.kedudukan_tapak == 'Sama Rata'">0 m</span>
+                    <span v-else>
+                      {{ objek.kedudukan_tapak == 'Lebih Tinggi' ? '+' : '-' }}
+                      {{ objek.kedudukan_tapak_m }} m
+                    </span>
+                  </div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'elv-desc'">{{ pbd.elevasi }} m</td>
                 <td :key="index+'elv-persen'">0 %</td>
@@ -554,7 +613,18 @@
             </tr>
             <tr>
               <td>Posisi</td>
-              <td>Tengah</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Posisi Tapak', 'posisi_tapak','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.posisi_tapak != null"
+                  >{{ objek.posisi_tapak }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'pst-desc'">{{ pbd.posisi_tapak }}</td>
                 <td :key="index+'pst-persen'">0 %</td>
@@ -563,7 +633,18 @@
             </tr>
             <tr>
               <td>Kondisi Tapak</td>
-              <td>Darat</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Kondisi Tapak', 'kondisi_tapak','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.kondisi_tapak != null"
+                  >{{ objek.kondisi_tapak }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'kdt-desc'">{{ pbd.kondisi_tapak }}</td>
                 <td :key="index+'kdt-persen'">0 %</td>
@@ -572,7 +653,15 @@
             </tr>
             <tr>
               <td>Topografi</td>
-              <td>Berbukit</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Topografi', 'topografi','options')"
+                >
+                  <div class="wp-table-link" v-if="objek.topografi != null">{{ objek.topografi }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'tpg-desc'">{{ pbd.topografi }}</td>
                 <td :key="index+'tpg-persen'">0 %</td>
@@ -585,7 +674,18 @@
             </tr>
             <tr>
               <td>Kualitas Pendatapan</td>
-              <td>Baik</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Kualitas Pendapatan', 'kualitas_pendapatan','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.kualitas_pendapatan != null"
+                  >{{ objek.kualitas_pendapatan }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'kpd-desc'">{{ pbd.kualitas_pendapatan }}</td>
                 <td :key="index+'kpd-persen'">0 %</td>
@@ -594,7 +694,18 @@
             </tr>
             <tr>
               <td>Biaya Operasional</td>
-              <td>Tidak Ada</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Biaya Operasional', 'biaya_operasional','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.biaya_operasional != null"
+                  >{{ objek.biaya_operasional }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'bop-desc'">{{ pbd.biaya_operasional }}</td>
                 <td :key="index+'bop-persen'">0 %</td>
@@ -603,7 +714,18 @@
             </tr>
             <tr>
               <td>Ketentuan Sewa</td>
-              <td>Tidak Ada</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Ketentuan Sewa', 'ketentuan_sewa','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.ketentuan_sewa != null"
+                  >{{ objek.ketentuan_sewa }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'ksw-desc'">{{ pbd.ketentuan_sewa }}</td>
                 <td :key="index+'ksw-persen'">0 %</td>
@@ -612,7 +734,15 @@
             </tr>
             <tr>
               <td>Manajemen</td>
-              <td>Tidak Ada</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Manajemen', 'manajemen','options')"
+                >
+                  <div class="wp-table-link" v-if="objek.manajemen != null">{{ objek.manajemen }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'bop-desc'">{{ pbd.biaya_operasional }}</td>
                 <td :key="index+'bop-persen'">0 %</td>
@@ -621,7 +751,18 @@
             </tr>
             <tr>
               <td>Bauran Penyewa</td>
-              <td>Baik</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Bauran Penyewa', 'bauran_penyewa','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.bauran_penyewa != null"
+                  >{{ objek.bauran_penyewa }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'brn-desc'">{{ pbd.bauran_penyewa }}</td>
                 <td :key="index+'brn-persen'">0 %</td>
@@ -634,7 +775,18 @@
             </tr>
             <tr>
               <td>Peruntukan</td>
-              <td>Zona Perumahan KDB Rendah</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Peruntukan', 'peruntukan_id','options')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.peruntukan != null"
+                  >{{ objek.peruntukan.text }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'ptk-desc'">{{ pbd.peruntukan }}</td>
                 <td :key="index+'ptk-persen'">0 %</td>
@@ -643,7 +795,15 @@
             </tr>
             <tr>
               <td>KDB</td>
-              <td>0</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('KDB', 'kdb','number')"
+                >
+                  <div class="wp-table-link" v-if="objek.kdb != null">{{ objek.kdb }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'kdb-desc'">{{ pbd.kdb }}</td>
                 <td :key="index+'kdb-persen'">0 %</td>
@@ -652,7 +812,15 @@
             </tr>
             <tr>
               <td>KLB</td>
-              <td>0</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('KLB', 'klb','number')"
+                >
+                  <div class="wp-table-link" v-if="objek.klb != null">{{ objek.klb }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'klb-desc'">{{ pbd.klb }}</td>
                 <td :key="index+'klb-persen'">0 %</td>
@@ -661,7 +829,18 @@
             </tr>
             <tr>
               <td>Ketinggian Maksimum</td>
-              <td>0</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Ketinggian Maksimum', 'ketinggian_maksimum','number','m')"
+                >
+                  <div
+                    class="wp-table-link"
+                    v-if="objek.ketinggian_maksimum != null"
+                  >{{ objek.ketinggian_maksimum }} m</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'ktm-desc'">{{ pbd.ketinggian_maksimum }}</td>
                 <td :key="index+'ktm-persen'">0 %</td>
@@ -670,7 +849,15 @@
             </tr>
             <tr>
               <td>GSB</td>
-              <td>0</td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('GSB', 'gsb','number')"
+                >
+                  <div class="wp-table-link" v-if="objek.gsb != null">{{ objek.gsb }}</div>
+                  <div v-else class="font-medium text-rose-500">Belum diinput</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'gsb-desc'">{{ pbd.gsb }}</td>
                 <td :key="index+'gsb-persen'">0 %</td>
@@ -817,7 +1004,7 @@ export default {
     return {};
   },
   methods: {
-    modalEditObjek(title, slug, type) {
+    modalEditObjek(title, slug, type, unit = false) {
       let fields = [];
       if (title == "Contact Person") {
         fields = [
@@ -832,12 +1019,27 @@ export default {
             type: "text",
           },
         ];
+      } else if (title == "Elevasi") {
+        fields = [
+          {
+            label: "Kedudukan Tapak",
+            slug: "kedudukan_tapak",
+            type: "options",
+          },
+          {
+            label: "Tinggi/Rendah",
+            slug: "kedudukan_tapak_m",
+            type: "number",
+            unit: "m",
+          },
+        ];
       } else {
         fields = [
           {
             label: title,
             slug: slug,
             type: type,
+            unit: unit,
           },
         ];
       }

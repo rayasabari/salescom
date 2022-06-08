@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   #wptable table {
     @apply relative border-separate;
     border-spacing: 0;
@@ -94,12 +100,16 @@
     @apply px-3 py-2 text-sm;
   }
 
-  .btn-disabled{
-    @apply bg-opacity-40 hover:bg-opacity-40 cursor-not-allowed
+  .btn-disabled {
+    @apply cursor-not-allowed bg-opacity-40 hover:bg-opacity-40;
   }
 
   .link {
-    @apply  font-semibold transition-all duration-300 text-primary-500 hover:text-primary-400;
+    @apply font-semibold transition-all duration-300 text-primary-500 hover:text-primary-400;
+  }
+
+  .wp-table-link {
+    @apply font-medium text-blue-500 transition duration-300 hover:text-blue-600;
   }
 
   .rhr-label {
@@ -107,7 +117,7 @@
   }
 
   .rhr-input {
-    @apply block w-full text-sm transition duration-300 border border-gray-200 rounded-lg focus:outline-none focus:ring-primary-300 focus:border-primary-300 bg-gray-50;
+    @apply block w-full text-sm transition duration-300 border border-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-primary-300 focus:border-primary-300 bg-gray-50;
   }
 
   .alert {
