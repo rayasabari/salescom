@@ -32,7 +32,18 @@
             />
           </div>
 
-          <!-- options -->
+          <!-- Textarea  -->
+          <div v-if="field.type == 'textarea'">
+            <textarea
+              :name="field.slug"
+              :id="field.slug"
+              rows="3"
+              class="rhr-input"
+              v-model="data[field.slug]"
+            ></textarea>
+          </div>
+
+          <!-- Options -->
           <div v-if="field.type == 'options'">
             <!-- Hak Atas Properti -->
             <template v-if="title == 'Hak Atas Properti'">

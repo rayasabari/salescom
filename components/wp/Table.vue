@@ -38,7 +38,9 @@
           <tbody class="text-gray-500">
             <tr>
               <td>Alamat Properti</td>
-              <td>{{objek.alamat}}</td>
+              <td>
+                {{ objek.alamat }}
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'alamat'" colspan="3">{{pbd.alamat}}</td>
               </template>
