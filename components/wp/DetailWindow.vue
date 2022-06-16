@@ -4,10 +4,19 @@
       <div class="flex flex-col gap-4">
         <div class="flex flex-col w-full gap-4 lg:flex-row">
           <div class="flex flex-col w-full gap-2 mb-3 top-50 lg:w-4/12">
-            <img
-              :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${childs[0].id}/original/${childs[0].foto.storage_name}`"
-              class="object-cover w-full max-h-[250px] mb-2 rounded-lg"
-            />
+            <div
+              class="overflow-hidden bg-slate-300 rounded-lg h-[210px] mb-2"
+              :class="!imgLoaded ? 'animate-pulse':''"
+            >
+              <transition name="fade">
+                <img
+                  :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${childs[0].id}/original/${childs[0].foto.storage_name}`"
+                  class="object-cover w-full min-h-[210px] rounded-lg"
+                  @load="onImgLoaded"
+                  v-show="imgLoaded"
+                />
+              </transition>
+            </div>
             <div class="mb-4">
               <h2
                 class="mb-1 font-semibold text-center text-md text-primary-500"
@@ -31,7 +40,15 @@
 export default {
   name: "DetailWindow",
   props: ["childs"],
+  data() {
+    return {
+      imgLoaded: false,
+    };
+  },
   methods: {
+    onImgLoaded() {
+      this.imgLoaded = true;
+    },
     closeFormCard() {
       this.$parent.closeDetail();
     },

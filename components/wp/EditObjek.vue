@@ -89,12 +89,20 @@
             </template>
           </div>
 
-          <!-- <transition name="fade">
-            <span
-              class="mt-1 text-xs text-rose-400"
-              v-if="errors[`data.${field.slug}`]"
-            >{{errors[`data.${field.slug}`][0]}}</span>
-          </transition>-->
+          <!-- FIle  -->
+          <div v-if="field.type == 'file'">
+            <input
+              @change="handleFileUpload()"
+              type="file"
+              ref="file"
+              accept=".jpg, .jpeg, .png, .webp"
+              class="rhr-input-file"
+            />
+            <span class="text-xs">
+              Ukkuran file maksimal
+              <b class="font-semibold text-rose-500">5 MB</b>
+            </span>
+          </div>
         </div>
         <div class="flex justify-end mt-6">
           <div class="flex gap-2">
@@ -113,6 +121,7 @@
 </template>
 
 <script>
+import { Loading } from "notiflix/build/notiflix-loading-aio";
 export default {
   name: "EditObjek",
   data() {
@@ -125,6 +134,7 @@ export default {
         kedudukan_tapak_m: 0,
       },
       options: {},
+      file: "",
     };
   },
   mounted() {
@@ -160,26 +170,37 @@ export default {
     closeFormCard() {
       this.$root.$emit("closeModal");
     },
+    handleFileUpload() {
+      this.file = this.$refs.file[0].files[0];
+    },
     async update() {
+      if (this.title == "Foto") {
+        Loading.hourglass("Uploading...");
+      }
+      const params = {
+        fields: this.fields,
+        objek: this.data,
+        id: this.$route.params.id,
+        title: this.title,
+      };
+      let formData = new FormData();
+      formData.append("file", this.file);
+      formData.append("params", JSON.stringify(params));
       try {
-        let response = await this.$axios.$post(
-          "/objek/update",
-          {
-            fields: this.fields,
-            objek: this.data,
-            id: this.$route.params.id,
-            title: this.title,
+        let response = await this.$axios.$post("/objek/update", formData, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
           },
-          {
-            withCredentials: true,
-          }
-        );
+        });
         console.log(response);
         this.$refs.cancelButton.click();
         this.$root.$emit("fetchWp");
         this.$awn.success(response.message);
+        Loading.remove();
       } catch (e) {
-        console.log(e.response);
+        this.$awn.alert(e.response.data);
+        Loading.remove();
       }
     },
   },

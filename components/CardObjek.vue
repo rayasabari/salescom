@@ -4,10 +4,18 @@
   >
     <div class="w-full overflow-hidden md:w-2/12">
       <div
-        class="group-hover:scale-110 transition duration-500 w-full h-[200px] md:h-[120px] bg-slate-300 bg-cover flex items-center text-center"
-        :style="`background-image: url('${objek.foto}')`"
+        class="w-full h-[200px] md:h-[120px] bg-slate-300 flex items-center text-center"
+        :class="!imgLoaded && objek.foto.uploaded ? 'animate-pulse':''"
       >
-        <span v-if="objek.foto == null" class="text-slate-100">No image available</span>
+        <img
+          v-if="objek.foto.uploaded"
+          @load="onImgLoaded"
+          v-show="imgLoaded"
+          :src="objek.foto.thumbnail"
+          alt="Foto Objek"
+          class="object-cover h-full transition-all duration-300 group-hover:scale-105"
+        />
+        <span v-if="!objek.foto.uploaded" class="p-4 text-sm font-medium text-slate-400">Foto belum diupload</span>
       </div>
     </div>
     <div class="flex flex-col justify-between w-full px-4 py-3">
@@ -39,6 +47,16 @@
 export default {
   name: "CardObjek",
   props: ["objek"],
+  data() {
+    return {
+      imgLoaded: false,
+    };
+  },
+  methods: {
+    onImgLoaded() {
+      this.imgLoaded = true;
+    },
+  },
 };
 </script>
 

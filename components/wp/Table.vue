@@ -38,9 +38,7 @@
           <tbody class="text-gray-500">
             <tr>
               <td>Alamat Properti</td>
-              <td>
-                {{ objek.alamat }}
-              </td>
+              <td>{{ objek.alamat }}</td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'alamat'" colspan="3">{{pbd.alamat}}</td>
               </template>
@@ -93,15 +91,47 @@
             </tr>
             <tr>
               <td>Foto</td>
-              <td></td>
+              <td>
+                <div
+                  class="flex items-center justify-center gap-2 cursor-pointer"
+                  @click="modalEditObjek('Foto', 'foto', 'file')"
+                >
+                  <div v-if="objek.foto" class="flex items-center justify-center py-2">
+                    <div
+                      class="min-h-[120px] w-[180px] bg-slate-300 rounded-lg overflow-hidden"
+                      :class="!imgObjekLoaded ? 'animate-pulse':''"
+                    >
+                      <transition name="fade">
+                        <img
+                          class="h-[120px] w-[180px] object-cover"
+                          :src="objek.foto.thumbnail"
+                          :alt="'Foto Objek Penilaian'"
+                          @load="imgObjekLoaded = true"
+                          v-show="imgObjekLoaded"
+                        />
+                      </transition>
+                    </div>
+                  </div>
+                  <div v-else class="font-medium text-rose-500">Belum diupload</div>
+                </div>
+              </td>
               <template v-for="(pbd, index) in pembandingSelected">
                 <td :key="index+'foto'" colspan="3">
                   <div class="flex items-center justify-center py-2">
-                    <img
-                      class="h-[120px] rounded-lg w-[180px] object-cover"
-                      :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${pbd.pembanding_id}/original/${pbd.foto}`"
-                      :alt="'Foto Pembanding '+ (index+1)"
-                    />
+                    <div
+                      class="min-h-[120px] w-[180px] bg-slate-300 rounded-lg overflow-hidden"
+                      :class="!imgLoaded[index] ? 'animate-pulse':''"
+                    >
+                      <transition name="fade">
+                        <img
+                          class="h-[120px] w-[180px] object-cover"
+                          :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${pbd.pembanding_id}/original/${pbd.foto}`"
+                          :alt="'Foto Pembanding '+ (index+1)"
+                          @load="onImgLoaded(index)"
+                          v-show="imgLoaded[index]"
+                        />
+                      </transition>
+                    </div>
                   </div>
                 </td>
               </template>
@@ -1003,9 +1033,19 @@ export default {
   name: "WpTable",
   props: ["objek", "pembandingSelected"],
   data() {
-    return {};
+    return {
+      imgLoaded: [],
+      imgObjekLoaded: false,
+    };
   },
   methods: {
+    onImgLoaded(index) {
+      const imgstate = {
+        idx: index,
+        loaded: true,
+      };
+      this.imgLoaded.push(imgstate);
+    },
     modalEditObjek(title, slug, type, unit = false) {
       let fields = [];
       if (title == "Contact Person") {
