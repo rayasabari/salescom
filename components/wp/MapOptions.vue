@@ -29,9 +29,24 @@
         :class="showOptions ? 'py-2': 'py-0'"
         class="h-full px-3 text-sm bg-white rounded-lg shadow-lg"
       >
-        <div class="flex items-center justify-center w-full h-full">
-          <div class="mt-4">Coming soon features...!</div>
-        </div>
+        <form @submit.prevent="submitSetting" class="h-full pt-4">
+          <div class="w-full mb-4">
+            <label for class="rhr-label">Radius</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 flex items-center justify-center text-sm right-4">m</div>
+              <input type="text" class="rhr-input" @keyup.enter="submitSetting" />
+            </div>
+          </div>
+          <div class="w-full mb-4">
+            <label for class="rhr-label">Jenis Properti</label>
+            <div>
+              <label for="jenis_properti" class="inline-flex items-center gap-2">
+                <input type="checkbox" id="jenis_properti" class="rhr-input-checkbox" />
+                <span class="text-xs">Tanah Kosong</span>
+              </label>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -44,6 +59,24 @@ export default {
     return {
       showOptions: false,
     };
+  },
+  methods: {
+    async submitSetting() {
+      try {
+        let response = await this.$axios.$post(
+          "/wp/map/options/submit",
+          {
+            id: this.$route.params.id,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(response);
+      } catch (e) {
+        console.log(e.response);
+      }
+    },
   },
 };
 </script>
