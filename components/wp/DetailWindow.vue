@@ -5,13 +5,14 @@
         <div class="flex flex-col w-full gap-4 lg:flex-row">
           <div class="flex flex-col w-full gap-2 mb-3 top-50 lg:w-4/12">
             <div
-              class="overflow-hidden bg-slate-300 rounded-lg h-[210px] mb-2"
+              class="overflow-hidden bg-slate-300 w-full rounded-lg h-[210px] mb-2"
               :class="!imgLoaded ? 'animate-pulse':''"
             >
               <transition name="fade">
                 <img
                   :src="`https://system.rhr.co.id/storage/files/attachment/pembanding/properti/${childs[0].id}/original/${childs[0].foto.storage_name}`"
-                  class="object-cover w-full min-h-[210px] rounded-lg"
+                  class="object-cover min-h-[210px] w-full rounded-lg"
+                  @error="$event.target.src='https://digitiket.com/blog/assets/images/nopic.png'"
                   @load="onImgLoaded"
                   v-show="imgLoaded"
                 />

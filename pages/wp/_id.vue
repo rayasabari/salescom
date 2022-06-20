@@ -14,6 +14,8 @@
         <ModalBackdrop key="wpMap" v-show="showMap" :closeButton="true">
           <WpGmap
             :objek="objek"
+            :setting="setting"
+            :options="options"
             :center="center"
             :loadMap="loadMap"
             :pembandingAround="pembandingAround"
@@ -42,8 +44,8 @@ export default {
   data() {
     return {
       loadingPage: true,
-      loadMap: false,
-      showMap: false,
+      loadMap: true,
+      showMap: true,
       showExportImport: false,
       showSetting: false,
       showEditObjek: false,
@@ -67,6 +69,8 @@ export default {
         latitude: 0,
         longitude: 0,
       },
+      setting: {},
+      options: [],
       center: {
         lat: 0,
         lng: 0,
@@ -91,6 +95,9 @@ export default {
     this.$root.$on("removePembanding", (id, index) => {
       this.confirmRemovePembanding(id, index);
     });
+    this.$root.$on('updateSetting', (data) => {
+      this.setting = data;
+    })
   },
   methods: {
     async fetchData() {
@@ -103,6 +110,8 @@ export default {
         this.pembandingAround = response.data.pembandingAround;
         this.pembandingSelected = response.data.pembandingSelected;
         this.hasPembanding = response.data.hasPembanding;
+        this.setting = response.data.setting;
+        this.options = response.data.options;
         this.center = {
           lat: parseFloat(this.objek.latitude),
           lng: parseFloat(this.objek.longitude),

@@ -36,6 +36,7 @@
           :key="index+'_around'"
           :icon="require(`@/assets/icons/marker/${pembanding.icon}`)"
           :position="{lat: parseFloat(pembanding.latitude), lng: parseFloat(pembanding.longitude)}"
+          :animation="2"
           @click="openInfoWindow(pembanding, index, 'around')"
         />
 
@@ -52,7 +53,7 @@
         <!-- Radius  -->
         <GmapCircle
           :center="center"
-          :radius="parseInt(1500)"
+          :radius="parseInt(setting.radius)"
           :visible="true"
           :options="optionradius"
         />
@@ -75,7 +76,7 @@
           />
         </GmapInfoWindow>
       </GmapMap>
-      <WpMapOptions />
+      <WpMapFilter :setting="setting" :options="options" />
       <transition name="fade">
         <WpDetailWindow v-if="detailWindow" :childs="pembandingChilds" />
       </transition>
@@ -88,6 +89,8 @@ export default {
   name: "GmapWp",
   props: [
     "objek",
+    "setting",
+    'options',
     "center",
     "loadMap",
     "pembandingAround",
