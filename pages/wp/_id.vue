@@ -44,8 +44,8 @@ export default {
   data() {
     return {
       loadingPage: true,
-      loadMap: true,
-      showMap: true,
+      loadMap: false,
+      showMap: false,
       showExportImport: false,
       showSetting: false,
       showEditObjek: false,

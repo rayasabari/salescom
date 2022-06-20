@@ -79,7 +79,7 @@ export default {
   props: ["setting", "options"],
   data() {
     return {
-      showFilter: true,
+      showFilter: false,
       wpSetting: this.setting,
     };
   },
