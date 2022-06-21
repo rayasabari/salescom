@@ -5,7 +5,17 @@
         <LazyWpSelectPembanding :objek="objek" />
       </div>
       <div class="w-full px-2 transition-all duration-200" v-if="hasPembanding">
-        <WpTable :objek="objek" :pembandingSelected="pembandingSelected" />
+        <section class="pt-2 shadow-sm">
+          <div class="w-full h-[99vh] overflow-auto bg-white">
+            <div class="min-w-full bg-white" id="wptable">
+              <WpTable
+                :objek="objek"
+                :elemenPerbandingan="elemenPerbandingan"
+                :pembandingSelected="pembandingSelected"
+              />
+            </div>
+          </div>
+        </section>
       </div>
       <transition-group name="fade">
         <ModalBackdrop key="wpSetting" v-if="showSetting" :closeButton="true">
@@ -61,6 +71,7 @@ export default {
         },
       ],
       radius: 1500,
+      elemenPerbandingan: [],
       pembandingAround: [],
       pembandingSelected: [],
       selected_id: ["0"],
@@ -95,9 +106,9 @@ export default {
     this.$root.$on("removePembanding", (id, index) => {
       this.confirmRemovePembanding(id, index);
     });
-    this.$root.$on('updateSetting', (data) => {
+    this.$root.$on("updateSetting", (data) => {
       this.setting = data;
-    })
+    });
   },
   methods: {
     async fetchData() {
@@ -106,6 +117,7 @@ export default {
           withCredentials: true,
         });
         console.log(response);
+        this.elemenPerbandingan = response.data.elemenPerbandingan;
         this.objek = response.data.objek;
         this.pembandingAround = response.data.pembandingAround;
         this.pembandingSelected = response.data.pembandingSelected;
