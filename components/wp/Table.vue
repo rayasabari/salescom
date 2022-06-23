@@ -12,20 +12,7 @@
                 @click="removePembanding(pbd.id, idx+1)"
                 v-tooltip="'Remove Pembanding '+(idx+1)"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="w-4 h-4 text-rose-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
+                <IconRemove></IconRemove>
               </button>
             </div>
           </th>
@@ -307,11 +294,15 @@
           </div>
         </td>
         <template v-for="(pbd,index) in pembandingSelected">
-          <td :key="index+'hap-desc'">{{pbd[item.key_pembanding]}}</td>
-          <td :key="index+'hap-persen'">0 %</td>
-          <td :key="index+'hap-adjust'" class="grid grid-rows-2 gap-1">
-            <div class="text-right border-b border-gray-300">300.000</div>
-            <div class="text-right">4.000.000</div>
+          <td :key="index+item.id+'-desc'">{{pbd[item.key_pembanding]}}</td>
+          <td :key="index+item.id+'-persen'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'-adjust'" class="grid grid-rows-2 gap-1">
+            <div
+              class="text-right border-b border-gray-300"
+            >{{getAdjustment(pbd, item, 'adjustment')}}</div>
+            <div class="text-right">{{getAdjustment(pbd, item, 'adjustment_transaksi')}}</div>
           </td>
         </template>
       </tr>
@@ -346,9 +337,13 @@
           </div>
         </td>
         <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+'jrk-desc'">{{pbd[item.key_pembanding]}}</td>
-          <td :key="index+'jrk-persen'">0 %</td>
-          <td :key="index+'jrk-value'" class="text-right">123.000</td>
+          <td :key="index+item.id+'-desc'">{{pbd[item.key_pembanding]}}</td>
+          <td :key="index+item.id+'-persen'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'-value'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'adjustment') }}</div>
+          </td>
         </template>
       </tr>
 
@@ -382,7 +377,7 @@
           </div>
         </td>
         <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+'lt-desc'">
+          <td :key="index+item.id+'-desc'">
             <span v-if="item.input_type == 'number'">{{ numSeparator(pbd[item.key_objek],1) }}</span>
             <span v-else>{{pbd[item.key_objek]}}</span>
             <template v-if="item.unit == 'm2'">
@@ -392,8 +387,12 @@
               <span>{{item.unit}}</span>
             </template>
           </td>
-          <td :key="index+'lt-persen'">0 %</td>
-          <td :key="index+'lt-value'" class="text-right">123.000</td>
+          <td :key="index+item.id+'-persen'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'-value'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'adjustment') }}</div>
+          </td>
         </template>
       </tr>
 
@@ -421,9 +420,13 @@
           </div>
         </td>
         <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+'kpd-desc'">{{ pbd[item.key_pembanding] }}</td>
-          <td :key="index+'kpd-persen'">0 %</td>
-          <td :key="index+'kpd-value'" class="text-right">123.000</td>
+          <td :key="index+item.id+'-desc'">{{ pbd[item.key_pembanding] }}</td>
+          <td :key="index+item.id+'-persen'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'-value'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'adjustment') }}</div>
+          </td>
         </template>
       </tr>
 
@@ -451,9 +454,13 @@
           </div>
         </td>
         <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+'ptk-desc'">{{ pbd[item.key_pembanding] }}</td>
-          <td :key="index+'ptk-persen'">0 %</td>
-          <td :key="index+'ptk-value'" class="text-right">123.000</td>
+          <td :key="index+item.id+'-desc'">{{ pbd[item.key_pembanding] }}</td>
+          <td :key="index+item.id+'persen'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'value'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'adjustment') }}</div>
+          </td>
         </template>
       </tr>
 
@@ -461,95 +468,74 @@
         <td class="t-separator">Lainnya</td>
         <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
       </tr>
-      <tr>
+
+      <!-- Lainnya  -->
+      <tr
+        v-for="(item, idx) in elemenPerbandingan.filter(item => item.section == 'Lainnya')"
+        :key="idx+'lainnya'"
+      >
         <td>...</td>
         <td>...</td>
-        <template v-for="(pbd, index) in pembandingSelected.length">
-          <td :key="index+'lny1-desc'">...</td>
-          <td :key="index+'lny1-persen'">0 %</td>
-          <td :key="index+'lny1-value'" class="text-right">123.000</td>
+        <template v-for="(pbd, index) in pembandingSelected">
+          <td :key="index+item.id+'-desc'">...</td>
+          <td :key="index+item.id+'-persen'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'-value'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'adjustment') }}</div>
+          </td>
         </template>
       </tr>
-      <tr>
-        <td>...</td>
-        <td>...</td>
-        <template v-for="(pbd, index) in pembandingSelected.length">
-          <td :key="index+'lny2-desc'">...</td>
-          <td :key="index+'lny2-persen'">0 %</td>
-          <td :key="index+'lny2-value'" class="text-right">123.000</td>
-        </template>
-      </tr>
-      <tr>
-        <td>...</td>
-        <td>...</td>
-        <template v-for="(pbd, index) in pembandingSelected.length">
-          <td :key="index+'lny3-desc'">...</td>
-          <td :key="index+'lny3-persen'">0 %</td>
-          <td :key="index+'lny3-value'" class="text-right">123.000</td>
-        </template>
-      </tr>
+
       <tr>
         <td class="t-separator">Kesimpulan</td>
         <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
       </tr>
-      <tr>
-        <td>Net Adjustment</td>
+
+      <!-- Kesimpulan  -->
+      <tr
+        v-for="(item, idx) in elemenPerbandingan.filter(item => item.section == 'Kesimpulan')"
+        :key="idx+'kesimpulan'"
+      >
+        <td>{{item.nama}}</td>
         <td></td>
-        <template v-for="(pbd, index) in pembandingSelected.length">
-          <td :key="index+'netadj'"></td>
-          <td :key="index+'netadj-persen'">0 %</td>
-          <td :key="index+'netadj-value'" class="text-right">123.000</td>
+        <template v-for="(pbd, index) in pembandingSelected">
+          <td :key="index+item.id+''"></td>
+          <td :key="index+item.id+'-persen'">
+            <div
+              class="text-right"
+              v-if="item.nama == 'Net Adjustment'"
+            >{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'-value'" class="text-right">
+            <div class="font-semibold text-right">{{ getAdjustment(pbd, item, 'adjustment') }}</div>
+          </td>
         </template>
       </tr>
-      <tr>
-        <td>Harga Setelah Adjustment</td>
-        <td></td>
-        <template v-for="(pbd, index) in pembandingSelected.length">
-          <td :key="index+'hsa-desc'"></td>
-          <td :key="index+'hsa-persen'"></td>
-          <td :key="index+'hsa-value'" class="font-semibold text-right">123.000</td>
-        </template>
-      </tr>
+
       <tr>
         <td class="t-separator">Rekonsiliasi</td>
         <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
       </tr>
-      <tr>
-        <td>Gross Adjustment</td>
+
+      <!-- Rrekonsiliasi  -->
+      <tr
+        v-for="(item, idx) in elemenPerbandingan.filter(item => item.section == 'Rekonsiliasi')"
+        :key="idx+'rekonsiliasi'"
+      >
+        <td>{{item.nama}}</td>
         <td class="font-semibold t-nilai">79,84 %</td>
         <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+'grs-desc'"></td>
-          <td :key="index+'grs-persen'">25 %</td>
-          <td :key="index+'grs-value'" class="font-semibold text-right">123.000</td>
+          <td :key="index+item.id+'-desc'"></td>
+          <td :key="index+item.id+'-persen'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'-value'">
+            <div class="font-semibold text-right">{{ getAdjustment(pbd, item, 'adjustment') }}</div>
+          </td>
         </template>
       </tr>
-      <tr>
-        <td>Bobot Absolute</td>
-        <td class="font-semibold t-nilai">100,00 %</td>
-        <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+'bbt-desc'"></td>
-          <td :key="index+'bbt-persen'">25 %</td>
-          <td :key="index+'bbt-value'" class="font-semibold text-right">123.000</td>
-        </template>
-      </tr>
-      <tr>
-        <td>Inverse</td>
-        <td class="font-semibold t-nilai">200,00 %</td>
-        <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+'inv-desc'"></td>
-          <td :key="index+'inv-persen'">25 %</td>
-          <td :key="index+'inv-value'" class="font-semibold text-right">123.000</td>
-        </template>
-      </tr>
-      <tr>
-        <td>Bobot Inverse</td>
-        <td class="font-semibold t-nilai">100,00 %</td>
-        <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+'bbi-desc'"></td>
-          <td :key="index+'bbi-persen'">25 %</td>
-          <td :key="index+'bbi-value'" class="font-semibold text-right">123.000</td>
-        </template>
-      </tr>
+
       <tr>
         <td class="t-separator">Kisaran Nilai</td>
         <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
@@ -648,6 +634,15 @@ export default {
     },
     removePembanding(id, index) {
       this.$root.$emit("removePembanding", id, index);
+    },
+    getAdjustment(pbd, item, key) {
+      const adjustment = pbd.adjustment.find((adj) => adj.elemen_id == item.id)[
+        key
+      ];
+      if (key == "persen") {
+        return this.numSeparator(adjustment, 1);
+      }
+      return this.numSeparator(adjustment, 0);
     },
     numSeparator(num, dec) {
       return numFormat.separator(num, dec);

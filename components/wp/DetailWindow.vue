@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="flex justify-end gap-2">
-          <button type="button" class="btn-primary-outline" @click="$parent.closeDetail()">Batal</button>
+          <button type="button" class="btn-primary-outline" @click="$parent.closeDetail()">Kembali</button>
         </div>
       </div>
     </FormCard>
