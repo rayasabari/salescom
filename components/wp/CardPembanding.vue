@@ -132,7 +132,7 @@
 
 <script>
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
-import numFormat from "@/services/numFormat";
+import { numFormat } from "@/services/numFormat";
 export default {
   name: "CardPembanding",
   props: ["pembanding"],
@@ -170,7 +170,7 @@ export default {
       }
     },
     numSeparator(num, dec) {
-      return numFormat.separator(num, dec);
+      return numFormat(num, dec);
     },
   },
 };

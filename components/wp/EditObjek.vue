@@ -5,111 +5,9 @@
   >
     <div class="w-full">
       <form @submit.prevent="update">
-        <div class="mb-4" v-for="(field, index) in fields" :key="index">
-          <label
-            v-if="field.type != 'map'"
-            :for="field.slug"
-            class="rhr-label"
-            :class="title == 'Elevasi' && data.kedudukan_tapak == 'Sama Rata' ? 'hidden' : ''"
-          >{{field.label}}</label>
-
-          <!-- Number & Text -->
-          <div v-if="field.type == 'number' || field.type == 'text'" class="relative">
-            <div
-              v-if="field.unit && data.kedudukan_tapak != 'Sama Rata'"
-              class="absolute inset-y-0 flex items-center justify-center text-sm right-4"
-            >
-              <span v-if="field.unit == 'm2'">
-                <Mpersegi />
-              </span>
-              <span v-else>{{field.unit}}</span>
-            </div>
-            <input
-              :name="field.slug"
-              :id="field.slug"
-              :type="field.type"
-              step="any"
-              class="rhr-input"
-              :class="title == 'Elevasi' && data.kedudukan_tapak == 'Sama Rata' ? 'hidden' : ''"
-              v-model="data[field.slug]"
-              required
-            />
-          </div>
-
-          <!-- Textarea  -->
-          <div v-if="field.type == 'textarea'">
-            <textarea
-              :name="field.slug"
-              :id="field.slug"
-              rows="3"
-              class="rhr-input"
-              v-model="data[field.slug]"
-            ></textarea>
-          </div>
-
-          <!-- Options -->
-          <div v-if="field.type == 'options'">
-            <!-- Hak Atas Properti -->
-            <template v-if="title == 'Hak Atas Properti'">
-              <select
-                class="rhr-input"
-                :name="field.slug"
-                :id="field.slug"
-                v-model="data.hak_atas_properti_id"
-              >
-                <template v-for="(item, idx) in options.hak_atas_properti">
-                  <option :value="item.id" :key="idx">{{item.singkatan}}</option>
-                </template>
-              </select>
-            </template>
-
-            <!-- Peruntukan -->
-            <template v-else-if="title == 'Peruntukan'">
-              <select
-                class="rhr-input"
-                :name="field.slug"
-                :id="field.slug"
-                v-model="data.peruntukan_id"
-              >
-                <template v-for="(item, idx) in options.peruntukan">
-                  <option :value="item.id" :key="idx">{{item.text}}</option>
-                </template>
-              </select>
-            </template>
-
-            <!-- Default  -->
-            <template v-else>
-              <select
-                @change="changeOptions($event, field.slug)"
-                class="rhr-input"
-                :name="field.slug"
-                :id="field.slug"
-                v-model="data[field.slug]"
-              >
-                <template v-for="(item, idx) in options[field.slug]">
-                  <option :value="item" :key="idx">{{item}}</option>
-                </template>
-              </select>
-            </template>
-          </div>
-
-          <!-- FIle  -->
-          <div v-if="field.type == 'file'">
-            <input
-              @change="handleFileUpload()"
-              type="file"
-              ref="file"
-              accept=".jpg, .jpeg, .png, .webp"
-              class="rhr-input-file"
-            />
-            <span class="text-xs">
-              Ukkuran file maksimal
-              <b class="font-semibold text-rose-500">5 MB</b>
-            </span>
-          </div>
-
+        <template v-if="title == 'Jarak Terhadap'">
           <!-- Gmap  -->
-          <div v-if="field.type == 'map'" class="flex gap-4">
+          <div class="flex gap-4">
             <div class="w-8/12 h-[60vh]">
               <GmapAutocomplete
                 @place_changed="setPlace"
@@ -140,16 +38,167 @@
                 <!-- Marker POI -->
                 <GmapMarker
                   :draggable="true"
-                  :position="{lat: poi.lat, lng: poi.lng }"
+                  :position="{lat: data.latitude_poi, lng: data.longitude_poi }"
                   :icon="require(`@/assets/icons/marker/markerpembandingselected.png`)"
                   :label="{text: 'POI', color: 'black', fontSize: '12px', fontWeight: 'bold'}"
                   @dragend="dragsearchaddress($event)"
                 />
               </GmapMap>
             </div>
-            <div class="w-4/12">Form</div>
+            <div class="w-4/12">
+              <div class="mb-4">
+                <label class="rhr-label" for="nama-poi">Nama POI</label>
+                <input type="text" class="rhr-input" id="nama-poi" v-model="data.nama_poi" />
+              </div>
+              <div class="mb-4">
+                <label class="rhr-label" for="latitude">Latitude POI</label>
+                <input
+                  type="text"
+                  class="bg-gray-100 rhr-input"
+                  id="latitude"
+                  :value="data.latitude_poi"
+                  readonly
+                />
+              </div>
+              <div class="mb-4">
+                <label class="rhr-label" for="longitude">Longitude POI</label>
+                <input
+                  type="text"
+                  class="bg-gray-100 rhr-input"
+                  id="longitude"
+                  :value="data.longitude_poi"
+                  readonly
+                />
+              </div>
+              <div class="mb-4">
+                <label class="rhr-label" for="jarak">Jarak POI terhadap Objek</label>
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 flex items-center justify-center text-sm right-4"
+                  >meter</div>
+                  <input
+                    type="text"
+                    :value="numSeparator(data.jarak_poi,0)"
+                    class="pr-16 font-semibold text-right bg-gray-100 rhr-input"
+                    id="jarak"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="alert alert-info">
+                  Direction berdasarkan
+                  <b class="font-semibold">Drive Mode</b> kendaraan mobil pada Google Maps!
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </template>
+        <template v-else>
+          <div class="mb-4" v-for="(field, index) in fields" :key="index">
+            <label
+              v-if="field.type != 'map'"
+              :for="field.slug"
+              class="rhr-label"
+              :class="title == 'Elevasi' && data.kedudukan_tapak == 'Sama Rata' ? 'hidden' : ''"
+            >{{field.label}}</label>
+
+            <!-- Number & Text -->
+            <div v-if="field.type == 'number' || field.type == 'text'" class="relative">
+              <div
+                v-if="field.unit && data.kedudukan_tapak != 'Sama Rata'"
+                class="absolute inset-y-0 flex items-center justify-center text-sm right-4"
+              >
+                <span v-if="field.unit == 'm2'">
+                  <Mpersegi />
+                </span>
+                <span v-else>{{field.unit}}</span>
+              </div>
+              <input
+                :name="field.slug"
+                :id="field.slug"
+                :type="field.type"
+                step="any"
+                class="rhr-input"
+                :class="title == 'Elevasi' && data.kedudukan_tapak == 'Sama Rata' ? 'hidden' : ''"
+                v-model="data[field.slug]"
+                required
+              />
+            </div>
+
+            <!-- Textarea  -->
+            <div v-if="field.type == 'textarea'">
+              <textarea
+                :name="field.slug"
+                :id="field.slug"
+                rows="3"
+                class="rhr-input"
+                v-model="data[field.slug]"
+              ></textarea>
+            </div>
+
+            <!-- Options -->
+            <div v-if="field.type == 'options'">
+              <!-- Hak Atas Properti -->
+              <template v-if="title == 'Hak Atas Properti'">
+                <select
+                  class="rhr-input"
+                  :name="field.slug"
+                  :id="field.slug"
+                  v-model="data.hak_atas_properti_id"
+                >
+                  <template v-for="(item, idx) in options.hak_atas_properti">
+                    <option :value="item.id" :key="idx">{{item.singkatan}}</option>
+                  </template>
+                </select>
+              </template>
+
+              <!-- Peruntukan -->
+              <template v-else-if="title == 'Peruntukan'">
+                <select
+                  class="rhr-input"
+                  :name="field.slug"
+                  :id="field.slug"
+                  v-model="data.peruntukan_id"
+                >
+                  <template v-for="(item, idx) in options.peruntukan">
+                    <option :value="item.id" :key="idx">{{item.text}}</option>
+                  </template>
+                </select>
+              </template>
+
+              <!-- Default  -->
+              <template v-else>
+                <select
+                  @change="changeOptions($event, field.slug)"
+                  class="rhr-input"
+                  :name="field.slug"
+                  :id="field.slug"
+                  v-model="data[field.slug]"
+                >
+                  <template v-for="(item, idx) in options[field.slug]">
+                    <option :value="item" :key="idx">{{item}}</option>
+                  </template>
+                </select>
+              </template>
+            </div>
+
+            <!-- FIle  -->
+            <div v-if="field.type == 'file'">
+              <input
+                @change="handleFileUpload()"
+                type="file"
+                ref="file"
+                accept=".jpg, .jpeg, .png, .webp"
+                class="rhr-input-file"
+              />
+              <span class="text-xs">
+                Ukkuran file maksimal
+                <b class="font-semibold text-rose-500">5 MB</b>
+              </span>
+            </div>
+          </div>
+        </template>
         <div class="flex justify-end mt-6">
           <div class="flex gap-2">
             <button
@@ -169,6 +218,7 @@
 <script>
 var polyline = require("polyline");
 import { Loading } from "notiflix/build/notiflix-loading-aio";
+import { numFormat } from "@/services/numFormat";
 export default {
   name: "EditObjek",
   props: ["markerObjek"],
@@ -180,6 +230,10 @@ export default {
         hak_atas_properti_id: null,
         kedudukan_tapak: null,
         kedudukan_tapak_m: 0,
+        nama_poi: "",
+        latitude_poi: null,
+        longitude_poi: null,
+        jarak_poi: 0,
       },
       center: {
         lat: 0,
@@ -187,12 +241,7 @@ export default {
       },
       options: {},
       file: "",
-      poi: {
-        nama: null,
-        jarak: null,
-        lat: 0,
-        lng: 0,
-      },
+      currentPlace: {},
       pathpolyline: [],
       isLoadingMapPoi: false,
       zoomlevel: 16,
@@ -207,6 +256,16 @@ export default {
       fields.map((item) => {
         this.data[item.slug] = objek[item.slug];
       });
+      this.pathpolyline = JSON.parse(objek.polyline_poi);
+      this.data.latitude_poi = parseFloat(objek.latitude_poi);
+      this.data.longitude_poi = parseFloat(objek.longitude_poi);
+      if (objek.jarak_poi != null) {
+        this.center = {
+          lat: this.data.latitude_poi,
+          lng: this.data.longitude_poi,
+        };
+        this.zoomlevel = 13;
+      }
     });
   },
   methods: {
@@ -226,10 +285,8 @@ export default {
       this.zoomlevel = 13;
       let lat = place.geometry.location.lat();
       let lng = place.geometry.location.lng();
-      this.poi = {
-        lat: parseFloat(lat),
-        lng: parseFloat(lng),
-      };
+      this.data.latitude_poi = parseFloat(lat);
+      this.data.longitude_poi = parseFloat(lng);
       this.center = {
         lat: parseFloat(lat),
         lng: parseFloat(lng),
@@ -239,10 +296,8 @@ export default {
     },
     dragsearchaddress(event) {
       this.calcJarakObjek();
-      this.poi = {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      };
+      this.data.latitude_poi = event.latLng.lat();
+      this.data.longitude_poi = event.latLng.lng();
       this.center = {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
@@ -251,24 +306,27 @@ export default {
     },
     calcJarakObjek() {
       this.isLoadingMapPoi = true;
-      this.$refs.map[0].$mapPromise.then(() => {
+      this.$refs.map.$mapPromise.then(() => {
         this.directionsService = new google.maps.DirectionsService();
         this.directionsDisplay = new google.maps.DirectionsRenderer();
-        this.directionsDisplay.setMap(this.$refs.map[0].$mapObject);
+        this.directionsDisplay.setMap(this.$refs.map.$mapObject);
         var vm = this;
         vm.directionsService.route(
           {
-            origin: this.poi,
+            origin: {
+              lat: vm.data.latitude_poi,
+              lng: vm.data.longitude_poi,
+            },
             destination: this.markerObjek,
             travelMode: "DRIVING",
           },
-          function (response, status) {
+          (response, status) => {
             if (status === "OK") {
-              //set google map direction
+              // set google map direction
               let leg = response.routes[0].legs[0];
               let jarakpoiobjek = leg.distance;
-              vm.poi.jarak = jarakpoiobjek.value;
-              vm.poi.nama = vm.currentPlace.name;
+              vm.data.jarak_poi = jarakpoiobjek.value;
+              vm.data.nama_poi = vm.currentPlace.name;
               let arrpolyline = polyline.decode(
                 response.routes[0].overview_polyline
               );
@@ -293,7 +351,6 @@ export default {
       if (slug == "kedudukan_tapak") {
         if (e.target.value == "Sama Rata") {
           this.data.kedudukan_tapak_m = 0;
-          console.log(this.data.kedudukan_tapak_m);
         }
       }
     },
@@ -316,6 +373,8 @@ export default {
       let formData = new FormData();
       formData.append("file", this.file);
       formData.append("params", JSON.stringify(params));
+      formData.append("polyline_poi", JSON.stringify(this.pathpolyline));
+
       try {
         let response = await this.$axios.$post("/objek/update", formData, {
           withCredentials: true,
@@ -332,6 +391,9 @@ export default {
         this.$awn.alert(e.response.data);
         Loading.remove();
       }
+    },
+    numSeparator(num, dec) {
+      return numFormat(num, dec);
     },
   },
 };

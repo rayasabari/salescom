@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import numFormat from "@/services/numFormat";
+import { numFormat } from "@/services/numFormat";
 export default {
   name: "InfoWindowSelected",
   props: ["pembanding", "no"],
@@ -55,7 +55,7 @@ export default {
       this.$root.$emit("removePembanding", id, index);
     },
     numSeparator(num, dec) {
-      return numFormat.separator(num, dec);
+      return numFormat(num, dec);
     },
   },
 };

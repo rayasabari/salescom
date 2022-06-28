@@ -321,14 +321,26 @@
         v-for="(item, idx) in elemenPerbandingan.filter(item => item.section == 'Lokasi')"
         :key="idx+'lokasi'"
       >
-        <td>{{item.nama}}</td>
+        <td>
+          {{item.nama}}
+          <span
+            v-if="item.nama == 'Jarak Terhadap'"
+            @click="modalEditObjek(item.nama, item.key_objek, item.input_type,item.unit)"
+          >
+            <span v-if="objek.nama_poi == null">POI</span>
+            <span v-else class="font-bold cursor-pointer wp-table-link">{{objek.nama_poi}}</span>
+          </span>
+        </td>
         <td>
           <div
             class="flex items-center justify-center gap-2 cursor-pointer"
             @click="modalEditObjek(item.nama, item.key_objek, item.input_type,item.unit)"
           >
             <div class="wp-table-link" v-if="objek[item.key_objek] != null">
-              {{ objek[item.key_objek] }}
+              <span
+                v-if="item.input_type == 'number' || item.input_type == 'map'"
+              >{{ numSeparator(objek[item.key_objek],1) }}</span>
+              <span v-else>{{objek[item.key_objek]}}</span>
               <template v-if="item.unit != null">
                 <span>{{ item.unit }}</span>
               </template>
@@ -572,7 +584,7 @@
 </template>
 
 <script>
-import numFormat from "@/services/numFormat";
+import { numFormat } from "@/services/numFormat";
 export default {
   name: "WpTable",
   props: ["objek", "elemenPerbandingan", "pembandingSelected"],
@@ -619,6 +631,30 @@ export default {
             unit: "m",
           },
         ];
+      } else if (title == "Jarak Terhadap") {
+        fields = [
+          {
+            label: "Nama POI",
+            slug: "nama_poi",
+            type: "text",
+          },
+          {
+            label: "Latitude POI",
+            slug: "latitude_poi",
+            type: "text",
+          },
+          {
+            label: "Longitude POI",
+            slug: "longitude_poi",
+            type: "text",
+          },
+          {
+            label: "Jarak POI terhadap Objek",
+            slug: "jarak_poi",
+            type: "number",
+            unit: "m",
+          },
+        ];
       } else {
         fields = [
           {
@@ -645,7 +681,7 @@ export default {
       return this.numSeparator(adjustment, 0);
     },
     numSeparator(num, dec) {
-      return numFormat.separator(num, dec);
+      return numFormat(num, dec);
     },
   },
 };

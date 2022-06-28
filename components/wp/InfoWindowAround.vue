@@ -43,13 +43,13 @@
 </template>
 
 <script>
-import numFormat from "@/services/numFormat";
+import {numFormat} from "@/services/numFormat";
 export default {
   name: "InfoWindowgAround",
   props: ["pembanding"],
   methods: {
     numSeparator(num, dec) {
-      return numFormat.separator(num, dec);
+      return numFormat(num, dec);
     },
   },
 };
