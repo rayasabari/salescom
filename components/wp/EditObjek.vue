@@ -48,7 +48,7 @@
             <div class="w-4/12">
               <div class="mb-4">
                 <label class="rhr-label" for="nama-poi">Nama POI</label>
-                <input type="text" class="rhr-input" id="nama-poi" v-model="data.nama_poi" />
+                <input type="text" class="rhr-input" id="nama-poi" v-model="data.nama_poi" required />
               </div>
               <div class="mb-4">
                 <label class="rhr-label" for="latitude">Latitude POI</label>
@@ -221,7 +221,7 @@ import { Loading } from "notiflix/build/notiflix-loading-aio";
 import { numFormat } from "@/services/numFormat";
 export default {
   name: "EditObjek",
-  props: ["markerObjek"],
+  props: ["markerObjek", "pembandingSelected"],
   data() {
     return {
       title: "",
@@ -245,6 +245,7 @@ export default {
       pathpolyline: [],
       isLoadingMapPoi: false,
       zoomlevel: 16,
+      pembandingUpdated: [],
     };
   },
   mounted() {
@@ -292,7 +293,6 @@ export default {
         lng: parseFloat(lng),
       };
       this.calcJarakObjek();
-      // this.preCalcPbd();
     },
     dragsearchaddress(event) {
       this.calcJarakObjek();
@@ -302,7 +302,6 @@ export default {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
       };
-      // this.preCalcPbd();
     },
     calcJarakObjek() {
       this.isLoadingMapPoi = true;
@@ -347,6 +346,38 @@ export default {
         );
       });
     },
+    setupCalcPembanding() {
+      this.pembandingSelected.forEach((pembanding, index) => {
+        this.calcJarakPembanding(pembanding, index);
+      });
+    },
+    calcJarakPembanding(pembanding) {
+      let pembandingLocation = {
+        lat: parseFloat(pembanding.latitude),
+        lng: parseFloat(pembanding.longitude),
+      };
+      let poiLocation = {
+        lat: parseFloat(this.data.latitude_poi),
+        lng: parseFloat(this.data.longitude_poi),
+      };
+      let directionsService = new google.maps.DirectionsService();
+      const route = {
+        origin: pembandingLocation,
+        destination: poiLocation,
+        travelMode: "DRIVING",
+      };
+      var vm = this;
+      directionsService.route(route, function (response, status) {
+        // anonymous function to capture directions
+        if (status !== "OK") {
+          this.$awn.alert("Directions request failed due to " + status);
+        } else {
+          const directionsData = response.routes[0].legs[0]; // Get data about the mapped route
+          pembanding.jarak_poi = directionsData.distance.value;
+          vm.updateJarakPoiPembanding(pembanding.id, pembanding.jarak_poi);
+        }
+      });
+    },
     changeOptions(e, slug) {
       if (slug == "kedudukan_tapak") {
         if (e.target.value == "Sama Rata") {
@@ -361,6 +392,7 @@ export default {
       this.file = this.$refs.file[0].files[0];
     },
     async update() {
+      this.pembandingUpdated = [];
       if (this.title == "Foto") {
         Loading.hourglass("Uploading...");
       }
@@ -382,15 +414,46 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log(response);
-        this.$refs.cancelButton.click();
-        this.$root.$emit("fetchWp");
-        this.$awn.success(response.message);
-        Loading.remove();
+        if (this.title == "Jarak Terhadap") {
+          this.setupCalcPembanding();
+        } else {
+          this.closeModal(response.message);
+        }
       } catch (e) {
         this.$awn.alert(e.response.data);
         Loading.remove();
       }
+    },
+    closeModal(message) {
+      this.$refs.cancelButton.click();
+      this.$root.$emit("fetchWp");
+      this.$awn.success(message);
+      Loading.remove();
+    },
+    updateJarakPoiPembanding(id, jarak_poi) {
+      this.$axios
+        .$post(
+          "/wp/pembanding/update/jarakpoi",
+          {
+            id: id,
+            jarak_poi: jarak_poi,
+          },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((response) => {
+          // console.log(response.message);
+        })
+        .catch((e) => {
+          console.log(e.response);
+        })
+        .finally(() => {
+          this.pembandingUpdated.push(id);
+          if (this.pembandingUpdated.length == this.pembandingSelected.length) {
+            this.closeModal("Jarak POI berhasil diupdate");
+          }
+        });
     },
     numSeparator(num, dec) {
       return numFormat(num, dec);

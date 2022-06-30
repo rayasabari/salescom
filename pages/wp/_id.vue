@@ -36,7 +36,7 @@
           <LazyWpExportImport />
         </ModalBackdrop>
         <ModalBackdrop key="wpEditObjek" v-show="showEditObjek" :closeButton="false">
-          <WpEditObjek :markerObjek="center" />
+          <WpEditObjek :markerObjek="center" :pembandingSelected="pembandingSelected" />
         </ModalBackdrop>
       </transition-group>
       <LazyWpFloatMenu :hasPembanding="hasPembanding" :floatMenu="floatMenu" />

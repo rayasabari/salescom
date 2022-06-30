@@ -328,7 +328,7 @@
             @click="modalEditObjek(item.nama, item.key_objek, item.input_type,item.unit)"
           >
             <span v-if="objek.nama_poi == null">POI</span>
-            <span v-else class="font-bold cursor-pointer wp-table-link">{{objek.nama_poi}}</span>
+            <span v-else class="font-semibold cursor-pointer wp-table-link">{{objek.nama_poi}}</span>
           </span>
         </td>
         <td>
@@ -349,7 +349,30 @@
           </div>
         </td>
         <template v-for="(pbd, index) in pembandingSelected">
-          <td :key="index+item.id+'-desc'">{{pbd[item.key_pembanding]}}</td>
+          <td :key="index+item.id+'-desc'">
+            <template v-if="item.nama == 'Jarak Terhadap'">
+              <span
+                v-if="pbd[item.key_pembanding] != null"
+              >{{ numSeparator(pbd[item.key_pembanding],1) }} m</span>
+              <span
+                v-else
+                class="font-semibold cursor-pointer text-rose-400"
+                @click="modalEditObjek(item.nama, item.key_objek, item.input_type,item.unit)"
+              >Belum dihitung</span>
+            </template>
+            <template v-else>
+              <span
+                v-if="item.input_type == 'number'"
+              >{{ numSeparator(pbd[item.key_pembanding],1) }}</span>
+              <span v-else>{{pbd[item.key_pembanding]}}</span>
+              <template v-if="item.unit == 'm2'">
+                <Mpersegi />
+              </template>
+              <template v-else>
+                <span>{{item.unit}}</span>
+              </template>
+            </template>
+          </td>
           <td :key="index+item.id+'-persen'">
             <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
           </td>
