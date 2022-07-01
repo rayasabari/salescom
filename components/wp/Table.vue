@@ -500,6 +500,48 @@
       </tr>
 
       <tr>
+        <td class="t-separator">Karakteristik Unit/Bangunan</td>
+        <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
+      </tr>
+
+      <!-- Karakteristik Unit/Bangunan  -->
+      <tr
+        v-for="(item, idx) in elemenPerbandingan.filter(item => item.section == 'Karakteristik Unit/Bangunan')"
+        :key="idx+'karakteristikUnitBangunan'"
+      >
+        <td>{{item.nama}}</td>
+        <td>
+          <div
+            class="flex items-center justify-center gap-2 cursor-pointer"
+            @click="modalEditObjek(item.nama, item.key_objek, item.input_type, item.unit)"
+          >
+            <div class="wp-table-link" v-if="objek[item.key_objek] != null">
+              <span
+                v-if="item.input_type == 'number' && item.key_objek != 'tahun_selesai_dibangun'"
+              >{{ numSeparator(objek[item.key_objek], item.key_objek == 'luas_bangunan' ? 1 : 0) }}</span>
+              <span v-else>{{objek[item.key_objek]}}</span>
+              <template v-if="item.unit == 'm2'">
+                <Mpersegi />
+              </template>
+              <template v-else>
+                <span>{{item.unit}}</span>
+              </template>
+            </div>
+            <div v-else class="font-medium text-rose-500">Belum diinput</div>
+          </div>
+        </td>
+        <template v-for="(pbd, index) in pembandingSelected">
+          <td :key="index+item.id+'-desc'">{{ pbd[item.key_pembanding] }}</td>
+          <td :key="index+item.id+'-persen'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'persen') }} %</div>
+          </td>
+          <td :key="index+item.id+'-value'">
+            <div class="text-right">{{ getAdjustment(pbd, item, 'adjustment') }}</div>
+          </td>
+        </template>
+      </tr>
+
+      <tr>
         <td class="t-separator">Lainnya</td>
         <td class="t-separator" :colspan=" 1 + (pembandingSelected.length*3)"></td>
       </tr>
@@ -695,9 +737,9 @@ export default {
       this.$root.$emit("removePembanding", id, index);
     },
     getAdjustment(pbd, item, key) {
-      const adjustment = pbd.adjustment.find((adj) => adj.elemen_id == item.id)[
-        key
-      ];
+      const adjustment = pbd.adjustment.find((adj) => {
+        adj.elemen_id == item.id[key];
+      });
       if (key == "persen") {
         return this.numSeparator(adjustment, 1);
       }

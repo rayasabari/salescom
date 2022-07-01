@@ -13,9 +13,9 @@
           v-show="imgLoaded"
           :src="objek.foto.thumbnail"
           alt="Foto Objek"
-          class="object-cover h-full transition-all duration-300 group-hover:scale-105"
+          class="object-cover w-full h-full transition-all duration-300 group-hover:scale-105"
         />
-        <span v-if="!objek.foto.uploaded" class="p-4 text-sm font-medium text-slate-400">Foto belum diupload</span>
+        <span v-if="!objek.foto.uploaded" class="w-full p-4 text-sm font-medium text-slate-400">Foto belum diupload</span>
       </div>
     </div>
     <div class="flex flex-col justify-between w-full px-4 py-3">
