@@ -601,7 +601,7 @@
         :key="idx+'rekonsiliasi'"
       >
         <td>{{item.nama}}</td>
-        <td class="font-semibold t-nilai">79,84 %</td>
+        <td class="font-semibold t-nilai">{{ numSeparator(objek[item.key_objek]) }} %</td>
         <template v-for="(pbd, index) in pembandingSelected">
           <td :key="index+item.id+'-desc'"></td>
           <td :key="index+item.id+'-persen'">
@@ -619,30 +619,32 @@
       </tr>
       <tr>
         <td>Min</td>
-        <td class="font-semibold t-nilai">1.000.000</td>
+        <td class="font-semibold t-nilai">{{ numSeparator(objek['min'],0) }}</td>
       </tr>
       <tr>
         <td>Max</td>
-        <td class="font-semibold t-nilai">2.000.000</td>
+        <td class="font-semibold t-nilai">{{ numSeparator(objek['max'],0) }}</td>
       </tr>
       <tr>
         <td>Deviasi</td>
-        <td class="font-semibold t-nilai">10 %</td>
+        <td class="font-semibold t-nilai">{{ numSeparator(objek['deviasi'],0) }} %</td>
       </tr>
       <tr>
         <td class="t-separator-dark">
           Nilai ... per
           <Mpersegi />
         </td>
-        <td class="font-semibold t-nilai t-separator-dark">1.000.000</td>
+        <td
+          class="font-semibold t-nilai t-separator-dark"
+        >{{ numSeparator(objek['indikasi_nilai_m2'],0) }}</td>
       </tr>
       <tr>
         <td>Nilai ...</td>
-        <td class="font-semibold t-nilai">1.000.000</td>
+        <td class="font-semibold t-nilai">{{ numSeparator(objek['indikasi_nilai'],0) }}</td>
       </tr>
       <tr>
         <td>Dibulatkan</td>
-        <td class="font-semibold t-nilai">1.000.000</td>
+        <td class="font-semibold t-nilai">{{ numSeparator(objek['indikasi_nilai_r'],0) }}</td>
       </tr>
     </tbody>
   </table>
@@ -738,12 +740,12 @@ export default {
     },
     getAdjustment(pbd, item, key) {
       const adjustment = pbd.adjustment.find((adj) => {
-        adj.elemen_id == item.id[key];
+        return adj.elemen_id == item.id;
       });
       if (key == "persen") {
-        return this.numSeparator(adjustment, 1);
+        return this.numSeparator(adjustment[key], 1);
       }
-      return this.numSeparator(adjustment, 0);
+      return this.numSeparator(adjustment[key], 0);
     },
     numSeparator(num, dec) {
       return numFormat(num, dec);
