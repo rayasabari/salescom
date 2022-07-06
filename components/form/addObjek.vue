@@ -20,7 +20,7 @@
                   lng: parseFloat(this.objek.longitude),
                 }"
           @dragend="dragsearchaddress($event)"
-        />Î
+        />
       </GmapMap>
       <transition name="fade">
         <div class="mt-4 alert alert-info" v-if="objek.alamat_gmap">
