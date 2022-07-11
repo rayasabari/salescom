@@ -46,7 +46,7 @@ export default {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement("a");
           link.href = url;
-          const filename = `Salescom - ${this.objek.nama_jalan}.xlsx`;
+          const filename = `Salescom - ${this.objek.jenis_properti} di ${this.objek.nama_jalan}.xlsx`;
           link.setAttribute("download", filename);
           document.body.appendChild(link);
           link.click();
