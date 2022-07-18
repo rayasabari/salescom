@@ -1,6 +1,9 @@
 <template>
   <div class="relative min-h-screen bg-slate-100">
     <NavBar />
+    <transition name="fade">
+      <NavMobile v-if="showNav" />
+    </transition>
     <Nuxt />
     <Footer />
   </div>
@@ -19,6 +22,11 @@ export default {
       class: "font-poppins text-gray-500",
     },
   },
+  data() {
+    return {
+      showNav: false,
+    };
+  },
   created() {
     Confirm.init({
       width: "320px",
@@ -28,7 +36,13 @@ export default {
     });
     Block.init({
       svgColor: "#14b8a6",
-    })
+    });
+  },
+  mounted() {
+    this.$root.$on("toggleMenu", () => {
+      this.showNav = !this.showNav;
+      console.log('toggle');
+    });
   },
 };
 </script>

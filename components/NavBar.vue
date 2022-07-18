@@ -9,14 +9,14 @@
           <span class="px-1 text-sm border rounded-md border-primary-500 text-primary-500">2.0</span>
         </NuxtLink>
         <template v-if="$auth.loggedIn">
-          <ul class="flex gap-4 text-sm text-gray-400">
+          <ul class="hidden gap-4 text-sm text-gray-400 md:flex">
             <li>
               <NuxtLink active-class="text-primary-500" to="/dashboard">Dashboard</NuxtLink>
             </li>
           </ul>
         </template>
       </div>
-      <nav class="flex items-center gap-1 font-medium">
+      <nav class="items-center hidden gap-1 font-medium md:flex">
         <template v-if="$auth.loggedIn">
           <ul class="flex items-center gap-4 text-sm text-gray-400">
             <li>
@@ -31,6 +31,9 @@
           <NuxtLink to="/login" class="btn-primary btn-sm">Login</NuxtLink>
         </template>
       </nav>
+
+      <!-- Mobile  -->
+      <ToggleMenu />
     </Container>
   </header>
 </template>
@@ -38,6 +41,11 @@
 <script>
 export default {
   name: "NavBar",
+  mounted() {
+    this.$root.$on("logout", () => {
+      this.logout();
+    });
+  },
   methods: {
     async logout() {
       try {
