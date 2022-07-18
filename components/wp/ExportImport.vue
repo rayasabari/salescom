@@ -2,7 +2,7 @@
   <div class="bg-white h-[50vh] w-full md:w-9/12 rounded-lg shadow-xl">
     <div class="flex items-center justify-center w-full h-full gap-2">
       <button
-        class=" btn-primary"
+        class="btn-primary"
         :class="loadingButton ? 'btn-disabled':''"
         @click="exportWp"
         :disabled="loadingButton ? 'disabled' : false"
@@ -20,7 +20,7 @@
 <script>
 export default {
   name: "ExportImport",
-  props: ["objek", "pembandingSelected"],
+  props: ["objek", "pembandingSelected", "elemenPerbandingan"],
   data() {
     return {
       loadingButton: false,
@@ -35,6 +35,7 @@ export default {
           {
             objek: this.objek,
             pembandingSelected: this.pembandingSelected,
+            elemenPerbandingan: this.elemenPerbandingan,
           },
           {
             withCredentials: true,

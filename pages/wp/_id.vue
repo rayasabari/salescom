@@ -33,7 +33,7 @@
           />
         </ModalBackdrop>
         <ModalBackdrop key="wpExpoertImport" v-if="showExportImport" :closeButton="true">
-          <LazyWpExportImport :objek="objek" :pembandingSelected="pembandingSelected" />
+          <LazyWpExportImport :objek="objek" :pembandingSelected="pembandingSelected" :elemenPerbandingan="elemenPerbandingan" />
         </ModalBackdrop>
         <ModalBackdrop key="wpEditObjek" v-show="showEditObjek" :closeButton="false">
           <WpEditObjek :markerObjek="center" :pembandingSelected="pembandingSelected" />
