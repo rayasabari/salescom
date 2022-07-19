@@ -1,7 +1,7 @@
 <template>
   <div
     :class="showFilter ? 'h-[570px]' : 'h-0'"
-    class="absolute w-3/12 p-3 transition-all duration-300 rounded-lg shadow bottom-3 left-1"
+    class="absolute w-full p-3 transition-all duration-300 rounded-lg shadow sm:w-1/2 md:w-5/12 lg:w-3/12 bottom-3 left-1"
   >
     <div class="h-full">
       <div class="flex w-full">

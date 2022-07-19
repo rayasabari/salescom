@@ -7,8 +7,8 @@
         <form @submit.prevent="login">
           <div class="p-2 md:p-5">
             <div class="flex flex-col items-center justify-center mt-2 mb-5 md:mb-6 md:mt-1">
-              <h2 class="mb-1 text-xl font-semibold">Login</h2>
-              <p class="text-sm text-gray-400">with your registered RIS account</p>
+              <h2 class="mb-1 text-xl font-medium">Login</h2>
+              <p class="text-sm text-gray-400">Continue with registered RIS account</p>
             </div>
             <div class="mb-4">
               <label for="email" class="rhr-label">Email</label>
