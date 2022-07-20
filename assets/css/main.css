@@ -113,7 +113,7 @@
   }
 
   .rhr-label {
-    @apply block mb-1 text-sm;
+    @apply block mb-1 text-xs;
   }
 
   .rhr-input {

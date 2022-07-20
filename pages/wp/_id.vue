@@ -18,8 +18,8 @@
         </section>
       </div>
       <transition-group name="fade">
-        <ModalBackdrop key="wpSetting" v-if="showSetting" :closeButton="true">
-          <LazyWpSetting />
+        <ModalBackdrop key="wpSetting" v-if="showSetting" :closeButton="false">
+          <LazyWpSetting :objek="objek" :options="options" :setting="setting" />
         </ModalBackdrop>
         <ModalBackdrop key="wpMap" v-show="showMap" :closeButton="true">
           <WpGmap
@@ -124,6 +124,7 @@ export default {
         this.hasPembanding = response.data.hasPembanding;
         this.setting = response.data.setting;
         this.options = response.data.options;
+        console.log(this.options);
         this.center = {
           lat: parseFloat(this.objek.latitude),
           lng: parseFloat(this.objek.longitude),

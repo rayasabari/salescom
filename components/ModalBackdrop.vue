@@ -1,8 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      class="fixed top-0 left-0 right-0 z-50 w-full h-screen overflow-hidden bg-gray-900 bg-opacity-30 backdrop-blur"
-    >
+      class="fixed top-0 left-0 right-0 z-50 w-full h-screen overflow-hidden bg-gray-900 bg-opacity-30 backdrop-blur"    >
       <Container class="flex flex-col items-center justify-center h-screen py-4">
         <slot></slot>
         <div class="flex justify-center w-full mt-3" v-if="closeButton">

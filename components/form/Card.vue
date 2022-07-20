@@ -29,7 +29,16 @@
 <script>
 export default {
   name: "FormCard",
-  props: ["title","custumWidth"],
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
+    custumWidth: {
+      type: String,
+      default: "lg:w-4/12",
+    },
+  }
 };
 </script>
 
